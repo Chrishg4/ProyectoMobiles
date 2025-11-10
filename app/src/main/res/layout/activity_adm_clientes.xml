@@ -1,10 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity_AdmClientes">
+    android:background="#DFF0D8">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- Título -->
+        <TextView
+            android:id="@+id/txtTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Administrar clientes"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Avatar -->
+        <ImageView
+            android:id="@+id/imgAvatar"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:src="@drawable/ic_launcher_foreground"
+            android:layout_gravity="center"
+            android:layout_marginBottom="24dp"
+            android:scaleType="centerCrop" />
+
+        <!-- Campo: Cédula -->
+        <TextView android:text="Cédula"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/edtCedula"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Value"
+            android:inputType="number" />
+
+        <!-- Campo: Nombre -->
+        <TextView android:text="Nombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/edtNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Value"
+            android:inputType="textPersonName" />
+
+        <!-- Campo: Número -->
+        <TextView android:text="Número"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/edtNumero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Value"
+            android:inputType="phone" />
+
+        <!-- Campo: Género (editable desde BD) -->
+        <TextView android:text="Género"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/edtGenero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Value"
+            android:inputType="text" />
+
+        <!-- Campo: Edad -->
+        <TextView android:text="Edad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/edtEdad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Value"
+            android:inputType="number" />
+
+        <!-- Campo: Altura -->
+        <TextView android:text="Altura"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/edtAltura"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Value"
+            android:inputType="numberDecimal" />
+
+        <!-- Campo: Peso -->
+        <TextView android:text="Peso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/edtPeso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Value"
+            android:inputType="numberDecimal" />
+
+        <!-- Botones -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="24dp">
+
+            <Button
+                android:id="@+id/btnAgregarEditar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Agregar/Editar"
+                android:layout_marginEnd="16dp" />
+
+            <Button
+                android:id="@+id/btnCancelar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancelar" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
