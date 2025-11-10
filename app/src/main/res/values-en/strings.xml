@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- nombres de menús principales -->
+    <string name="app_name">GYM DAC</string>
+    <string name="title_main_menu">Main Menu</string>
+    <string name="title_clients">Clients</string>
+    <string name="title_trainers">Trainers</string>
+    <string name="title_services">Services</string>
+    <string name="title_memberships">Memberships</string>
+    <string name="title_routines">Routines</string>
+    <string name="title_billing">Billing</string>
+    <string name="title_manage_clients">Manage Clients</string>
+    <string name="title_manage_trainers">Manage Trainers</string>
+    <string name="title_manage_services">Manage Services</string>
+    <string name="title_manage_memberships">Manage Memberships</string>
+    <string name="title_manage_routines">Manage Routines</string>
+    <string name="title_invoice">Invoice</string>
+
+    <!-- Buttons -->
+    <string name="btn_add">Add</string>
+    <string name="btn_edit">Edit</string>
+    <string name="btn_delete">Delete</string>
+    <string name="btn_pay">Pay</string>
+    <string name="btn_view_details">View Details</string>
+    <string name="btn_save">Add/Edit</string>
+    <string name="btn_cancel">Cancel</string>
+</resources>
