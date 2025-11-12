@@ -12,9 +12,9 @@ import java.util.List;
 
 public class CustomAdapter extends BaseAdapter {
     Context context;
-    List<Contacto> lst;
+    List<Usuarios> lst;
 
-    public CustomAdapter(Context context, List<Contacto> lst) {
+    public CustomAdapter(Context context, List<Usuarios> lst) {
         this.context = context;
         this.lst = lst;
     }
@@ -40,18 +40,18 @@ public class CustomAdapter extends BaseAdapter {
         TextView TextViewNombre;
         TextView TextViewDes;
 
-        Contacto c=lst.get(i);
+        Usuarios c=lst.get(i);
 
         if (view==null)
-            view= LayoutInflater.from(context).inflate(R.layout.listview_contacto,null);
+            view= LayoutInflater.from(context).inflate(R.layout.listview_usuarios,null);
 
         ImageViewContacto=view.findViewById(R.id.imageViewContacto);
         TextViewNombre=view.findViewById(R.id.textViewNombre);
         TextViewDes=view.findViewById(R.id.textViewDes);
 
         ImageViewContacto.setImageResource(c.imagen);
-        TextViewNombre.setText(c.nombre);
-        TextViewDes.setText(c.Des);
+        TextViewNombre.setText(c.txtPrincipal);
+        TextViewDes.setText(c.txtSecundario);
 
         return view;
 
