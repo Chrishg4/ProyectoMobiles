@@ -8,21 +8,28 @@
     <string name="title_trainers">Trainers</string>
     <string name="title_services">Services</string>
     <string name="title_memberships">Memberships</string>
-    <string name="title_routines">Routines</string>
-    <string name="title_billing">Billing</string>
+
     <string name="title_manage_clients">Manage Clients</string>
     <string name="title_manage_trainers">Manage Trainers</string>
     <string name="title_manage_services">Manage Services</string>
     <string name="title_manage_memberships">Manage Memberships</string>
-    <string name="title_manage_routines">Manage Routines</string>
-    <string name="title_invoice">Invoice</string>
+
 
     <!-- Buttons -->
     <string name="btn_add">Add</string>
     <string name="btn_edit">Edit</string>
     <string name="btn_delete">Delete</string>
-    <string name="btn_pay">Pay</string>
     <string name="btn_view_details">View Details</string>
     <string name="btn_save">Add/Edit</string>
     <string name="btn_cancel">Cancel</string>
+
+    <!-- Client Fields -->
+    <string name="field_id">ID</string>
+    <string name="field_name">Name</string>
+    <string name="field_number">Number</string>
+    <string name="field_gender">Gender</string>
+    <string name="field_age">Age</string>
+    <string name="field_height">Height</string>
+    <string name="field_weight">Weight</string>
+
 </resources>
