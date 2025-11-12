@@ -6,7 +6,7 @@
     android:background="#DFF0D8"
     android:padding="16dp">
 
-    <!-- Encabezado con flecha y título -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- Barra de búsqueda -->
+
     <EditText
         android:id="@+id/edtBuscar"
         android:layout_width="match_parent"
@@ -40,7 +40,7 @@
         android:layout_marginBottom="12dp"
         android:inputType="text" />
 
-    <!-- Lista de clientes (aún vacía) -->
+
     <ListView
         android:id="@+id/listClientes"
         android:layout_width="match_parent"
@@ -50,7 +50,7 @@
         android:dividerHeight="1dp"
         />
 
-    <!-- Botones inferiores -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
