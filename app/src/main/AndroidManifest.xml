@@ -11,12 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoMobilesGYM">
-        <activity
-            android:name=".Activity_VerFacturas"
-            android:exported="false" />
-        <activity
-            android:name=".Activity_AdmRutinas"
-            android:exported="false" />
+
+
         <activity
             android:name=".Activity_AdmMembresias"
             android:exported="false" />
@@ -29,12 +25,7 @@
         <activity
             android:name=".Activity_AdmClientes"
             android:exported="false" />
-        <activity
-            android:name=".Activity_Facturacion"
-            android:exported="false" />
-        <activity
-            android:name=".Activity_Rutinas"
-            android:exported="false" />
+
         <activity
             android:name=".Activity_Membresias"
             android:exported="false" />
@@ -47,9 +38,7 @@
         <activity
             android:name=".Activity_Clientes"
             android:exported="false" />
-        <activity
-            android:name=".activity_Clientes"
-            android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
