@@ -15,7 +15,7 @@ public class AdminDB extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        db.execSQL("CREATE TABLE clientes (cedula TEXT PRIMARY KEY, nombre TEXT NOT NULL, numero INTEGER, genero TEXT CHECK (genero IN ('M','F','Otro')), edad INTEGER, altura REAL, peso REAL)");
+        db.execSQL("CREATE TABLE clientes (cedula TEXT PRIMARY KEY, nombre TEXT NOT NULL, numero INTEGER, genero TEXT CHECK (genero IN ('Masculino','Femenino','Otro')), edad INTEGER, altura REAL, peso REAL)");
 
         db.execSQL("CREATE TABLE entrenadores (cedula TEXT PRIMARY KEY, nombre TEXT NOT NULL, contacto TEXT)");
 
