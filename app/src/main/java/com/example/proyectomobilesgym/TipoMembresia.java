@@ -1,4 +1,7 @@
 package com.example.proyectomobilesgym;
 
-public enum MembresiaTipo {
+public enum TipoMembresia {
+    BASICA,
+    PREMIUM,
+    VIP
 }
