@@ -1,23 +1,23 @@
 package com.example.proyectomobilesgym;
 
 public class Usuarios {
-    public int id;
+    public String id;
     public int imagen;
     public String txtPrincipal;
     public String txtSecundario;
 
-    public Usuarios(int id, int imagen, String txtPrincipal, String txtSecundario) {
+    public Usuarios(String id, int imagen, String txtPrincipal, String txtSecundario) {
         this.id = id;
         this.imagen = imagen;
         this.txtPrincipal = txtPrincipal;
         this.txtSecundario = txtSecundario;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

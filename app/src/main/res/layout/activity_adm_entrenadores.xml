@@ -34,6 +34,8 @@
                 android:textStyle="bold" />
 
             <!-- Avatar -->
+
+            <!-- Campo: Cédula -->
             <ImageView
                 android:id="@+id/imgAvatar"
                 android:layout_width="96dp"
@@ -43,7 +45,6 @@
                 android:scaleType="centerCrop"
                 android:src="@android:drawable/ic_menu_gallery" />
 
-            <!-- Campo: Cédula -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -79,13 +80,6 @@
                 android:layout_height="wrap_content"
                 android:inputType="phone" />
 
-            <!-- Campo: Género -->
-
-            <!-- Campo: Edad -->
-
-            <!-- Campo: Altura -->
-
-            <!-- Campo: Peso -->
 
             <!-- Botones -->
             <LinearLayout
@@ -100,6 +94,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
+                    android:onClick="funcionEYG"
                     android:text="@string/btn_add" />
 
                 <Button

@@ -56,5 +56,9 @@ public class CustomAdapter extends BaseAdapter {
         return view;
 
     }
+    public void remove(Usuarios u) {
+        lst.remove(u);
+        notifyDataSetChanged();
+    }
 }
 
