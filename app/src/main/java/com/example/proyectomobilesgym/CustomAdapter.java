@@ -25,8 +25,8 @@ public class CustomAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int i) {
-        return i;
+    public Usuarios getItem(int i) {
+        return lst.get(i);
     }
 
     @Override

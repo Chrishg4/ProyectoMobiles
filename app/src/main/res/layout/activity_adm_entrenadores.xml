@@ -16,6 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
+            android:id="@+id/main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -37,10 +38,10 @@
                 android:id="@+id/imgAvatar"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
-                android:src="@android:drawable/ic_menu_gallery"
                 android:layout_gravity="center"
                 android:layout_marginBottom="24dp"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"
+                android:src="@android:drawable/ic_menu_gallery" />
 
             <!-- Campo: Cédula -->
             <TextView
@@ -90,9 +91,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginTop="24dp"
                 android:gravity="center"
-                android:layout_marginTop="24dp">
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/btnAgregarEditar"
@@ -105,6 +106,7 @@
                     android:id="@+id/btnCancelar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="cancelar"
                     android:text="@string/btn_cancel" />
             </LinearLayout>
 

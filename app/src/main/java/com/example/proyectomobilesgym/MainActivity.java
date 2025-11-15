@@ -1,6 +1,8 @@
 package com.example.proyectomobilesgym;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,4 +23,12 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
     }
+
+    public void irAEntrenadores(View view) {
+        // Crea un Intent para abrir Activity_Entrenadores
+        Intent intent = new Intent(this, Activity_Entrenadores.class);
+        // Inicia la nueva actividad
+        startActivity(intent);
+    }
+
 }
