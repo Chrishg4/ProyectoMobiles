@@ -31,4 +31,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void irAClientes(View view) {
+        // Crea un Intent para abrir Activity_Clientes
+        Intent intent = new Intent(this, Activity_Clientes.class);
+        // Inicia la nueva actividad
+        startActivity(intent);
+    }
+
 }
