@@ -83,7 +83,7 @@ public class Activity_AdmClientes extends AppCompatActivity {
                 imgClientes.setImageResource(R.drawable.ic_launcher_foreground);
             }
         });
-
+        // Obtengo los datos enviados desde el main de clientes anterior
         String id = getIntent().getStringExtra("cedula");
         if (id != null) {
             // valido los datos de id no sean nulos para cargar la info
@@ -95,6 +95,7 @@ public class Activity_AdmClientes extends AppCompatActivity {
             int spinnerPosition = adapter.getPosition(generoCliente);
             spGenero.setSelection(spinnerPosition);
 
+            // convierto los int y double a string para mostrarlos en los editText
             etEdad.setText(String.valueOf(getIntent().getIntExtra("edad", 0)));
             etAltura.setText(String.valueOf(getIntent().getDoubleExtra("altura", 0.0)));
             EtPeso.setText(String.valueOf(getIntent().getDoubleExtra("peso", 0.0)));
