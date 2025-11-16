@@ -26,26 +26,27 @@
                 android:id="@+id/txtTitulo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Administrar clientes"
-                android:textSize="24sp"
-                android:textStyle="bold"
                 android:layout_gravity="center"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginBottom="16dp"
+                android:text="@string/title_manage_clients"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
             <!-- Avatar -->
             <ImageView
-                android:id="@+id/imgAvatar"
-                android:layout_width="96dp"
-                android:layout_height="96dp"
-                android:src="@android:drawable/ic_menu_gallery"
+                android:id="@+id/imgClientes"
+                android:layout_width="113dp"
+                android:layout_height="106dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="24dp"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"
+                android:src="@drawable/user_h" />
 
             <!-- Campo: Cédula -->
-            <TextView android:text="Cédula"
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="@string/field_id" />
             <EditText
                 android:id="@+id/edtCedula"
                 android:layout_width="match_parent"
@@ -54,9 +55,10 @@
                 android:inputType="number" />
 
             <!-- Campo: Nombre -->
-            <TextView android:text="Nombre"
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="@string/field_name" />
             <EditText
                 android:id="@+id/edtNombre"
                 android:layout_width="match_parent"
@@ -65,9 +67,10 @@
                 android:inputType="textPersonName" />
 
             <!-- Campo: Número -->
-            <TextView android:text="Número"
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="@string/field_number" />
             <EditText
                 android:id="@+id/edtNumero"
                 android:layout_width="match_parent"
@@ -76,20 +79,21 @@
                 android:inputType="phone" />
 
             <!-- Campo: Género -->
-            <TextView android:text="Género"
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <EditText
-                android:id="@+id/edtGenero"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Value"
-                android:inputType="text" />
+                android:text="@string/field_gender" />
 
             <!-- Campo: Edad -->
-            <TextView android:text="Edad"
+            <Spinner
+                android:id="@+id/spGenero"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="@string/field_age" />
             <EditText
                 android:id="@+id/edtEdad"
                 android:layout_width="match_parent"
@@ -98,9 +102,10 @@
                 android:inputType="number" />
 
             <!-- Campo: Altura -->
-            <TextView android:text="Altura"
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="@string/field_height" />
             <EditText
                 android:id="@+id/edtAltura"
                 android:layout_width="match_parent"
@@ -109,9 +114,10 @@
                 android:inputType="numberDecimal" />
 
             <!-- Campo: Peso -->
-            <TextView android:text="Peso"
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="@string/field_weight" />
             <EditText
                 android:id="@+id/edtPeso"
                 android:layout_width="match_parent"
@@ -128,17 +134,19 @@
                 android:layout_marginTop="24dp">
 
                 <Button
-                    android:id="@+id/btnAgregarEditar"
+                    android:id="@+id/btnGuardar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Agregar/Editar"
-                    android:layout_marginEnd="16dp" />
+                    android:layout_marginEnd="16dp"
+                    android:onClick="BtnGuardar"
+                    android:text="@string/btn_save" />
 
                 <Button
                     android:id="@+id/btnCancelar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cancelar" />
+                    android:onClick="BtnCancelar"
+                    android:text="@string/btn_cancel" />
             </LinearLayout>
 
         </LinearLayout>
