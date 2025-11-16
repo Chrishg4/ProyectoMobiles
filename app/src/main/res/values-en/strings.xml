@@ -22,6 +22,7 @@
     <string name="btn_view_details">View Details</string>
     <string name="btn_save">Add/Edit</string>
     <string name="btn_cancel">Cancel</string>
+    <string name="btn_exit">Exit</string>
 
     <!-- Client Fields -->
     <string name="field_id">ID</string>

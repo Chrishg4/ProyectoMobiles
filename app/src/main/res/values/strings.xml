@@ -19,6 +19,7 @@
     <string name="btn_view_details">Ver detalles</string>
     <string name="btn_save">Agregar/Editar</string>
     <string name="btn_cancel">Cancelar</string>
+    <string name="btn_exit">Salir</string>
 
     <!-- Campos de cliente -->
     <string name="field_id">Cedula</string>
