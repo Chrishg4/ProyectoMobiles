@@ -2,18 +2,28 @@ package com.example.proyectomobilesgym;
 
 public class Membresia {
 
-    private int id;
+    private int codigo;
     private TipoMembresia tipo;
     private double precioTotal;
-    private Object cliente;
-    private Object entrenador;
+    private int cliente;
+    private int entrenador;
+    private ListServicio servicios;
 
-    public int getId() {
-        return id;
+    public Membresia(int codigo, TipoMembresia tipo, double precioTotal, int cliente, int entrenador, ListServicio servicios) {
+        this.codigo = codigo;
+        this.tipo = tipo;
+        this.precioTotal = precioTotal;
+        this.cliente = cliente;
+        this.entrenador = entrenador;
+        this.servicios = servicios;
     }
 
-    protected void setId(int id) {
-        this.id = id;
+    public int getCodigo() {
+        return codigo;
+    }
+
+    protected void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
     public TipoMembresia getTipo() {
@@ -32,19 +42,22 @@ public class Membresia {
         this.precioTotal = precioTotal;
     }
 
-    public Object getCliente() {
+    public int getCliente() {
         return cliente;
     }
 
-    public void setCliente(Object cliente) {
+    public void setCliente(int cliente) {
         this.cliente = cliente;
     }
 
-    public Object getEntrenador() {
+    public int getEntrenador() {
         return entrenador;
     }
 
-    public void setEntrenador(Object entrenador) {
+    public void setEntrenador(int entrenador) {
         this.entrenador = entrenador;
+    }
+    public Servicio[] getServicios() {
+        return servicios.getLista();
     }
 }
