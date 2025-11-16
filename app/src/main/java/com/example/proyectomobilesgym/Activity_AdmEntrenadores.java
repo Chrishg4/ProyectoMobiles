@@ -67,17 +67,25 @@ Button btn;
                 Toast.makeText(this, "Actualizado correctamente", Toast.LENGTH_SHORT).show();
                 finish();
             }
-        }else {//            aregar un nuevo entrenador
+        }else {//aregar un nuevo entrenador
+            // Validar que todos los campos esten llenos
+            String nombre = edNombre.getText().toString().trim();
+            String cedula = edCedula.getText().toString().trim();
+            String contacto = edTelefono.getText().toString().trim();
 
+            if (nombre.isEmpty() || cedula.isEmpty() || contacto.isEmpty()) {
+                Toast.makeText(this, "Debe completar todos los campos", Toast.LENGTH_SHORT).show();
+                return;
+            }
 //            valida que no este registrada la cedula
             if (cedulaExiste(edCedula.getText().toString())) {
                 Toast.makeText(this, "La cédula ya está registrada", Toast.LENGTH_SHORT).show();
                 return;
             }
             ContentValues registro = new ContentValues();
-            registro.put("nombre", edNombre.getText().toString());
-            registro.put("cedula", edCedula.getText().toString());
-            registro.put("contacto", edTelefono.getText().toString());
+            registro.put("nombre", nombre);
+            registro.put("cedula", cedula);
+            registro.put("contacto", contacto);
     db.insert("entrenadores", null, registro);
     db.close();
             Toast.makeText(this, "Registrado correctamente", Toast.LENGTH_SHORT).show();

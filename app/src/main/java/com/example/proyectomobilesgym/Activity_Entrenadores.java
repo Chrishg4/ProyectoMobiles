@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -28,6 +29,8 @@ public class Activity_Entrenadores extends AppCompatActivity {
     List<Usuarios> datos;
     int itemseleccionado = -1;
 
+    Button btnAgregar, btnEliminar, btnEditar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +45,17 @@ public class Activity_Entrenadores extends AppCompatActivity {
 
         edSearch = findViewById(R.id.edtBuscar);
         lista = findViewById(R.id.listEntrenadores);
+        btnAgregar = findViewById(R.id.btnAgregar);
+        btnEliminar = findViewById(R.id.btnEliminar);
+        btnEditar = findViewById(R.id.btnEditar);
+
+//        deshabilito los botones de editar y eliminar
+        btnEditar.setEnabled(false);
+        btnEliminar.setEnabled(false);
+
+
+
+
 
         datos = new ArrayList<>();
         adapter = new CustomAdapter(this, datos);
@@ -54,6 +68,12 @@ public class Activity_Entrenadores extends AppCompatActivity {
                 lista.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
 
             view.setBackgroundColor(Color.LTGRAY);
+//habilito los botones de editar y eliminar
+            if(itemseleccionado >= 0){
+                btnEditar.setEnabled(true);
+                btnEliminar.setEnabled(true);
+            }
+
         });
 
 //        insertarDatosPrueba(); descomentar para insertar datos de prueba
@@ -77,6 +97,11 @@ public class Activity_Entrenadores extends AppCompatActivity {
 
             // elimino del adapter, tuve que crear un metodo remove en CustomAdapter porque no existia
             adapter.remove(u);
+            //  deshabilita los botones
+            itemseleccionado = -1;
+            btnEditar.setEnabled(false);
+            btnEliminar.setEnabled(false);
+
 
             View item = lista.getChildAt(itemseleccionado);
             if (item != null) item.setBackgroundColor(0);
@@ -186,6 +211,10 @@ public class Activity_Entrenadores extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         cargarEntrenadores();
+    }
+
+    public void exit(View view) {
+        finish();
     }
 
 }
