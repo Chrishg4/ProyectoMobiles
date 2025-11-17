@@ -130,18 +130,28 @@ public class Activity_AdmClientes extends AppCompatActivity {
 
     //aca vualve a traer los campos de la seleccion
     public void cancelar(View view) {
+        if (cedulaOriginal == null) {
+            etCedula.setText("");
+            etNombre.setText("");
+            etNumero.setText("");
+            etEdad.setText("");
+            etAltura.setText("");
+            EtPeso.setText("");
+            spGenero.setSelection(0);
+            return;
+        }else {
+            etCedula.setText(cedulaOriginal);
+            etNombre.setText(nombreOriginal);
+            etNumero.setText(numeroOriginal);
+            etEdad.setText(String.valueOf(edadOriginal));
+            etAltura.setText(String.valueOf(alturaOriginal));
+            EtPeso.setText(String.valueOf(pesoOriginal));
 
-        etCedula.setText(cedulaOriginal);
-        etNombre.setText(nombreOriginal);
-        etNumero.setText(numeroOriginal);
-        etEdad.setText(String.valueOf(edadOriginal));
-        etAltura.setText(String.valueOf(alturaOriginal));
-        EtPeso.setText(String.valueOf(pesoOriginal));
-
-        String generoCliente = generoOriginal;
-        ArrayAdapter<String> adapter = (ArrayAdapter<String>) spGenero.getAdapter();
-        int spinnerPosition = adapter.getPosition(generoCliente);
-        spGenero.setSelection(spinnerPosition);
+            String generoCliente = generoOriginal;
+            ArrayAdapter<String> adapter = (ArrayAdapter<String>) spGenero.getAdapter();
+            int spinnerPosition = adapter.getPosition(generoCliente);
+            spGenero.setSelection(spinnerPosition);
+        }
 
     }
 
@@ -169,6 +179,14 @@ public class Activity_AdmClientes extends AppCompatActivity {
             // Agregar un nuevo cliente
             if (validarCedula(etCedula.getText())) {
                 Toast.makeText(this, "La cédula ya existe", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            //validar que los campos no esten vacios
+            if (etCedula.getText().toString().isEmpty() || etNombre.getText().toString().isEmpty() ||
+                    etNumero.getText().toString().isEmpty() || etEdad.getText().toString().isEmpty() ||
+                    etAltura.getText().toString().isEmpty() || EtPeso.getText().toString().isEmpty()) {
+                Toast.makeText(this, "Por favor complete todos los campos", Toast.LENGTH_SHORT).show();
                 return;
             }
             ContentValues registro = new ContentValues();
