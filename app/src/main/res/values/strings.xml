@@ -12,6 +12,9 @@
     <string name="title_manage_services">Administrar servicios</string>
     <string name="title_manage_memberships">Administrar membresías</string>
 
+    <string name="title_select_trainers">Seleccionar Entrenadores</string>
+    <string name="title_select_clients">Seleccionar Clientes</string>
+
     <!-- Botones -->
     <string name="btn_add">Agregar</string>
     <string name="btn_edit">Editar</string>
@@ -30,6 +33,5 @@
     <string name="field_height">Altura</string>
     <string name="field_weight">Peso</string>
     <string name="header_membership">Membresia</string>
-
 
 </resources>

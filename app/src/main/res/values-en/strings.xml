@@ -14,6 +14,8 @@
     <string name="title_manage_services">Manage Services</string>
     <string name="title_manage_memberships">Manage Memberships</string>
 
+    <string name="title_select_trainers">Select Trainers</string>
+    <string name="title_select_clients">Select Clients</string>
 
     <!-- Buttons -->
     <string name="btn_add">Add</string>
