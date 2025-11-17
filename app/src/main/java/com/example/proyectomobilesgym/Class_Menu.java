@@ -1,5 +1,7 @@
 package com.example.proyectomobilesgym;
 
+import java.util.List;
+
 public class Class_Menu {
     public int id;
     public int imagen;

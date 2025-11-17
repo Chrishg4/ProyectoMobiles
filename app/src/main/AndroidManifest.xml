@@ -15,32 +15,41 @@
 
         <activity
             android:name=".Activity_AdmMembresias"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Activity_AdmServicios"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Activity_AdmEntrenadores"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Activity_AdmClientes"
+            android:screenOrientation="portrait"
             android:exported="false" />
 
         <activity
             android:name=".Activity_Membresias"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Activity_Servicios"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Activity_Entrenadores"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Activity_Clientes"
+            android:screenOrientation="portrait"
             android:exported="false" />
 
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
