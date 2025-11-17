@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -75,11 +77,59 @@ public class Activity_Entrenadores extends AppCompatActivity {
             }
 
         });
-
 //        insertarDatosPrueba(); descomentar para insertar datos de prueba
         cargarEntrenadores();
-    }
 
+        // buscar cliente al escribir en el editText
+        edSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {}
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            // buscar cliente al cambiar el texto ya que esto actualiza automaticamente el listView
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                buscarCliente();
+            }
+        });
+    }
+    public void buscarCliente() {
+
+        String nombreBuscado = edSearch.getText().toString().trim();// obtener el texto del EditText y eliminar espacios en blanco al inicio y al final
+        if (nombreBuscado.isEmpty()) {
+            cargarEntrenadores();// si el texto esta vacio cargar todos los clientes
+            return;
+        }
+        AdminDB adminDB = new AdminDB(this);
+        SQLiteDatabase db = adminDB.getReadableDatabase();
+        Cursor cursor = db.rawQuery(
+                "SELECT cedula, nombre, contacto FROM entrenadores WHERE nombre LIKE ? OR cedula LIKE ?",
+                new String[]{"%" + nombreBuscado + "%" , "%" + nombreBuscado + "%"}
+        );
+        datos.clear();
+        if (cursor.moveToFirst()) {
+            do {
+
+                String id = cursor.getString(0);
+                String nombre = cursor.getString(1);
+                String contacto = cursor.getString(2);
+
+                Usuarios u = new Usuarios(
+                        id,
+                        R.drawable.entrenadores,
+                        nombre,
+                        contacto
+                );
+
+                datos.add(u);
+
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        db.close();
+        adapter.notifyDataSetChanged();
+    }
     public void agregar(View view) {
         Intent intent = new Intent(this, Activity_AdmEntrenadores.class);
         startActivity(intent);
@@ -189,7 +239,7 @@ public class Activity_Entrenadores extends AppCompatActivity {
 
                 Usuarios u = new Usuarios(
                         id,
-                        R.drawable.ic_launcher_foreground,
+                        R.drawable.entrenadores,
                         nombre,
                         contacto
                 );
