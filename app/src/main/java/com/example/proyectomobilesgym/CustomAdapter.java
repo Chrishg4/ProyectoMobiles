@@ -47,7 +47,7 @@ public class CustomAdapter extends BaseAdapter {
 
         ImageViewContacto=view.findViewById(R.id.imageViewContacto);
         TextViewNombre=view.findViewById(R.id.textViewNombre);
-        TextViewDes=view.findViewById(R.id.textViewDes);
+        TextViewDes=view.findViewById(R.id.textViewDetalles);
 
         ImageViewContacto.setImageResource(c.imagen);
         TextViewNombre.setText(c.txtPrincipal);
