@@ -1,6 +1,7 @@
 package com.example.proyectomobilesgym;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -15,9 +16,6 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,12 +43,12 @@ public class Activity_Clientes extends AppCompatActivity {
         BuscarClientes = findViewById(R.id.Buscar);
         listaClientes = findViewById(R.id.listClientes);
         btnAgregarCliente = findViewById(R.id.btnAgregar);
-        btnEliminarCliente = findViewById(R.id.btnEditar);
-        btnEditarCliente = findViewById(R.id.btnEliminar);
+        btnEliminarCliente = findViewById(R.id.btnEliminar);
+        btnEditarCliente = findViewById(R.id.btnEditar);
 
         datosClientes = new ArrayList<>();
         adapterClientes = new ClientesAdapter(this, datosClientes);
-        listaClientes.setAdapter(adapterClientes);
+        listaClientes.setAdapter(adapterClientes);// asignar el adaptador al listView
 
         // al seleccionar un cliente en el listView resaltar el item seleccionado
         listaClientes.setOnItemClickListener((parent, view, position, id) -> {
@@ -62,8 +60,10 @@ public class Activity_Clientes extends AppCompatActivity {
             view.setBackgroundColor(Color.LTGRAY);
 
             // habilitar botones de editar y eliminar al seleccionar un cliente
-            btnEliminarCliente.setEnabled(true);
-            btnEditarCliente.setEnabled(true);
+            //btnEliminarCliente.setEnabled(true);
+            btnEliminarCliente.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#D33232")));
+            //btnEditarCliente.setEnabled(true);
+            btnEditarCliente.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2196F3")));
         });
 
         // buscar cliente al escribir en el editText
@@ -79,17 +79,22 @@ public class Activity_Clientes extends AppCompatActivity {
             }
         });
 
-        //inabilitar botones de editar y eliminar hasta que se seleccione un cliente
-        btnEliminarCliente.setEnabled(false);
-        btnEditarCliente.setEnabled(false);
 
+
+        deshabilitarBotones();
 
 
     }
-
+    public void deshabilitarBotones() {
+        //btnEliminarCliente.setEnabled(false);
+        btnEliminarCliente.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#BDBDBD")));
+        //btnEditarCliente.setEnabled(false);
+        btnEditarCliente.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#BDBDBD")));
+    }
     public void volverAtras(View view) {
         finish();
     }
+
 
     //funcion para buscar por nombre en el editText BuscarCliente y actualizar el listView automaticamente
     public void buscarCliente() {
@@ -195,6 +200,7 @@ public class Activity_Clientes extends AppCompatActivity {
             intent.putExtra("peso", clienteSelec.getPeso());
             startActivity(intent);
         } else {
+
             Toast.makeText(this, "No se ha seleccionado ningun cliente", Toast.LENGTH_SHORT).show();
         }
     }

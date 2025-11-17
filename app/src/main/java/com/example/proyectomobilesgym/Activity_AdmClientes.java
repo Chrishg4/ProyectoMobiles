@@ -33,6 +33,11 @@ public class Activity_AdmClientes extends AppCompatActivity {
 
     ImageView imgClientes;
 
+    String cedulaOriginal, nombreOriginal, numeroOriginal, generoOriginal;
+    int edadOriginal;
+    double alturaOriginal, pesoOriginal;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,31 +91,58 @@ public class Activity_AdmClientes extends AppCompatActivity {
         // Obtengo los datos enviados desde el main de clientes anterior
         String id = getIntent().getStringExtra("cedula");
         if (id != null) {
-            // valido los datos de id no sean nulos para cargar la info
-            etCedula.setText(getIntent().getStringExtra("cedula"));
-            etNombre.setText(getIntent().getStringExtra("nombre"));
-            etNumero.setText(getIntent().getStringExtra("numero"));
 
-            String generoCliente = getIntent().getStringExtra("genero");
-            int spinnerPosition = adapter.getPosition(generoCliente);
+            cedulaOriginal = getIntent().getStringExtra("cedula");
+            nombreOriginal = getIntent().getStringExtra("nombre");
+            numeroOriginal = getIntent().getStringExtra("numero");
+            generoOriginal = getIntent().getStringExtra("genero");
+            edadOriginal = getIntent().getIntExtra("edad", 0);
+            alturaOriginal = getIntent().getDoubleExtra("altura", 0.0);
+            pesoOriginal = getIntent().getDoubleExtra("peso", 0.0);
+
+            // carga los valores en los campos
+            etCedula.setText(cedulaOriginal);
+            etNombre.setText(nombreOriginal);
+            etNumero.setText(numeroOriginal);
+            etEdad.setText(String.valueOf(edadOriginal));
+            etAltura.setText(String.valueOf(alturaOriginal));
+            EtPeso.setText(String.valueOf(pesoOriginal));
+
+            // selecciona el género en el spinner
+            int spinnerPosition = adapter.getPosition(generoOriginal);
             spGenero.setSelection(spinnerPosition);
 
-            // convierto los int y double a string para mostrarlos en los editText
-            etEdad.setText(String.valueOf(getIntent().getIntExtra("edad", 0)));
-            etAltura.setText(String.valueOf(getIntent().getDoubleExtra("altura", 0.0)));
-            EtPeso.setText(String.valueOf(getIntent().getDoubleExtra("peso", 0.0)));
-            // hago que el texto cambie a editar con las variables que hay en values
+            // cambia texto del botón y bloquear cédula
             btnGuadar.setText(getString(R.string.btn_edit));
             etCedula.setEnabled(false);
-        }else {
-            Toast.makeText(this, "No se pudieron jalar los datos", Toast.LENGTH_SHORT).show();
+
+
+
         }
+
 
 
     }
 
-    public void BtnCancelar(View view) {
+    public void BtnVolver(View view) {
         finish();
+    }
+
+    //aca vualve a traer los campos de la seleccion
+    public void cancelar(View view) {
+
+        etCedula.setText(cedulaOriginal);
+        etNombre.setText(nombreOriginal);
+        etNumero.setText(numeroOriginal);
+        etEdad.setText(String.valueOf(edadOriginal));
+        etAltura.setText(String.valueOf(alturaOriginal));
+        EtPeso.setText(String.valueOf(pesoOriginal));
+
+        String generoCliente = generoOriginal;
+        ArrayAdapter<String> adapter = (ArrayAdapter<String>) spGenero.getAdapter();
+        int spinnerPosition = adapter.getPosition(generoCliente);
+        spGenero.setSelection(spinnerPosition);
+
     }
 
     public void BtnGuardar(View view) {

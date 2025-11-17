@@ -22,12 +22,12 @@ public class ClientesAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return lstClientes.size();
+        return lstClientes.size();// devuelve el tamaño de la lista
     }
 
     @Override
     public Clientes getItem(int i) {
-        return lstClientes.get(i);
+        return lstClientes.get(i);// devuelve el objeto en la posición i
     }
 
     @Override
@@ -43,8 +43,8 @@ public class ClientesAdapter extends BaseAdapter {
 
         Clientes cliente = lstClientes.get(i);
 
-        if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.listview_clientes, null);
+        if (view == null) {// si la vista es nula, infla el diseño
+            view = LayoutInflater.from(context).inflate(R.layout.listview_clientes, null);  // infla el diseño personalizado para cada elemento de la lista
         }
 
         Genero genero = cliente.getGenero();
@@ -70,7 +70,7 @@ public class ClientesAdapter extends BaseAdapter {
         return view;
     }
 
-    public void remove(Clientes c) {
+    public void remove(Clientes c) {// elimina un cliente de la lista y notifica el cambio
         lstClientes.remove(c);
         notifyDataSetChanged();
     }
