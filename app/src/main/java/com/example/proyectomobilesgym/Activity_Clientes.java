@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,6 +52,7 @@ public class Activity_Clientes extends AppCompatActivity {
         adapterClientes = new ClientesAdapter(this, datosClientes);
         listaClientes.setAdapter(adapterClientes);
 
+        // al seleccionar un cliente en el listView resaltar el item seleccionado
         listaClientes.setOnItemClickListener((parent, view, position, id) -> {
             itemseleccionado = position;
 
@@ -57,12 +60,81 @@ public class Activity_Clientes extends AppCompatActivity {
                 listaClientes.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
 
             view.setBackgroundColor(Color.LTGRAY);
+
+            // habilitar botones de editar y eliminar al seleccionar un cliente
+            btnEliminarCliente.setEnabled(true);
+            btnEditarCliente.setEnabled(true);
         });
+
+        // buscar cliente al escribir en el editText
+        BuscarClientes.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {}
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            // buscar cliente al cambiar el texto ya que esto actualiza automaticamente el listView
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                buscarCliente();
+            }
+        });
+
+        //inabilitar botones de editar y eliminar hasta que se seleccione un cliente
+        btnEliminarCliente.setEnabled(false);
+        btnEditarCliente.setEnabled(false);
+
+
 
     }
 
     public void volverAtras(View view) {
         finish();
+    }
+
+    //funcion para buscar por nombre en el editText BuscarCliente y actualizar el listView automaticamente
+    public void buscarCliente() {
+
+        String nombreBuscado = BuscarClientes.getText().toString().trim();// obtener el texto del EditText y eliminar espacios en blanco al inicio y al final
+        if (nombreBuscado.isEmpty()) {
+            cargarClientes();// si el texto esta vacio cargar todos los clientes
+            return;
+        }
+        AdminDB adminDB = new AdminDB(this);
+        SQLiteDatabase db = adminDB.getReadableDatabase();
+        Cursor cursor = db.rawQuery(
+                "SELECT cedula, nombre, numero, genero, edad, altura, peso FROM clientes WHERE nombre LIKE ? OR cedula LIKE ?",
+                new String[]{"%" + nombreBuscado + "%" , "%" + nombreBuscado + "%"}
+        );
+        datosClientes.clear();
+        if (cursor.moveToFirst()) {
+            do {
+                String cedula = cursor.getString(0);
+                String nombre = cursor.getString(1);
+                String numero = cursor.getString(2);
+                String generoTexto = cursor.getString(3); // "HOMBRE" o "MUJER"
+                int edad = cursor.getInt(4);
+                double altura = cursor.getDouble(5);
+                double peso = cursor.getDouble(6);
+
+                Genero genero = Genero.valueOf(generoTexto); // Convierte texto a enum
+
+                Clientes cliente = new Clientes(
+                        cedula,
+                        nombre,
+                        numero,
+                        genero,
+                        edad,
+                        altura,
+                        peso
+                );
+
+                datosClientes.add(cliente);
+
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        adapterClientes.notifyDataSetChanged();
     }
 
     public void agregarCliente(View view) {

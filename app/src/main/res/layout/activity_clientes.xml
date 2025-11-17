@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/iconSearch"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#DFF0D8"
@@ -24,6 +24,17 @@
     <!-- Campo de búsqueda -->
 
     <!-- Lista de clientes -->
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="52dp"
+        android:onClick="editarCliente"
+        android:text="@string/btn_edit"
+        app:layout_constraintStart_toEndOf="@+id/Buscar"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/Buscar"
         android:layout_width="295dp"
@@ -35,7 +46,7 @@
         android:padding="12dp"
         app:layout_constraintBottom_toTopOf="@id/listClientes"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.137"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtTitulo" />
 
@@ -43,27 +54,27 @@
         android:id="@+id/listClientes"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:divider="@android:color/darker_gray"
-        android:dividerHeight="1dp"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="12dp"
-        app:layout_constraintTop_toBottomOf="@id/Buscar"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp"
         app:layout_constraintBottom_toTopOf="@id/layoutBotones"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/Buscar" />
 
     <!-- Botones inferiores -->
     <LinearLayout
         android:id="@+id/layoutBotones"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
         android:layout_marginTop="11dp"
-        app:layout_constraintTop_toBottomOf="@id/listClientes"
+        android:gravity="center"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/listClientes">
 
         <Button
             android:id="@+id/btnAgregar"
@@ -71,7 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:onClick="agregarCliente"
-            android:text="Agregar" />
+            android:text="@string/btn_add" />
 
         <Button
             android:id="@+id/btnEditar"
@@ -79,14 +90,21 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:onClick="editarCliente"
-            android:text="Editar" />
+            android:text="@string/btn_edit" />
 
         <Button
             android:id="@+id/btnEliminar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="eliminarCliente"
-            android:text="Eliminar" />
+            android:text="@string/btn_delete" />
+
+        <Button
+            android:id="@+id/btnEliminar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="eliminarCliente"
+            android:text="@string/btn_exit" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
