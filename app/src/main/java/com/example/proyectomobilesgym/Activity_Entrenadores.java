@@ -2,6 +2,7 @@ package com.example.proyectomobilesgym;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -51,9 +52,7 @@ public class Activity_Entrenadores extends AppCompatActivity {
         btnEliminar = findViewById(R.id.btnEliminar);
         btnEditar = findViewById(R.id.btnEditar);
 
-//        deshabilito los botones de editar y eliminar
-        btnEditar.setEnabled(false);
-        btnEliminar.setEnabled(false);
+        deshabilitarBotones();
 
 
 
@@ -70,10 +69,12 @@ public class Activity_Entrenadores extends AppCompatActivity {
                 lista.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
 
             view.setBackgroundColor(Color.LTGRAY);
-//habilito los botones de editar y eliminar
+            //habilito los botones de editar y eliminar
             if(itemseleccionado >= 0){
-                btnEditar.setEnabled(true);
-                btnEliminar.setEnabled(true);
+                //btnEditar.setEnabled(true);
+               // btnEliminar.setEnabled(true);
+                btnEliminar.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#D33232")));
+                btnEditar.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2196F3")));
             }
 
         });
@@ -92,6 +93,15 @@ public class Activity_Entrenadores extends AppCompatActivity {
                 buscarCliente();
             }
         });
+
+
+    }
+
+    public void deshabilitarBotones() {
+        //btnEliminar.setEnabled(false);
+        btnEliminar.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#BDBDBD")));
+        //btnEditar.setEnabled(false);
+        btnEditar.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#BDBDBD")));
     }
     public void buscarCliente() {
 
@@ -158,11 +168,11 @@ public class Activity_Entrenadores extends AppCompatActivity {
 
             itemseleccionado = -1;
         } else {
-            Toast.makeText(this, "Debe seleccionar un item", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_select_trainer), Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void EliminarPorNombre(String nombre) {
+        public void EliminarPorNombre(String nombre) {
         AdminDB admin = new AdminDB(this);
         SQLiteDatabase BaseDatos = admin.getWritableDatabase();
 
@@ -173,12 +183,12 @@ public class Activity_Entrenadores extends AppCompatActivity {
             BaseDatos.close();
 
             if (registrosEliminados > 0)
-                Toast.makeText(this, "Eliminado correctamente", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.toast_deleted_success), Toast.LENGTH_LONG).show();
             else
-                Toast.makeText(this, "No se encontró ese nombre", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.toast_name_not_found), Toast.LENGTH_LONG).show();
 
         } else {
-            Toast.makeText(this, "Falta el nombre para eliminar", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.toast_missing_name), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -194,7 +204,7 @@ public class Activity_Entrenadores extends AppCompatActivity {
             startActivity(intent);
 
         } else {
-            Toast.makeText(this, "Debe seleccionar un item", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_select_trainer), Toast.LENGTH_SHORT).show();
         }
     }
 

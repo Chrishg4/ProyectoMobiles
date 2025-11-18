@@ -43,7 +43,7 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="24dp"
                 android:scaleType="centerCrop"
-                android:src="@android:drawable/ic_menu_gallery" />
+                app:srcCompat="@drawable/entrenadores" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -83,9 +83,10 @@
 
             <!-- Botones -->
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="361dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:layout_marginStart="10dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -93,16 +94,46 @@
                     android:id="@+id/btnAgregarEditar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
+                    android:backgroundTint="#4CAF50"
                     android:onClick="funcionEYG"
-                    android:text="@string/btn_add" />
+                    android:text="@string/btn_add"
+                    android:textColor="#000000"
+                    app:icon="@drawable/guardar"
+                    app:iconGravity="textTop"
+                    app:iconSize="20dp"
+                    app:iconTint="#000000" />
+
+                <Button
+                    android:id="@+id/Reiniciar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="16dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#009688"
+                    android:onClick="reiniciar"
+                    android:text="@string/btn_reset"
+                    android:textColor="#000000"
+                    app:icon="@drawable/reiniciar"
+                    app:iconGravity="textTop"
+                    app:iconSize="18dp"
+                    app:iconTint="#000000" />
+
 
                 <Button
                     android:id="@+id/btnCancelar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="#D33232"
                     android:onClick="cancelar"
-                    android:text="@string/btn_cancel" />
+                    android:text="@string/btn_cancel"
+                    android:textColor="#000000"
+                    app:icon="@drawable/cancelar"
+                    app:iconGravity="textTop"
+                    app:iconSize="20dp"
+                    app:iconTint="#000000" />
+
             </LinearLayout>
 
         </LinearLayout>

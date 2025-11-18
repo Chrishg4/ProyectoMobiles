@@ -25,6 +25,7 @@
     <string name="btn_save">Save</string>
     <string name="btn_cancel">Cancel</string>
     <string name="btn_exit">Exit</string>
+    <string name="btn_reset">Reiniciar</string>
 
 
     <!-- Client Fields -->
@@ -39,4 +40,14 @@
     <string name="header_service">Service</string>
     <string name="title_select_services">Select Services</string>
 
+    <!--mensajes de errores o exitoso-->
+    <string name="toast_complete_fields">All fields must be completed</string>
+    <string name="toast_updated">Updated successfully</string>
+    <string name="toast_registered">Registered successfully</string>
+    <string name="toast_id_exists">The ID is already registered</string>
+
+    <string name="toast_select_trainer">Debe seleccionar un Entrenador</string>
+    <string name="toast_deleted_success">Eliminado correctamente</string>
+    <string name="toast_name_not_found">No se encontró ese nombre</string>
+    <string name="toast_missing_name">Falta el nombre para eliminar</string>
 </resources>
