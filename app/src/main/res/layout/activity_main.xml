@@ -5,13 +5,25 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#DFF0D8"
     tools:context=".MainActivity">
 
+    <ListView
+        android:id="@+id/listMainMenu"
+        android:layout_width="403dp"
+        android:layout_height="640dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textMainTittle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Si lee esto salio bien el repo"
-        tools:layout_editor_absoluteX="118dp"
-        tools:layout_editor_absoluteY="213dp" />
+        android:layout_marginTop="40dp"
+        android:text="@string/title_main_menu"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

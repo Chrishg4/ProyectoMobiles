@@ -5,6 +5,117 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity_Entrenadores">
+    android:background="#DFF0D8"
+    android:padding="16dp">
+
+
+    <TextView
+        android:id="@+id/txtTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/title_trainers"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edtBuscar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="13dp"
+        android:hint="Hinted search text"
+        android:inputType="text"
+        android:padding="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/listEntrenadores"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtTitulo" />
+
+    <ListView
+        android:id="@+id/listEntrenadores"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp"
+        app:layout_constraintBottom_toTopOf="@id/layoutBotones"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edtBuscar" />
+
+    <!-- Botones inferiores -->
+    <LinearLayout
+        android:id="@+id/layoutBotones"
+        android:layout_width="403dp"
+        android:layout_height="94dp"
+        android:layout_marginTop="11dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listEntrenadores">
+
+        <Button
+            android:id="@+id/btnAgregar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:backgroundTint="#4CAF50"
+            android:onClick="agregar"
+            android:text="@string/btn_add"
+            android:textColor="#000000"
+            app:icon="@drawable/guardar"
+            app:iconGravity="textTop"
+            app:iconSize="20dp"
+            app:iconTint="#000000" />
+
+        <Button
+            android:id="@+id/btnEditar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:backgroundTint="#2196F3"
+            android:onClick="editar"
+            android:text="@string/btn_edit"
+            android:textColor="#000000"
+            app:icon="@drawable/editar_usuarios"
+            app:iconGravity="textTop"
+            app:iconSize="20dp"
+            app:iconTint="#000000" />
+
+        <Button
+            android:id="@+id/btnEliminar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:backgroundTint="#D33232"
+            android:onClick="Eliminar"
+            android:text="@string/btn_delete"
+            android:textColor="#000000"
+            app:icon="@drawable/borrar_usuarios"
+            app:iconGravity="textTop"
+            app:iconSize="20dp"
+            app:iconTint="#000000" />
+
+        <Button
+            android:id="@+id/btnSalir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#009688"
+            android:onClick="exit"
+            android:text="@string/btn_exit"
+            android:textColor="#000000"
+            app:icon="@drawable/salida"
+            app:iconGravity="textTop"
+            app:iconSize="20dp"
+            app:iconTint="#000000" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

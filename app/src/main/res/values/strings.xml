@@ -1,3 +1,38 @@
 <resources>
-    <string name="app_name">ProyectoMobilesGYM</string>
+    <string name="app_name">GYM DAC</string>
+
+    <!-- nombres de menús principales -->
+    <string name="title_main_menu">Menú principal</string>
+    <string name="title_clients">Clientes</string>
+    <string name="title_trainers">Entrenadores</string>
+    <string name="title_services">Servicios</string>
+    <string name="title_memberships">Membresías</string>
+    <string name="title_manage_clients">Administrar clientes</string>
+    <string name="title_manage_trainers">Administrar entrenadores</string>
+    <string name="title_manage_services">Administrar servicios</string>
+    <string name="title_manage_memberships">Administrar membresías</string>
+
+    <string name="title_select_trainers">Seleccionar Entrenadores</string>
+    <string name="title_select_clients">Seleccionar Clientes</string>
+
+    <!-- Botones -->
+    <string name="btn_add">Agregar</string>
+    <string name="btn_edit">Editar</string>
+    <string name="btn_delete">Eliminar</string>
+    <string name="btn_view_details">Ver detalles</string>
+    <string name="btn_save">Guardar</string>
+    <string name="btn_cancel">Cancelar</string>
+    <string name="btn_exit">Salir</string>
+    <string name="btn_reset">Reiniciar</string>
+
+    <!-- Campos de cliente -->
+    <string name="field_id">Cedula</string>
+    <string name="field_name">Nombre</string>
+    <string name="field_number">Numero</string>
+    <string name="field_gender">Genero</string>
+    <string name="field_age">Edad</string>
+    <string name="field_height">Altura</string>
+    <string name="field_weight">Peso</string>
+    <string name="header_membership">Membresia</string>
+
 </resources>

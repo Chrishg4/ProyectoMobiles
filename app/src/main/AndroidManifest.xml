@@ -12,46 +12,46 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoMobilesGYM">
         <activity
-            android:name=".Activity_VerFacturas"
+            android:name=".Activity_SelectClientes"
             android:exported="false" />
         <activity
-            android:name=".Activity_AdmRutinas"
+            android:name=".Activity_SelectEntrenadores"
             android:exported="false" />
         <activity
             android:name=".Activity_AdmMembresias"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Activity_AdmServicios"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Activity_AdmEntrenadores"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Activity_AdmClientes"
-            android:exported="false" />
-        <activity
-            android:name=".Activity_Facturacion"
-            android:exported="false" />
-        <activity
-            android:name=".Activity_Rutinas"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Activity_Membresias"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Activity_Servicios"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Activity_Entrenadores"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Activity_Clientes"
-            android:exported="false" />
-        <activity
-            android:name=".activity_Clientes"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
