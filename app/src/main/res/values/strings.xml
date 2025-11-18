@@ -59,5 +59,8 @@
     <string name="toast_fields_required">Por favor complete todos los campos</string>
     <string name="toast_client_registered">Cliente registrado correctamente</string>
 
+    <string name="toast_select_membership_first">Seleccione una membresía primero</string>
+    <string name="toast_membership_deleted">Membresía eliminada</string>
+    <string name="toast_membership_delete_error">Error al eliminar la membresía</string>
 
 </resources>

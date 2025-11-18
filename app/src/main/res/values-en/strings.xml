@@ -60,6 +60,9 @@
     <string name="toast_client_updated">Client updated successfully</string>
     <string name="toast_fields_required">Please fill in all the fields</string>
     <string name="toast_client_registered">Client registered successfully</string>
-
+<!--Cmembresia , mensajes de error o exito-->
+    <string name="toast_select_membership_first">Please select a membership first</string>
+    <string name="toast_membership_deleted">Membership deleted</string>
+    <string name="toast_membership_delete_error">Error deleting the membership</string>
 
 </resources>
