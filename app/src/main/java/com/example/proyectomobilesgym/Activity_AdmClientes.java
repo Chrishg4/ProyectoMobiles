@@ -172,13 +172,13 @@ public class Activity_AdmClientes extends AppCompatActivity {
             int filasAfectadas = db.update("clientes", registro, "cedula=?", new String[]{id});
             db.close();
             if (filasAfectadas > 0) {
-                Toast.makeText(this, "Cliente actualizado correctamente", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.toast_client_updated), Toast.LENGTH_SHORT).show();
                 finish();
             }
         } else {
             // Agregar un nuevo cliente
             if (validarCedula(etCedula.getText())) {
-                Toast.makeText(this, "La cédula ya existe", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.toast_id_exists), Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -186,7 +186,7 @@ public class Activity_AdmClientes extends AppCompatActivity {
             if (etCedula.getText().toString().isEmpty() || etNombre.getText().toString().isEmpty() ||
                     etNumero.getText().toString().isEmpty() || etEdad.getText().toString().isEmpty() ||
                     etAltura.getText().toString().isEmpty() || EtPeso.getText().toString().isEmpty()) {
-                Toast.makeText(this, "Por favor complete todos los campos", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.toast_fields_required), Toast.LENGTH_SHORT).show();
                 return;
             }
             ContentValues registro = new ContentValues();
@@ -199,7 +199,7 @@ public class Activity_AdmClientes extends AppCompatActivity {
             registro.put("peso", Double.parseDouble(EtPeso.getText().toString()));
             db.insert("clientes", null, registro);
             db.close();
-            Toast.makeText(this, "Cliente registrado correctamente", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_client_registered), Toast.LENGTH_SHORT).show();
             finish();
         }
     }

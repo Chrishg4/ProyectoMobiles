@@ -161,7 +161,7 @@ public class Activity_Clientes extends AppCompatActivity {
 
             itemseleccionado = -1;
         }else {
-            Toast.makeText(this, "No se ha seleccionado ningun cliente", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_no_client_selected), Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -176,12 +176,12 @@ public class Activity_Clientes extends AppCompatActivity {
             db.close();
 
             if (registrosEliminados > 0) {
-                Toast.makeText(this, "Cliente eliminado", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.toast_client_deleted), Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, "No se encontro ese nombre", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.toast_name_not_found), Toast.LENGTH_SHORT).show();
             }
         }else {
-            Toast.makeText(this, "El nombre esta vacio", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_name_empty), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -201,7 +201,7 @@ public class Activity_Clientes extends AppCompatActivity {
             startActivity(intent);
         } else {
 
-            Toast.makeText(this, "No se ha seleccionado ningun cliente", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_no_client_selected), Toast.LENGTH_SHORT).show();
         }
     }
 

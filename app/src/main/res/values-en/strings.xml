@@ -40,14 +40,26 @@
     <string name="header_service">Service</string>
     <string name="title_select_services">Select Services</string>
 
-    <!--mensajes de errores o exitoso-->
+    <!--Entrenadores , mensajes de errores o exitoso-->
     <string name="toast_complete_fields">All fields must be completed</string>
     <string name="toast_updated">Updated successfully</string>
     <string name="toast_registered">Registered successfully</string>
     <string name="toast_id_exists">The ID is already registered</string>
 
-    <string name="toast_select_trainer">Debe seleccionar un Entrenador</string>
-    <string name="toast_deleted_success">Eliminado correctamente</string>
-    <string name="toast_name_not_found">No se encontró ese nombre</string>
-    <string name="toast_missing_name">Falta el nombre para eliminar</string>
+    <string name="toast_select_trainer">You must select a trainer</string>
+    <string name="toast_deleted_success">Successfully deleted</string>
+    <string name="toast_name_not_found">Name not found</string>
+    <string name="toast_missing_name">Name is required to delete</string>
+
+    <!-- Clientes , mensajes de error o exito-->
+    <string name="toast_no_client_selected">No client has been selected</string>
+    <string name="toast_client_deleted">Client deleted</string>
+    <string name="toast_client_not_found">Name not found</string>
+    <string name="toast_name_empty">The name is empty</string>
+
+    <string name="toast_client_updated">Client updated successfully</string>
+    <string name="toast_fields_required">Please fill in all the fields</string>
+    <string name="toast_client_registered">Client registered successfully</string>
+
+
 </resources>
