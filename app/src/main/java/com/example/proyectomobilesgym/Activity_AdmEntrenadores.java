@@ -54,12 +54,22 @@ Button btn;
         AdminDB admin = new AdminDB(this);
         SQLiteDatabase db = admin.getWritableDatabase();
         String id = getIntent().getStringExtra("id");
+        // Editar entrenador existente
         if (id != null) {
-            // Editar entrenador existente
-            ContentValues registro = new ContentValues();
-            registro.put("nombre", edNombre.getText().toString());
-            registro.put("contacto", edTelefono.getText().toString());
 
+
+            // Validar que todos los campos estén llenos
+            String nombre = edNombre.getText().toString().trim();
+            String contacto = edTelefono.getText().toString().trim();
+
+            if (nombre.isEmpty() || contacto.isEmpty()) {
+                Toast.makeText(this, "Debe completar todos los campos", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            ContentValues registro = new ContentValues();
+            registro.put("nombre", nombre);
+            registro.put("contacto", contacto);
 
             int filasAfectadas = db.update("entrenadores", registro, "cedula=?", new String[]{id});
             db.close();
