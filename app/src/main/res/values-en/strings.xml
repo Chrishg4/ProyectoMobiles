@@ -36,5 +36,7 @@
     <string name="field_height">Height</string>
     <string name="field_weight">Weight</string>
     <string name="header_membership">Membership</string>
+    <string name="header_service">Service</string>
+    <string name="title_select_services">Select Services</string>
 
 </resources>

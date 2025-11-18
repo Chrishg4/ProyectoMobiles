@@ -40,7 +40,7 @@ public class DAOServicio {
             String nombre = cursor.getString(cursor.getColumnIndexOrThrow("nombre"));
             double precio = cursor.getDouble(cursor.getColumnIndexOrThrow("precio"));
             Servicio servicio = new Servicio(codigo, nombre, precio);
-            lista.put(servicio);
+            lista.add(servicio);
         }
         cursor.close();
         return lista;

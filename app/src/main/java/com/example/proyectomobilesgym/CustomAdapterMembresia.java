@@ -12,9 +12,9 @@ import java.util.List;
 
 public class CustomAdapterMembresia extends BaseAdapter {
     Context context;
-    List<Membresia> lst;
+    ListMembresia lst;
 
-    public CustomAdapterMembresia(Context context, List<Membresia> lst) {
+    public CustomAdapterMembresia(Context context, ListMembresia lst) {
         this.context = context;
         this.lst = lst;
     }
@@ -58,8 +58,11 @@ public class CustomAdapterMembresia extends BaseAdapter {
         return view;
 
     }
-    public void remove(Usuarios u) {
-        lst.remove(u);
+    private String getAtributoTexto(int id) {
+        
+    }
+    public void remove(Membresia m) {
+        lst.remove(m.getCodigo());
         notifyDataSetChanged();
     }
 }

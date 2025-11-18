@@ -67,6 +67,30 @@ public class DAOMembresia {
         return filas > 0;
     }
 
+    public ListMembresia buscarPor(String criterio) {
+
+        ListMembresia lista = new ListMembresia();
+
+        criterio = "%" + criterio.trim() + "%";
+
+        Cursor cursor = db.rawQuery("SELECT codigo, tipo, precioTotal, cedulaCliente, cedulaEntrenador FROM membresias WHERE codigo LIKE ? OR cedulaCliente LIKE ? OR cedulaEntrenador LIKE ?", new String[]{criterio, criterio, criterio});
+
+        while (cursor.moveToNext()) {
+            int codigo = cursor.getInt(0);
+            TipoMembresia tipo = TipoMembresia.valueOf(cursor.getString(1));
+            double precioTotal = cursor.getDouble(2);
+            int cliente = Integer.parseInt(cursor.getString(3));
+            int entrenador = Integer.parseInt(cursor.getString(4));
+            ListServicio servicios = getServiciosDeMembresia(codigo);
+            Membresia membresia = new Membresia(codigo, tipo, precioTotal, cliente, entrenador, servicios);
+
+            lista.add(membresia);
+        }
+
+        cursor.close();
+        return lista;
+    }
+
     public ListMembresia cargarTodos() {
 
         ListMembresia lista = new ListMembresia();
@@ -82,7 +106,7 @@ public class DAOMembresia {
             ListServicio servicios = getServiciosDeMembresia(codigo);
             Membresia membresia = new Membresia(codigo, tipo, precioTotal, cliente, entrenador, servicios);
 
-            lista.put(membresia);
+            lista.add(membresia);
         }
 
         cursor.close();
@@ -96,7 +120,7 @@ public class DAOMembresia {
 
         while (cursor.moveToNext()) {
             Servicio servicio = new Servicio(cursor.getInt(0), cursor.getString(1), cursor.getDouble(2));
-            servicios.put(servicio);
+            servicios.add(servicio);
         }
 
         cursor.close();

@@ -34,6 +34,7 @@ public class Activity_SelectClientes extends AppCompatActivity {
         datosClientes = new ArrayList<>();
         adapterClientes = new ClientesAdapter(this, datosClientes);
         cargarClientes();
+        listaClientes = findViewById(R.id.listEntrenadores);
         listaClientes.setAdapter(adapterClientes);
 
         listaClientes.setOnItemClickListener((parent, view, position, id) -> {

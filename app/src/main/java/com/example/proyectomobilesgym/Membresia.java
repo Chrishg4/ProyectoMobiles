@@ -1,5 +1,7 @@
 package com.example.proyectomobilesgym;
 
+import java.util.List;
+
 public class Membresia {
 
     private int codigo;
@@ -57,7 +59,7 @@ public class Membresia {
     public void setEntrenador(int entrenador) {
         this.entrenador = entrenador;
     }
-    public Servicio[] getServicios() {
+    public List<Servicio> getServicios() {
         return servicios.getLista();
     }
 }
