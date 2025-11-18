@@ -38,4 +38,14 @@
     <string name="field_weight">Weight</string>
     <string name="header_membership">Membership</string>
 
+    <!--mensajes de errores o exitoso-->
+    <string name="toast_complete_fields">All fields must be completed</string>
+    <string name="toast_updated">Updated successfully</string>
+    <string name="toast_registered">Registered successfully</string>
+    <string name="toast_id_exists">The ID is already registered</string>
+
+    <string name="toast_select_trainer">Debe seleccionar un Entrenador</string>
+    <string name="toast_deleted_success">Eliminado correctamente</string>
+    <string name="toast_name_not_found">No se encontró ese nombre</string>
+    <string name="toast_missing_name">Falta el nombre para eliminar</string>
 </resources>

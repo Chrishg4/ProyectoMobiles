@@ -34,5 +34,17 @@
     <string name="field_height">Altura</string>
     <string name="field_weight">Peso</string>
     <string name="header_membership">Membresia</string>
+<!--mensajes de errores o exitoso-->
+
+    <string name="toast_complete_fields">Debe completar todos los campos</string>
+    <string name="toast_updated">Actualizado correctamente</string>
+    <string name="toast_registered">Registrado correctamente</string>
+    <string name="toast_id_exists">La cédula ya está registrada</string>
+
+    <string name="toast_select_trainer">Debe seleccionar un Entrenador</string>
+    <string name="toast_deleted_success">Eliminado correctamente</string>
+    <string name="toast_name_not_found">No se encontró ese nombre</string>
+    <string name="toast_missing_name">Falta el nombre para eliminar</string>
+
 
 </resources>

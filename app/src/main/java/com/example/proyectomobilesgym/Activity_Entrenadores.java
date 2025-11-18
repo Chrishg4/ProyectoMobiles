@@ -168,11 +168,11 @@ public class Activity_Entrenadores extends AppCompatActivity {
 
             itemseleccionado = -1;
         } else {
-            Toast.makeText(this, "Debe seleccionar un Entrenador", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_select_trainer), Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void EliminarPorNombre(String nombre) {
+        public void EliminarPorNombre(String nombre) {
         AdminDB admin = new AdminDB(this);
         SQLiteDatabase BaseDatos = admin.getWritableDatabase();
 
@@ -183,12 +183,12 @@ public class Activity_Entrenadores extends AppCompatActivity {
             BaseDatos.close();
 
             if (registrosEliminados > 0)
-                Toast.makeText(this, "Eliminado correctamente", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.toast_deleted_success), Toast.LENGTH_LONG).show();
             else
-                Toast.makeText(this, "No se encontró ese nombre", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.toast_name_not_found), Toast.LENGTH_LONG).show();
 
         } else {
-            Toast.makeText(this, "Falta el nombre para eliminar", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.toast_missing_name), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -204,7 +204,7 @@ public class Activity_Entrenadores extends AppCompatActivity {
             startActivity(intent);
 
         } else {
-            Toast.makeText(this, "Debe seleccionar un Entrenador", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_select_trainer), Toast.LENGTH_SHORT).show();
         }
     }
 

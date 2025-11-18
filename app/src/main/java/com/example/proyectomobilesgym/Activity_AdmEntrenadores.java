@@ -91,7 +91,7 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
             String contacto = edTelefono.getText().toString().trim();
 
             if (nombre.isEmpty() || contacto.isEmpty()) {
-                Toast.makeText(this, "Debe completar todos los campos", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.toast_complete_fields), Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -102,7 +102,7 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
             int filasAfectadas = db.update("entrenadores", registro, "cedula=?", new String[]{id});
             db.close();
             if (filasAfectadas > 0) {
-                Toast.makeText(this, "Actualizado correctamente", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.toast_registered), Toast.LENGTH_SHORT).show();
                 finish();
             }
         }else {//aregar un nuevo entrenador
@@ -112,12 +112,12 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
             String contacto = edTelefono.getText().toString().trim();
 
             if (nombre.isEmpty() || cedula.isEmpty() || contacto.isEmpty()) {
-                Toast.makeText(this, "Debe completar todos los campos", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.toast_complete_fields), Toast.LENGTH_SHORT).show();
                 return;
             }
 //            valida que no este registrada la cedula
             if (cedulaExiste(edCedula.getText().toString())) {
-                Toast.makeText(this, "La cédula ya está registrada", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.toast_id_exists), Toast.LENGTH_SHORT).show();
                 return;
             }
             ContentValues registro = new ContentValues();
@@ -126,7 +126,7 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
             registro.put("contacto", contacto);
     db.insert("entrenadores", null, registro);
     db.close();
-            Toast.makeText(this, "Registrado correctamente", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_complete_fields), Toast.LENGTH_SHORT).show();
             finish();
         }
     }
