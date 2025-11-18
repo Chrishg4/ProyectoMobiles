@@ -25,6 +25,7 @@
     <string name="btn_save">Save</string>
     <string name="btn_cancel">Cancel</string>
     <string name="btn_exit">Exit</string>
+    <string name="btn_reset">Reiniciar</string>
 
 
     <!-- Client Fields -->

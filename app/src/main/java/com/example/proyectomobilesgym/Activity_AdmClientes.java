@@ -158,7 +158,7 @@ public class Activity_AdmClientes extends AppCompatActivity {
     public void BtnGuardar(View view) {
         AdminDB admin = new AdminDB(this);
         SQLiteDatabase db = admin.getWritableDatabase();
-        String id = getIntent().getStringExtra("id");
+        String id = getIntent().getStringExtra("cedula");
         if (id != null) {
             // Editar cliente existente
             ContentValues registro = new android.content.ContentValues();

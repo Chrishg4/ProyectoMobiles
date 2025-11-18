@@ -26,7 +26,6 @@
         android:layout_height="61dp"
         android:layout_marginTop="48dp"
         android:background="#00FFFFFF"
-        android:onClick="editarCliente"
         app:icon="@drawable/busqueda"
         app:iconPadding="0dp"
         app:iconSize="30dp"

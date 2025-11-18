@@ -18,7 +18,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class Activity_AdmEntrenadores extends AppCompatActivity {
 EditText edNombre, edCedula, edTelefono;
-Button btn;
+Button btn, btnCancelar, btnReiniciar;
+
+String nombreOriginal, cedulaOriginal, telefonoOriginal;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,13 +35,26 @@ Button btn;
         edCedula = findViewById(R.id.edtCedula);
         edTelefono = findViewById(R.id.edtNumero);
         btn = findViewById(R.id.btnAgregarEditar);
+        btnCancelar = findViewById(R.id.btnCancelar);
+        btnReiniciar = findViewById(R.id.Reiniciar);
 
         String id = getIntent().getStringExtra("id");
         if (id != null) {
-            // valido los datos de id no sean nulos para cargar la info
+
+            cedulaOriginal = getIntent().getStringExtra("id");
+            nombreOriginal = getIntent().getStringExtra("nombre");
+            telefonoOriginal = getIntent().getStringExtra("contacto");
+
+            edCedula.setText(cedulaOriginal);
+            edNombre.setText(nombreOriginal);
+            edTelefono.setText(telefonoOriginal);
+
+            /*// valido los datos de id no sean nulos para cargar la info
             edNombre.setText(getIntent().getStringExtra("nombre"));
             edCedula.setText(getIntent().getStringExtra("id"));
             edTelefono.setText(getIntent().getStringExtra("contacto"));
+
+             */
 //            hago que el texto cambie a editar con las varuiables que hay en values
             btn.setText(getString(R.string.btn_edit));
             edCedula.setEnabled(false);
@@ -48,6 +63,19 @@ Button btn;
     }
     public void cancelar(View view) {
         finish();
+    }
+
+    public void reiniciar (View view) {
+        if(cedulaOriginal == null){
+            edNombre.setText("");
+            edCedula.setText("");
+            edTelefono.setText("");
+        } else {
+            edNombre.setText(nombreOriginal);
+            edCedula.setText(cedulaOriginal);
+            edTelefono.setText(telefonoOriginal);
+        }
+
     }
 
     public void funcionEYG(View view) {
