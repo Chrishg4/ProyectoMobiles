@@ -286,8 +286,8 @@ public class Activity_AdmMembresias extends AppCompatActivity {
 
         int codigo = getIntent().getIntExtra("codigo", -1);
         if (codigo != -1){
-            String cedulaCliente = getIntent().getStringExtra("cedulaCliente");
-            String cedulaEntrenador = getIntent().getStringExtra("cedulaEntrenador");
+            String cedulaCliente = getIntent().getStringExtra("cliente");
+            String cedulaEntrenador = getIntent().getStringExtra("entrenador");
             TipoMembresia tipo = (TipoMembresia) getIntent().getSerializableExtra("tipo");
             String nombreCliente = cargarNombre(cedulaCliente, "clientes");
             String nombreEntrenador = cargarNombre(cedulaEntrenador, "entrenadores");

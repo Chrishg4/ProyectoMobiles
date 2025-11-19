@@ -75,7 +75,7 @@ public class DAOServicio {
     }
 
     public ListServicio buscarPorMembresia(int codigo) {
-        Cursor cursor = db.rawQuery("SELECT s.codigo, s.nombre, s.precio FROM servicios s JOIN servicios_membresias sm ON s.codigo = sm.servicio_codigo WHERE sm.membresia_codigo = ?", new String[]{String.valueOf(codigo)});
+        Cursor cursor = db.rawQuery("SELECT s.codigo, s.nombre, s.precio FROM servicios s JOIN membresiaServicios sm ON s.codigo = sm.codigoMembresia WHERE sm.codigoMembresia = ?", new String[]{String.valueOf(codigo)});
         ListServicio lista = new ListServicio();
         if (cursor.moveToFirst()) {
             do {
