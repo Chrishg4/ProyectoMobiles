@@ -58,11 +58,16 @@ public class CustomAdapterMembresia extends BaseAdapter {
         return view;
 
     }
-    private String getAtributoTexto(int id) {
-        
-    }
+//    private String getAtributoTexto(int id) {
+//
+//    }
     public void remove(Membresia m) {
         lst.remove(m.getCodigo());
+        notifyDataSetChanged();
+    }
+
+    public void setLista(ListMembresia lista) {
+        this.lst = lista;
         notifyDataSetChanged();
     }
 }

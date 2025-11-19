@@ -25,4 +25,12 @@ public class ListServicio {
     public int size(){
         return lista.size();
     }
+
+    public double getPrecioTotal() {
+        double total = 0;
+        for (Servicio s : lista) {
+            total += s.getPrecio();
+        }
+        return total;
+    }
 }

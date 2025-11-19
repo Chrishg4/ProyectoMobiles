@@ -2,6 +2,7 @@ package com.example.proyectomobilesgym;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,7 +23,7 @@ public class Activity_Membresias extends AppCompatActivity {
     private ListView listaView;
     private CustomAdapterMembresia adaptador;
     private ListMembresia lista;
-    private int itemseleccionado = -1;
+    private int itemseleccionado;
     private AdminDB admin;
     private DAOMembresia membresiaDB;
 
@@ -54,7 +55,7 @@ public class Activity_Membresias extends AppCompatActivity {
             if(eliminado){
                 Toast.makeText(this, "Membresia eliminada", Toast.LENGTH_SHORT).show();
                 adaptador.remove(membresia);
-                itemseleccionado = -1;
+                setItemSeleccionado(-1);
             } else {
                 Toast.makeText(this, "Error al eliminar la membresia", Toast.LENGTH_SHORT).show();
             }
@@ -67,12 +68,11 @@ public class Activity_Membresias extends AppCompatActivity {
         finish();
     }
 
-    public void buscar(View view){
+    public void buscar(){
         String criterio = txtBuscar.getText().toString();
-        lista = membresiaDB.buscarPorCliente(criterio);
-        adaptador = new CustomAdapterMembresia(this, lista);
-        listaView.setAdapter(adaptador);
-        itemseleccionado = -1;
+        lista = membresiaDB.buscarPor(criterio);
+        adaptador.setLista(lista);
+        setItemSeleccionado(-1);
     }
 
     @Override
@@ -85,6 +85,16 @@ public class Activity_Membresias extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        btnAgregar = findViewById(R.id.btn_añadir);
+        btnEliminar = findViewById(R.id.btn_eliminar);
+        btnEditar = findViewById(R.id.btn_editar);
+        btnSalir = findViewById(R.id.btn_salir);
+        setItemSeleccionado(-1);
+        btnAgregar.setBackgroundColor(R.color.verdenes);
+        btnSalir.setBackgroundColor(R.color.amarillo);
+
+
         admin = new AdminDB(this);
         membresiaDB = new DAOMembresia(admin.getReadableDatabase());
 
@@ -98,15 +108,42 @@ public class Activity_Membresias extends AppCompatActivity {
 
         listaView.setOnItemClickListener(
                 (parent, view, position, id) -> {
-                    itemseleccionado = position;
+                    setItemSeleccionado(position);
                 }
         );
 
-        btnAgregar = findViewById(R.id.btn_añadir);
-        btnEliminar = findViewById(R.id.btn_eliminar);
-        btnEditar = findViewById(R.id.btn_editar);
-        btnSalir = findViewById(R.id.btn_salir);
+        txtBuscar.addTextChangedListener(new TextWatcher(){
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                buscar();
+            }
+
+            @Override
+            public void afterTextChanged(android.text.Editable s) {
+            }
+        });
+
+    }
+
+    private void setItemSeleccionado(int position) {
+        itemseleccionado = position;
+        if (position == -1){
+            btnEditar.setEnabled(false);
+            btnEliminar.setEnabled(false);
+            //cambiar color a gris
+            btnEditar.setBackgroundColor(getResources().getColor(R.color.gris));
+            btnEliminar.setBackgroundColor(getResources().getColor(R.color.gris));
+        } else {
+            btnEditar.setEnabled(true);
+            btnEliminar.setEnabled(true);
+            //restaurare el color original;
+            btnEditar.setBackgroundColor(getResources().getColor(R.color.verde));
+            btnEliminar.setBackgroundColor(getResources().getColor(R.color.rojo));
+        }
     }
 
 }
