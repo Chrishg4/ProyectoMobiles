@@ -26,21 +26,11 @@ public class DAOMembresia {
             campos = new ContentValues();
             campos.put("codigoMembresia", codigoMembresia);
             campos.put("codigoServicio", servicio.getCodigo());
-            db.insert("membresiaServicio", null, campos);
+            db.insert("membresiaServicios", null, campos);
         }
-
-//        double precio = getServiciosDeMembresia((int)codigoMembresia).getPrecioTotal();;
-//        membresia.setPrecioTotal(precio);
-//        inicializarPrecioTotal(codigoMembresia, precio);
 
         return codigoMembresia;
     }
-
-//    private void inicializarPrecioTotal(long codigoMembresia, double precio) {
-//        ContentValues campos = new ContentValues();
-//        campos.put("precioTotal", precio);
-//        db.update("membresias", campos, "codigo = ?", new String[]{String.valueOf(codigoMembresia)});
-//    }
 
 
     public boolean actualizar(Membresia membresia) {
@@ -82,16 +72,25 @@ public class DAOMembresia {
 
         ListMembresia lista = new ListMembresia();
 
-        criterio = "%" + criterio.trim() + "%";
+        String patron = "%" + criterio.trim() + "%";
 
-        Cursor cursor = db.rawQuery("SELECT m.codigo, m.tipo, m.precioTotal, m.cedulaCliente, r.cedulaEntrenador FROM membresia m JOIN clientes c ON m.cedulaCliente = c.cedula JOIN rutina r ON m.codigoRutina = r.codigo JOIN entrenador e ON r.cedulaEntrenador = e.cedula WHERE m.codigo LIKE ? OR c.nombre LIKE ? OR e.nombre LIKE ?", new String[]{criterio, criterio, criterio});
+        Cursor cursor = db.rawQuery(
+                "SELECT m.codigo, m.tipo, m.precioTotal, m.cedulaCliente, m.cedulaEntrenador " +
+                        "FROM membresias m " +
+                        "JOIN clientes c ON m.cedulaCliente = c.cedula " +
+                        "JOIN entrenadores e ON m.cedulaEntrenador = e.cedula " +
+                        "WHERE CAST(m.codigo AS TEXT) LIKE ? " +
+                        "OR c.nombre LIKE ? " +
+                        "OR e.nombre LIKE ?",
+                new String[]{patron, patron, patron}
+        );
 
         while (cursor.moveToNext()) {
             int codigo = cursor.getInt(0);
             TipoMembresia tipo = TipoMembresia.valueOf(cursor.getString(1));
             double precioTotal = cursor.getDouble(2);
-            int cliente = Integer.parseInt(cursor.getString(3));
-            int entrenador = Integer.parseInt(cursor.getString(4));
+            String cliente = cursor.getString(3);
+            String entrenador = cursor.getString(4);
             ListServicio servicios = getServiciosDeMembresia(codigo);
             Membresia membresia = new Membresia(codigo, tipo, precioTotal, cliente, entrenador, servicios);
 
@@ -99,6 +98,7 @@ public class DAOMembresia {
         }
 
         cursor.close();
+
         return lista;
     }
 
@@ -112,8 +112,8 @@ public class DAOMembresia {
             int codigo = cursor.getInt(0);
             TipoMembresia tipo = TipoMembresia.valueOf(cursor.getString(1));
             double precioTotal = cursor.getDouble(2);
-            int cliente = Integer.parseInt(cursor.getString(3));
-            int entrenador = Integer.parseInt(cursor.getString(4));
+            String cliente = cursor.getString(3);
+            String entrenador = cursor.getString(4);
             ListServicio servicios = getServiciosDeMembresia(codigo);
             Membresia membresia = new Membresia(codigo, tipo, precioTotal, cliente, entrenador, servicios);
 

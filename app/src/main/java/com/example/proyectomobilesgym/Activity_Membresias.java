@@ -1,6 +1,8 @@
 package com.example.proyectomobilesgym;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextWatcher;
 import android.view.View;
@@ -94,6 +96,10 @@ public class Activity_Membresias extends AppCompatActivity {
         btnAgregar.setBackgroundColor(R.color.verdenes);
         btnSalir.setBackgroundColor(R.color.amarillo);
 
+        btnAgregar.setText(R.string.btn_add);
+        btnEliminar.setText(R.string.btn_delete);
+        btnEditar.setText(R.string.btn_edit);
+        btnSalir.setText(R.string.btn_exit);
 
         admin = new AdminDB(this);
         membresiaDB = new DAOMembresia(admin.getReadableDatabase());
@@ -108,6 +114,9 @@ public class Activity_Membresias extends AppCompatActivity {
 
         listaView.setOnItemClickListener(
                 (parent, view, position, id) -> {
+                    for (int i = 0; i < listaView.getChildCount(); i++)
+                        listaView.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
+                    view.setBackgroundColor(Color.LTGRAY);
                     setItemSeleccionado(position);
                 }
         );
@@ -132,18 +141,20 @@ public class Activity_Membresias extends AppCompatActivity {
     private void setItemSeleccionado(int position) {
         itemseleccionado = position;
         if (position == -1){
-            btnEditar.setEnabled(false);
-            btnEliminar.setEnabled(false);
             //cambiar color a gris
-            btnEditar.setBackgroundColor(getResources().getColor(R.color.gris));
-            btnEliminar.setBackgroundColor(getResources().getColor(R.color.gris));
+            deshabilitarBotones();
         } else {
-            btnEditar.setEnabled(true);
-            btnEliminar.setEnabled(true);
             //restaurare el color original;
-            btnEditar.setBackgroundColor(getResources().getColor(R.color.verde));
-            btnEliminar.setBackgroundColor(getResources().getColor(R.color.rojo));
+            btnEditar.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2196F3")));
+            btnEliminar.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#D33232")));
         }
+    }
+
+    public void deshabilitarBotones() {
+        //btnEliminarCliente.setEnabled(false);
+        btnEliminar.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#BDBDBD")));
+        //btnEditarCliente.setEnabled(false);
+        btnEditar.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#BDBDBD")));
     }
 
 }

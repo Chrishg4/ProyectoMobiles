@@ -7,11 +7,11 @@ public class Membresia {
     private int codigo;
     private TipoMembresia tipo;
     private double precioTotal;
-    private int cliente;
-    private int entrenador;
+    private String cliente;
+    private String entrenador;
     private ListServicio servicios;
 
-    public Membresia(int codigo, TipoMembresia tipo, double precioTotal, int cliente, int entrenador, ListServicio servicios) {
+    public Membresia(int codigo, TipoMembresia tipo, double precioTotal, String cliente, String entrenador, ListServicio servicios) {
         this.codigo = codigo;
         this.tipo = tipo;
         this.precioTotal = precioTotal;
@@ -44,19 +44,19 @@ public class Membresia {
         this.precioTotal = precioTotal;
     }
 
-    public int getCliente() {
+    public String getCliente() {
         return cliente;
     }
 
-    public void setCliente(int cliente) {
+    public void setCliente(String cliente) {
         this.cliente = cliente;
     }
 
-    public int getEntrenador() {
+    public String getEntrenador() {
         return entrenador;
     }
 
-    public void setEntrenador(int entrenador) {
+    public void setEntrenador(String entrenador) {
         this.entrenador = entrenador;
     }
     public List<Servicio> getServicios() {
