@@ -105,8 +105,8 @@ public class Activity_AdmClientes extends AppCompatActivity {
             etNombre.setText(nombreOriginal);
             etNumero.setText(numeroOriginal);
             etEdad.setText(String.valueOf(edadOriginal));
-            etAltura.setText(String.valueOf(alturaOriginal));
-            EtPeso.setText(String.valueOf(pesoOriginal));
+            etAltura.setText(String.format("%.2f", alturaOriginal));
+            EtPeso.setText(String.format("%.2f", pesoOriginal));
 
             // selecciona el género en el spinner
             int spinnerPosition = adapter.getPosition(generoOriginal);
@@ -124,12 +124,12 @@ public class Activity_AdmClientes extends AppCompatActivity {
 
     }
 
-    public void BtnVolver(View view) {
+    public void cancelar(View view) {
         finish();
     }
 
     //aca vualve a traer los campos de la seleccion
-    public void cancelar(View view) {
+    public void reiniciar(View view) {
         if (cedulaOriginal == null) {
             etCedula.setText("");
             etNombre.setText("");
@@ -144,8 +144,8 @@ public class Activity_AdmClientes extends AppCompatActivity {
             etNombre.setText(nombreOriginal);
             etNumero.setText(numeroOriginal);
             etEdad.setText(String.valueOf(edadOriginal));
-            etAltura.setText(String.valueOf(alturaOriginal));
-            EtPeso.setText(String.valueOf(pesoOriginal));
+            etAltura.setText(String.format("%.2f", alturaOriginal));
+            EtPeso.setText(String.format("%.2f", pesoOriginal));
 
             String generoCliente = generoOriginal;
             ArrayAdapter<String> adapter = (ArrayAdapter<String>) spGenero.getAdapter();

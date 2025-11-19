@@ -148,6 +148,20 @@
                     app:iconTint="#000000" />
 
                 <Button
+                    android:id="@+id/btnSalir"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:backgroundTint="#009688"
+                    android:onClick="reiniciar"
+                    android:text="@string/btn_reset"
+                    android:textColor="#000000"
+                    app:icon="@drawable/reiniciar"
+                    app:iconGravity="textTop"
+                    app:iconSize="20dp"
+                    app:iconTint="#000000" />
+
+                <Button
                     android:id="@+id/btnCancelar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -157,20 +171,6 @@
                     android:text="@string/btn_cancel"
                     android:textColor="#000000"
                     app:icon="@drawable/cancelar"
-                    app:iconGravity="textTop"
-                    app:iconSize="20dp"
-                    app:iconTint="#000000" />
-
-                <Button
-                    android:id="@+id/btnSalir"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:backgroundTint="#009688"
-                    android:onClick="BtnVolver"
-                    android:text="@string/btn_exit"
-                    android:textColor="#000000"
-                    app:icon="@drawable/salida"
                     app:iconGravity="textTop"
                     app:iconSize="20dp"
                     app:iconTint="#000000" />
