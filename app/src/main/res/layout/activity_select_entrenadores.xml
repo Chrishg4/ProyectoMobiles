@@ -9,6 +9,20 @@
     android:padding="16dp">
 
 
+    <Button
+        android:id="@+id/btnBuscar5"
+        android:layout_width="66dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="44dp"
+        android:background="#00FFFFFF"
+        app:icon="@drawable/busqueda"
+        app:iconPadding="0dp"
+        app:iconSize="30dp"
+        app:iconTint="#000000"
+        app:layout_constraintStart_toEndOf="@+id/edtBuscar"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/txtTitulo"
         android:layout_width="wrap_content"
@@ -23,16 +37,15 @@
 
     <EditText
         android:id="@+id/edtBuscar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="43dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="13dp"
-        android:hint="Hinted search text"
+        android:background="@drawable/edittext_custom"
+        android:hint="@string/hint_search_trainer"
         android:inputType="text"
         android:padding="12dp"
         app:layout_constraintBottom_toTopOf="@+id/listEntrenadores"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtTitulo" />
 
@@ -52,8 +65,8 @@
     <!-- Botones inferiores -->
     <LinearLayout
         android:id="@+id/layoutBotones"
-        android:layout_width="393dp"
-        android:layout_height="54dp"
+        android:layout_width="390dp"
+        android:layout_height="68dp"
         android:layout_marginTop="11dp"
         android:gravity="center"
         android:orientation="horizontal"
@@ -66,9 +79,15 @@
         <Button
             android:id="@+id/btnSalir"
             android:layout_width="wrap_content"
-            android:layout_height="47dp"
+            android:layout_height="68dp"
+            android:backgroundTint="#D33232"
             android:onClick="exit"
-            android:text="@string/btn_exit" />
+            android:text="@string/btn_exit"
+            android:textColor="#000000"
+            app:icon="@drawable/salida"
+            app:iconGravity="textTop"
+            app:iconSize="20dp"
+            app:iconTint="#000000" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
