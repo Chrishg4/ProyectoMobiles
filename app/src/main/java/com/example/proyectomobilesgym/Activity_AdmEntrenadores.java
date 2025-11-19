@@ -49,12 +49,7 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
             edNombre.setText(nombreOriginal);
             edTelefono.setText(telefonoOriginal);
 
-            /*// valido los datos de id no sean nulos para cargar la info
-            edNombre.setText(getIntent().getStringExtra("nombre"));
-            edCedula.setText(getIntent().getStringExtra("id"));
-            edTelefono.setText(getIntent().getStringExtra("contacto"));
 
-             */
 //            hago que el texto cambie a editar con las varuiables que hay en values
             btn.setText(getString(R.string.btn_edit));
             edCedula.setEnabled(false);

@@ -96,9 +96,7 @@ public class Activity_Entrenadores extends AppCompatActivity {
     }
 
     public void deshabilitarBotones() {
-        //btnEliminar.setEnabled(false);
         btnEliminar.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#BDBDBD")));
-        //btnEditar.setEnabled(false);
         btnEditar.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#BDBDBD")));
     }
     public void buscarCliente() {
