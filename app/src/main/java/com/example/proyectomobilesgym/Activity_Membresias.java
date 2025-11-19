@@ -50,7 +50,7 @@ public class Activity_Membresias extends AppCompatActivity {
             intent.putExtra("tipo", membresia.getTipo());
             startActivity(intent);
         } else {
-            Toast.makeText(this, "Seleccione una membresia primero", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_select_membership_first), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -59,14 +59,14 @@ public class Activity_Membresias extends AppCompatActivity {
             Membresia membresia = lista.get(itemseleccionado);
             boolean eliminado = membresiaDB.eliminar(membresia.getCodigo());
             if(eliminado){
-                Toast.makeText(this, "Membresia eliminada", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.toast_membership_deleted), Toast.LENGTH_SHORT).show();
                 adaptador.remove(membresia);
                 setItemSeleccionado(-1);
             } else {
-                Toast.makeText(this, "Error al eliminar la membresia", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.toast_membership_delete_error), Toast.LENGTH_SHORT).show();
             }
         } else {
-            Toast.makeText(this, "Seleccione una membresia primero", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_select_membership_first), Toast.LENGTH_SHORT).show();
         }
     }
 

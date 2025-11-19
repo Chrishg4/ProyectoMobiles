@@ -3,6 +3,7 @@ package com.example.proyectomobilesgym;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -57,6 +59,13 @@ public class Activity_AdmClientes extends AppCompatActivity {
         btnGuadar = findViewById(R.id.btnGuardar);
         btnCancelar = findViewById(R.id.btnCancelar);
 
+        Drawable flecha = ContextCompat.getDrawable(this, android.R.drawable.arrow_down_float);
+        flecha.setTint(ContextCompat.getColor(this, R.color.white));
+
+
+        // Configurar el spinner de géneros
+
+
         //obtener los generos del enum como un array de strings con un for
         Genero[] generosEnum = Genero.values();//devuelve un array con los valores del enum
         String[] generos = new String[generosEnum.length];//crea un array de strings con la misma longitud que el enum
@@ -70,9 +79,9 @@ public class Activity_AdmClientes extends AppCompatActivity {
         spGenero.setAdapter(adapter);
 
         //poner la imagen segun el genero seleccionado
-        spGenero.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
+        spGenero.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(android.widget.AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String generoSeleccionado = spGenero.getSelectedItem().toString();
                 if (generoSeleccionado.equalsIgnoreCase("HOMBRE")) {
                     imgClientes.setImageResource(R.drawable.user_h);
@@ -84,7 +93,7 @@ public class Activity_AdmClientes extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(android.widget.AdapterView<?> parent) {
+            public void onNothingSelected(AdapterView<?> parent) {
                 imgClientes.setImageResource(R.drawable.ic_launcher_foreground);
             }
         });

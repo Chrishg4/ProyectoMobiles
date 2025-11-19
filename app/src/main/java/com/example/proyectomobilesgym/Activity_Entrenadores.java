@@ -76,7 +76,6 @@ public class Activity_Entrenadores extends AppCompatActivity {
             }
 
         });
-//        insertarDatosPrueba(); descomentar para insertar datos de prueba
         cargarEntrenadores();
 
         // buscar cliente al escribir en el editText
@@ -214,25 +213,7 @@ public class Activity_Entrenadores extends AppCompatActivity {
         }
     }
 
-    private void insertarDatosPrueba() {
-        AdminDB admin = new AdminDB(this);
-        SQLiteDatabase db = admin.getWritableDatabase();
 
-        ContentValues cv = new ContentValues();
-
-        cv.put("cedula", "201");
-        cv.put("nombre", "Entrenador Demo 1");
-        cv.put("contacto", "7000-0000");
-        db.insert("entrenadores", null, cv);
-
-        cv.clear();
-        cv.put("cedula", "202");
-        cv.put("nombre", "Entrenador Demo 2");
-        cv.put("contacto", "7111-1111");
-        db.insert("entrenadores", null, cv);
-
-        db.close();
-    }
 
     private void cargarEntrenadores() {
 
