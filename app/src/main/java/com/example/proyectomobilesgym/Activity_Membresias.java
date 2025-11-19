@@ -108,8 +108,8 @@ public class Activity_Membresias extends AppCompatActivity {
         setItemSeleccionado(-1);
 
         //Aqui por favor ajusta el color de estos 2 botones de la manera que tu los tienes
-        btnAgregar.setBackgroundColor(R.color.verdenes);
-        btnSalir.setBackgroundColor(R.color.amarillo);
+        //btnAgregar.setBackgroundColor(R.color.verdenes);
+        //btnSalir.setBackgroundColor(R.color.amarillo);
 
         btnAgregar.setText(R.string.btn_add);
         btnEliminar.setText(R.string.btn_delete);

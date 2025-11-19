@@ -7,11 +7,25 @@
     android:layout_height="match_parent"
     tools:context=".Activity_Membresias">
 
+    <Button
+        android:id="@+id/btnBuscar6"
+        android:layout_width="66dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="53dp"
+        android:background="#00FFFFFF"
+        app:icon="@drawable/busqueda"
+        app:iconPadding="0dp"
+        app:iconSize="30dp"
+        app:iconTint="#000000"
+        app:layout_constraintStart_toEndOf="@+id/textBuscar"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textTitleMembresias"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="16dp"
         android:text="@string/title_memberships"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,8 +34,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="410dp"
-        android:layout_height="77dp"
+        android:layout_width="426dp"
+        android:layout_height="89dp"
         android:layout_marginStart="1dp"
         android:layout_marginBottom="1dp"
         android:orientation="horizontal"
@@ -33,53 +47,82 @@
             android:id="@+id/btn_añadir"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginEnd="8dp"
             android:layout_weight="1"
+            android:backgroundTint="#4CAF50"
             android:onClick="agregar"
-            android:text="Button" />
+            android:text="@string/btn_add"
+            android:textColor="#000000"
+            app:icon="@drawable/agregar_membresias"
+            app:iconGravity="textTop"
+            app:iconSize="20dp"
+            app:iconTint="#000000" />
 
         <Button
             android:id="@+id/btn_editar"
             android:layout_width="103dp"
             android:layout_height="77dp"
+            android:layout_marginEnd="8dp"
             android:layout_weight="1"
+            android:backgroundTint="#2196F3"
             android:onClick="editar"
-            android:text="Button" />
+            android:text="@string/btn_edit"
+            android:textColor="#000000"
+            app:icon="@drawable/editar_membresia"
+            app:iconGravity="textTop"
+            app:iconSize="20dp"
+            app:iconTint="#000000" />
 
         <Button
             android:id="@+id/btn_eliminar"
             android:layout_width="wrap_content"
             android:layout_height="77dp"
+            android:layout_marginEnd="8dp"
             android:layout_weight="1"
+            android:backgroundTint="#D33232"
             android:onClick="eliminar"
-            android:text="Button" />
+            android:text="@string/btn_delete"
+            android:textColor="#000000"
+            app:icon="@drawable/eliminar_membresias"
+            app:iconGravity="textTop"
+            app:iconSize="20dp"
+            app:iconTint="#000000" />
 
         <Button
             android:id="@+id/btn_salir"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginEnd="8dp"
             android:layout_weight="1"
+            android:backgroundTint="#009688"
             android:onClick="salir"
-            android:text="Button" />
+            android:text="@string/btn_exit"
+            android:textColor="#000000"
+            app:icon="@drawable/salida"
+            app:iconGravity="textTop"
+            app:iconSize="20dp"
+            app:iconTint="#000000" />
     </LinearLayout>
 
     <EditText
         android:id="@+id/textBuscar"
-        android:layout_width="348dp"
-        android:layout_height="49dp"
+        android:layout_width="316dp"
+        android:layout_height="51dp"
         android:layout_marginStart="14dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="38dp"
+        android:layout_marginBottom="3dp"
+        android:background="@drawable/edittext_custom"
         android:ems="10"
         android:inputType="text"
         android:text="Name"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/listMembresias"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textTitleMembresias" />
 
     <ListView
         android:id="@+id/listMembresias"
-        android:layout_width="409dp"
-        android:layout_height="538dp"
+        android:layout_width="411dp"
+        android:layout_height="515dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
