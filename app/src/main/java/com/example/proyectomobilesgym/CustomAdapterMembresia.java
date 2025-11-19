@@ -49,7 +49,7 @@ public class CustomAdapterMembresia extends BaseAdapter {
 
         //ImageViewContacto=view.findViewById(R.id.imageViewContacto);
         TextViewNombre=view.findViewById(R.id.textViewNombre);
-        TextViewDes=view.findViewById(R.id.textViewDetalles);
+        TextViewDes=view.findViewById(R.id.textViewDes);
 
         //ImageViewContacto.setImageResource(c.imagen);
         String nombre = context.getString(R.string.header_membership) + " " + membresia.getCodigo() + " - " + membresia.getTipo().toString().toLowerCase();

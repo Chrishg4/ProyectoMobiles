@@ -104,6 +104,7 @@ public class Activity_AdmMembresias extends AppCompatActivity {
                 lista
         );
         membresiaDB.insertar(membresia);
+        finish();
     }
     public void reiniciar(View view) {
         if (enEdicionMembresia != null){

@@ -60,7 +60,7 @@ public class DAOMembresia {
     public boolean eliminar(int codigo) {
 
         // primero borrar relaciones
-        db.delete("membresiaServicio", "codigoMembresia = ?", new String[]{String.valueOf(codigo)});
+        db.delete("membresiaServicios", "codigoMembresia = ?", new String[]{String.valueOf(codigo)});
 
         // luego borrar membresia
         int filas = db.delete("membresias", "codigo = ?", new String[]{String.valueOf(codigo)});
