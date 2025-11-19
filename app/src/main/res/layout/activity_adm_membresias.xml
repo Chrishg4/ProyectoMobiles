@@ -53,14 +53,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <EditText
+                <AutoCompleteTextView
                     android:id="@+id/edtCedula"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/edittext_custom"
-                    android:hint="Cédula"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:completionThreshold="1" />
 
                 <ImageView
                     android:id="@+id/btnCliente"
@@ -68,7 +68,7 @@
                     android:layout_height="40dp"
                     android:layout_marginStart="8dp"
                     android:src="@drawable/seleccionar"
-                    android:contentDescription="Buscar cliente" />
+                    android:contentDescription="@string/field_client" />
             </LinearLayout>
 
             <!-- Nombre automático -->
@@ -82,8 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edittext_custom"
-                android:enabled="false"
-                android:hint="(automático)" />
+                android:enabled="false" />
 
             <!-- ============= ENTRENADOR ============= -->
             <TextView
@@ -96,14 +95,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <EditText
+                <AutoCompleteTextView
                     android:id="@+id/edtCedulaEntrenador"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/edittext_custom"
-                    android:hint="Cédula entrenador"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:completionThreshold="1" />
 
                 <ImageView
                     android:id="@+id/btnEntrenador"
@@ -111,7 +110,7 @@
                     android:layout_height="40dp"
                     android:layout_marginStart="8dp"
                     android:src="@drawable/seleccionar"
-                    android:contentDescription="Buscar entrenador" />
+                    android:contentDescription="@string/title_trainers" />
             </LinearLayout>
 
             <!-- Nombre del entrenador -->
@@ -125,8 +124,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edittext_custom"
-                android:enabled="false"
-                android:hint="(automático)" />
+                android:enabled="false" />
 
             <!-- ============= TIPO (ANTES GÉNERO) ============= -->
             <TextView
@@ -159,21 +157,23 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <EditText
+                <AutoCompleteTextView
                     android:id="@+id/edtCodigoServicio"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/edittext_custom"
-                    android:hint="Código" />
+                    android:inputType="number"
+                    android:completionThreshold="1" />
 
                 <ImageView
                     android:id="@+id/btnBuscarServicio"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="8dp"
-                    android:src="@drawable/seleccionar"
-                    android:contentDescription="Buscar servicio" />
+                    android:contentDescription="@string/title_services"
+                    android:onClick="irASeleccionarServicio"
+                    android:src="@drawable/seleccionar" />
             </LinearLayout>
 
             <!-- Nombre -->
@@ -187,8 +187,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edittext_custom"
-                android:enabled="false"
-                android:hint="(automático)" />
+                android:enabled="false" />
 
             <!-- Precio -->
             <TextView
@@ -230,6 +229,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#2E7D32"
+                    android:onClick="agregarServicio"
                     android:text="@string/btn_add"
                     android:textColor="#000000"
                     app:icon="@drawable/add"
@@ -243,6 +243,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:backgroundTint="#00838F"
+                    android:onClick="editarServicio"
                     android:text="@string/btn_edit"
                     android:textColor="#000000"
                     app:icon="@drawable/pencil"
@@ -256,6 +257,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:backgroundTint="#C62828"
+                    android:onClick="eliminarServicio"
                     android:text="@string/btn_delete"
                     android:textColor="#000000"
                     app:icon="@drawable/bin"
@@ -272,7 +274,10 @@
                 android:layout_height="200dp"
                 android:layout_marginTop="16dp"
                 android:divider="#444"
-                android:dividerHeight="1dp" />
+                android:dividerHeight="1dp"
+                android:scrollbars="vertical"
+                android:fadeScrollbars="false"
+                android:nestedScrollingEnabled="true" />
 
             <!-- ============= BOTONES FINALES ============= -->
             <LinearLayout
@@ -313,6 +318,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#D33232"
+                    android:onClick="salir"
                     android:text="@string/btn_cancel"
                     android:textColor="#000000"
                     app:icon="@drawable/cancelar"

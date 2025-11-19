@@ -61,4 +61,32 @@ public class DAOServicio {
         return lista;
     }
 
+    public Servicio buscarPorCodigo(int codigo) {
+        Cursor cursor = db.rawQuery("SELECT codigo, nombre, precio FROM servicios WHERE codigo = ?", new String[]{String.valueOf(codigo)});
+        if (cursor.moveToFirst()) {
+            String nombre = cursor.getString(cursor.getColumnIndexOrThrow("nombre"));
+            double precio = cursor.getDouble(cursor.getColumnIndexOrThrow("precio"));
+            cursor.close();
+            return new Servicio(codigo, nombre, precio);
+        } else {
+            cursor.close();
+            return null;
+        }
+    }
+
+    public ListServicio buscarPorMembresia(int codigo) {
+        Cursor cursor = db.rawQuery("SELECT s.codigo, s.nombre, s.precio FROM servicios s JOIN servicios_membresias sm ON s.codigo = sm.servicio_codigo WHERE sm.membresia_codigo = ?", new String[]{String.valueOf(codigo)});
+        ListServicio lista = new ListServicio();
+        if (cursor.moveToFirst()) {
+            do {
+                int servicioCodigo = cursor.getInt(cursor.getColumnIndexOrThrow("codigo"));
+                String nombre = cursor.getString(cursor.getColumnIndexOrThrow("nombre"));
+                double precio = cursor.getDouble(cursor.getColumnIndexOrThrow("precio"));
+                Servicio servicio = new Servicio(servicioCodigo, nombre, precio);
+                lista.add(servicio);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return lista;
+    }
 }

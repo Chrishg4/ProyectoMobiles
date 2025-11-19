@@ -73,8 +73,8 @@ public class CustomAdapterMembresia extends BaseAdapter {
         return valor;
     }
 
-    public void remove(Membresia m) {
-        lst.remove(m.getCodigo());
+    public void remove(int indice) {
+        lst.remove(indice);
         notifyDataSetChanged();
     }
 

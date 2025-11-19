@@ -2,10 +2,15 @@ package com.example.proyectomobilesgym;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -15,13 +20,17 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Activity_AdmMembresias extends AppCompatActivity {
     private boolean editar = false;
     private Servicio enEdicionServicio = null;
-    private EditText edtCedula, edtNombreCliente;
-    private EditText edtCedulaEntrenador, edtNombreEntrenador;
+    private AutoCompleteTextView edtCedula, edtCedulaEntrenador, edtCodigoServicio;
+    private EditText edtNombreCliente;
+    private EditText edtNombreEntrenador;
     private Spinner spTipo;
-    private EditText edtCodigoServicio, edtNombreServicio, edtPrecioServicio, edtPrecioTotal;
+    private EditText edtNombreServicio, edtPrecioServicio, edtPrecioTotal;
     private Button btnAgregarServicio, btnEditarServicio, btnEliminarServicio;
     private ListView listaView;
     private int itemseleccionado;
@@ -31,25 +40,32 @@ public class Activity_AdmMembresias extends AppCompatActivity {
     private DAOMembresia membresiaDB;
     private DAOServicio servicioDB;
     private ListServicio lista;
+    private ArrayAdapter<String> adapterCedulas,adapterCedulasEntrenadores;
+    private ArrayAdapter<Integer> adapterCodigos;
+    private List<String> cedulas, cedulasEntrenadores;
+    private List<Integer> codigos;
 
 
     public void agregarServicio(View view) {
-        if (edtCodigoServicio.getText().toString().isEmpty() ||
-                edtNombreServicio.getText().toString().isEmpty() ||
-                edtPrecioServicio.getText().toString().isEmpty()) {
+        if (edtNombreServicio.getText().toString().isEmpty() || edtPrecioServicio.getText().toString().isEmpty()) {
+            Toast.makeText(this, getString(R.string.toast_fields_service_required), Toast.LENGTH_SHORT).show();
             return;
         }
+        int codigo;
         Servicio servicio = new Servicio(
-                Integer.parseInt(edtCodigoServicio.getText().toString()),
+                -1,
                 edtNombreServicio.getText().toString(),
                 Double.parseDouble(edtPrecioServicio.getText().toString())
         );
         if (editar){
+            codigo = enEdicionServicio.getCodigo();
+            servicio.setCodigo(codigo);
             servicioDB.actualizar(servicio);
             editar = false;
         } else {
-            servicioDB.insertar(servicio);
+            codigo= (int) servicioDB.insertar(servicio);
         }
+        servicio.setCodigo(codigo);
         lista.add(servicio);
         adaptador.notifyDataSetChanged();
         edtCodigoServicio.setText("");
@@ -78,11 +94,11 @@ public class Activity_AdmMembresias extends AppCompatActivity {
             return;
         }
         Servicio servicio = lista.get(itemseleccionado);
-        lista.remove(itemseleccionado);
+        adaptador.remove(itemseleccionado);
         edtCodigoServicio.setText(String.valueOf(servicio.getCodigo()));
         edtNombreServicio.setText(servicio.getNombre());
         edtPrecioServicio.setText(String.valueOf(servicio.getPrecio()));
-        setItemSeleccionado(itemseleccionado);
+        setItemSeleccionado(-1);
         editar = true;
         enEdicionServicio = servicio;
     }
@@ -92,9 +108,7 @@ public class Activity_AdmMembresias extends AppCompatActivity {
             Toast.makeText(this, getString(R.string.toast_no_service_selected), Toast.LENGTH_SHORT).show();
             return;
         }
-        Servicio servicio = lista.get(itemseleccionado);
-        servicioDB.eliminar(servicio.getCodigo());
-        adaptador.remove(servicio);
+        adaptador.remove(itemseleccionado);
         setItemSeleccionado(-1);
     }
 
@@ -137,6 +151,7 @@ public class Activity_AdmMembresias extends AppCompatActivity {
 
         edtCodigoServicio = findViewById(R.id.edtCodigoServicio);
         edtNombreServicio = findViewById(R.id.edtNombreServicio);
+        edtNombreServicio.setEnabled(true);
         edtPrecioServicio = findViewById(R.id.edtPrecioServicio);
         edtPrecioTotal = findViewById(R.id.edtPrecioTotal);
         edtPrecioTotal.setEnabled(false);
@@ -170,6 +185,186 @@ public class Activity_AdmMembresias extends AppCompatActivity {
         adaptador = new CustomAdapterServicio(this, lista);
         listaView.setAdapter(adaptador);
 
+        int codigo = getIntent().getIntExtra("codigo", -1);
+        if (codigo != -1){
+            String cedulaCliente = getIntent().getStringExtra("cedulaCliente");
+            String cedulaEntrenador = getIntent().getStringExtra("cedulaEntrenador");
+            TipoMembresia tipo = (TipoMembresia) getIntent().getSerializableExtra("tipo");
+            String nombreCliente = cargarNombre(cedulaCliente, "clientes");
+            String nombreEntrenador = cargarNombre(cedulaEntrenador, "entrenadores");
+            adaptador.setLista(servicioDB.buscarPorMembresia(codigo));
+            edtCedula.setText(cedulaCliente);
+            edtCedulaEntrenador.setText(cedulaEntrenador);
+            edtNombreCliente.setText(nombreCliente);
+            edtNombreEntrenador.setText(nombreEntrenador);
+            spTipo.setSelection(tipo.ordinal());
+            adaptador.notifyDataSetChanged();
+        }
+
+        listaView.setOnItemClickListener(
+                (parent, view, position, id) -> {
+                    setItemSeleccionado(position);
+                    for (int i = 0; i < listaView.getChildCount(); i++)
+                        listaView.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
+                    view.setBackgroundColor(Color.LTGRAY);
+                }
+        );
+
+        cedulas = obtenerCedulas("clientes");
+        cedulasEntrenadores = obtenerCedulas("entrenadores");
+        codigos = obtenerCodigos();
+
+        adapterCedulas = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_dropdown_item_1line,
+                cedulas
+        );
+        adapterCedulasEntrenadores = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_dropdown_item_1line,
+                cedulasEntrenadores
+        );
+        adapterCodigos = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_dropdown_item_1line,
+                codigos
+        );
+
+        edtCedula.setAdapter(adapterCedulas);
+        edtCedulaEntrenador.setAdapter(adapterCedulasEntrenadores);
+        edtCodigoServicio.setAdapter(adapterCodigos);
+
+
+        edtCedula.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                List<String> nuevasCedulas = buscarCedulaPor(edtCedula.getText().toString(), "clientes");
+                adapterCedulas.clear();
+                adapterCedulas.addAll(nuevasCedulas);
+                adapterCedulas.notifyDataSetChanged();
+                if (!edtCedula.isPopupShowing()) {
+                    edtCedula.showDropDown();
+                }
+            }
+
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void afterTextChanged(Editable s) {}
+        });
+
+        edtCedulaEntrenador.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                List<String> nuevasCedulas = buscarCedulaPor(edtCedula.getText().toString(), "entrenadores");
+                adapterCedulasEntrenadores.clear();
+                adapterCedulasEntrenadores.addAll(nuevasCedulas);
+                adapterCedulasEntrenadores.notifyDataSetChanged();
+                if (!edtCedulaEntrenador.isPopupShowing()) {
+                    edtCedulaEntrenador.showDropDown();
+                }
+            }
+
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void afterTextChanged(Editable s) {}
+        });
+        edtCodigoServicio.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                List<Integer> nuevasCedulas = buscarCodigos(edtCedula.getText().toString());
+                adapterCodigos.clear();
+                adapterCodigos.addAll(nuevasCedulas);
+                adapterCodigos.notifyDataSetChanged();
+                if (!edtCodigoServicio.isPopupShowing()) {
+                    edtCodigoServicio.showDropDown();
+                }
+            }
+
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void afterTextChanged(Editable s) {}
+        });
+
+        edtCedula.setOnItemClickListener((parent, view, position, id) -> {
+            String seleccionado = adapterCedulas.getItem(position);
+
+            String nombre = cargarNombre(seleccionado, "clientes");
+            edtNombreCliente.setText(nombre);
+        });
+        edtCedulaEntrenador.setOnItemClickListener((parent, view, position, id) -> {
+            String seleccionado = adapterCedulasEntrenadores.getItem(position);
+
+            String nombre = cargarNombre(seleccionado, "entrenadores");
+            edtNombreEntrenador.setText(nombre);
+        });
+        edtCodigoServicio.setOnItemClickListener((parent, view, position, id) -> {
+            int seleccionado = adapterCodigos.getItem(position);
+            Servicio servicio = servicioDB.buscarPorCodigo(seleccionado);
+            edtNombreServicio.setText(servicio.getNombre());
+            edtPrecioServicio.setText(String.valueOf(servicio.getPrecio()));
+            editar = true;
+            enEdicionServicio = servicio;
+        });
+    }
+
+    private List<String> obtenerCedulas(String tabla) {
+        List<String> lista = new ArrayList<>();
+        SQLiteDatabase db = admin.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT cedula FROM " + tabla, null);
+        if (cursor.moveToFirst()) {
+            do {
+                lista.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return lista;
+    }
+
+    private List<Integer> obtenerCodigos() {
+        List<Integer> lista = new ArrayList<>();
+        SQLiteDatabase db = admin.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT codigo FROM servicios", null);
+        if (cursor.moveToFirst()) {
+            do {
+                lista.add(cursor.getInt(0));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return lista;
+    }
+
+    public List<String> buscarCedulaPor(String criterio, String tabla){
+        SQLiteDatabase db = admin.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT cedula FROM " + tabla + " WHERE cedula LIKE ?", new String[]{"%" + criterio + "%"});
+        List<String> lista = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+                lista.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return lista;
+    }
+
+    public List<Integer> buscarCodigos(String criterio){
+        SQLiteDatabase db = admin.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT codigo FROM servicios WHERE codigo LIKE ?", new String[]{"%" + criterio + "%"});
+        List<Integer> lista = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+                lista.add(cursor.getInt(0));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return lista;
+    }
+
+    private String cargarNombre(String cedula, String tabla){
+        String valor = "";
+        SQLiteDatabase db = admin.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT nombre FROM " + tabla + " WHERE cedula = '" + cedula + "'", null);
+        if (cursor.moveToFirst()) {
+            valor = cursor.getString(0);
+        }
+        cursor.close();
+        return valor;
     }
 
     private void setItemSeleccionado(int position) {

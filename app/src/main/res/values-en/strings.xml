@@ -86,7 +86,7 @@
     <string name="adm_membresias_nombre_servicio">Service Name</string>
     <string name="adm_membresias_precio">Price</string>
     <string name="adm_membresias_precio_total">Total price</string>
-
+    <string name="toast_fields_service_required">Please enter a name and a price</string>
 
 
 </resources>

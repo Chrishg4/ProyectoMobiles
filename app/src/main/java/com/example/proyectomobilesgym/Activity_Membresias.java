@@ -60,7 +60,7 @@ public class Activity_Membresias extends AppCompatActivity {
             boolean eliminado = membresiaDB.eliminar(membresia.getCodigo());
             if(eliminado){
                 Toast.makeText(this, getString(R.string.toast_membership_deleted), Toast.LENGTH_SHORT).show();
-                adaptador.remove(membresia);
+                adaptador.remove(itemseleccionado);
                 setItemSeleccionado(-1);
             } else {
                 Toast.makeText(this, getString(R.string.toast_membership_delete_error), Toast.LENGTH_SHORT).show();

@@ -45,11 +45,11 @@ public class CustomAdapterServicio extends BaseAdapter {
         if (view==null)
             view= LayoutInflater.from(context).inflate(R.layout.listview_servicios,null);
 
-        //ImageViewContacto=view.findViewById(R.id.imageViewContacto);
+        ImageViewContacto=view.findViewById(R.id.imageViewServicio);
         TextViewNombre=view.findViewById(R.id.textViewNombreServicio);
         TextViewDes=view.findViewById(R.id.textViewDesServicio);
 
-        //ImageViewContacto.setImageResource(c.imagen);
+        ImageViewContacto.setImageResource(R.drawable.servicios);
         String nombre = servicio.getNombre();
         String detalles = "₡" + String.valueOf(servicio.getPrecio());
         TextViewNombre.setText(nombre);
@@ -58,8 +58,8 @@ public class CustomAdapterServicio extends BaseAdapter {
         return view;
 
     }
-    public void remove(Servicio s) {
-        lst.remove(s.getCodigo());
+    public void remove(int indice) {
+        lst.remove(indice);
         notifyDataSetChanged();
     }
 

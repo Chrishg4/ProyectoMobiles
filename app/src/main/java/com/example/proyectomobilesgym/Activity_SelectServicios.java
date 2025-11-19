@@ -2,6 +2,10 @@ package com.example.proyectomobilesgym;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
@@ -18,6 +22,11 @@ public class Activity_SelectServicios extends AppCompatActivity {
     private CustomAdapterServicio adaptador;
     private ListView listaView;
     private ListServicio lista;
+    private EditText txtbuscar;
+
+    public void salir(View view){
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +51,35 @@ public class Activity_SelectServicios extends AppCompatActivity {
                     finish();
                 }
         );
+
+        txtbuscar = findViewById(R.id.editTextText);
+
+        txtbuscar.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                buscar();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+
+        });
+
+    }
+
+    public void buscar(){
+        AdminDB admin = new AdminDB(this);
+        SQLiteDatabase db = admin.getReadableDatabase();
+        DAOServicio servicioDB = new DAOServicio(db);
+        String criterio = txtbuscar.getText().toString();
+        lista = servicioDB.buscarPor(criterio);
+        adaptador.setLista(lista);
     }
 
     private void inicializarLista() {
@@ -49,7 +87,6 @@ public class Activity_SelectServicios extends AppCompatActivity {
         SQLiteDatabase db = admin.getReadableDatabase();
         DAOServicio servicioDB = new DAOServicio(db);
         lista = servicioDB.cargarTodos();
-        adaptador.notifyDataSetChanged();
-
+        adaptador.setLista(lista);
     }
 }
