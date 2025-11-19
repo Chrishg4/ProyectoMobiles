@@ -126,7 +126,7 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
             registro.put("contacto", contacto);
     db.insert("entrenadores", null, registro);
     db.close();
-            Toast.makeText(this, getString(R.string.toast_complete_fields), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_registered), Toast.LENGTH_SHORT).show();
             finish();
         }
     }
