@@ -63,4 +63,12 @@
     <string name="toast_membership_deleted">Membresía eliminada</string>
     <string name="toast_membership_delete_error">Error al eliminar la membresía</string>
 
+    <!-- hint de la barra de busqueda-->
+    <string name="hint_search_client">Buscar Cliente</string>
+    <string name="hint_search_trainer">Buscar Entrenador</string>
+    <string name="hint_search_service">Buscar Servicio</string>
+    <string name="hint_search_membership">Buscar Membresía</string>
+
+
+
 </resources>
