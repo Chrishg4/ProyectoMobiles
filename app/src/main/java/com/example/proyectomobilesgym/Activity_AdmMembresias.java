@@ -26,6 +26,7 @@ import java.util.List;
 public class Activity_AdmMembresias extends AppCompatActivity {
     private boolean editar = false;
     private Servicio enEdicionServicio = null;
+    private Membresia enEdicionMembresia = null;
     private AutoCompleteTextView edtCedula, edtCedulaEntrenador, edtCodigoServicio;
     private EditText edtNombreCliente;
     private EditText edtNombreEntrenador;
@@ -45,6 +46,77 @@ public class Activity_AdmMembresias extends AppCompatActivity {
     private List<String> cedulas, cedulasEntrenadores;
     private List<Integer> codigos;
 
+    public void guardar(View view) {
+        if (edtNombreCliente.getText().toString().isEmpty() || edtNombreEntrenador.getText().toString().isEmpty() || lista == null || lista.size() == 0) {
+            Toast.makeText(this, R.string.toast_fields_required, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (enEdicionMembresia != null){
+            int codigo = enEdicionMembresia.getCodigo();
+
+            int posicionTipo = spTipo.getSelectedItemPosition();
+            if (posicionTipo < 0 || posicionTipo >= TipoMembresia.values().length) {
+                Toast.makeText(this, R.string.toast_type_required, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            TipoMembresia tipo = TipoMembresia.values()[posicionTipo];
+
+            String cedulaCliente = edtCedula.getText().toString().trim();
+            String cedulaEntrenador = edtCedulaEntrenador.getText().toString().trim();
+            double precio = 0.0;
+            String precioTxt = edtPrecioTotal.getText().toString().trim();
+            if (!precioTxt.isEmpty()) {
+                precio = Double.parseDouble(precioTxt);
+            }
+            Membresia membresia = new Membresia(
+                    codigo,
+                    tipo,
+                    precio,
+                    cedulaCliente,
+                    cedulaEntrenador,
+                    lista
+            );
+            membresiaDB.actualizar(membresia);
+            finish();
+
+        }
+
+        double precioTotal = 0.0;
+        String precioTexto = edtPrecioTotal.getText().toString().trim();
+
+        if (!precioTexto.isEmpty()) {
+            precioTotal = Double.parseDouble(precioTexto);
+        }
+
+        TipoMembresia tipo = TipoMembresia.values()[spTipo.getSelectedItemPosition()];
+
+        if (lista == null) {
+            lista = new ListServicio();
+        }
+
+        Membresia membresia = new Membresia(
+                -1,
+                tipo,
+                precioTotal,
+                edtCedula.getText().toString(),
+                edtCedulaEntrenador.getText().toString(),
+                lista
+        );
+        membresiaDB.insertar(membresia);
+    }
+    public void reiniciar(View view) {
+        if (enEdicionMembresia != null){
+            int codigo = enEdicionMembresia.getCodigo();
+            String cedulaCliente = enEdicionMembresia.getCliente();
+            String cedulaEntrenador = enEdicionMembresia.getEntrenador();
+            TipoMembresia tipo = enEdicionMembresia.getTipo();
+            String nombreCliente = cargarNombre(cedulaCliente, "clientes");
+            String nombreEntrenador = cargarNombre(cedulaEntrenador, "entrenadores");
+            cargarMembresia(codigo, cedulaCliente, cedulaEntrenador, nombreCliente, nombreEntrenador, tipo);
+            calcularPrecioTotal();
+        }
+    }
 
     public void agregarServicio(View view) {
         if (edtNombreServicio.getText().toString().isEmpty() || edtPrecioServicio.getText().toString().isEmpty()) {
@@ -118,13 +190,39 @@ public class Activity_AdmMembresias extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void irASeleccionarEntrenador(View view) {
+        Seleccion.entrenadorSeleccionado = null;
+        Intent intent = new Intent(this, Activity_SelectEntrenadores.class);
+        startActivity(intent);
+    }
+
+    public void irASeleccionarCliente(View view) {
+        Seleccion.clienteSeleccionado = null;
+        Intent intent = new Intent(this, Activity_SelectClientes.class);
+        startActivity(intent);
+    }
+
+
     @Override
     protected void onResume() {
         super.onResume();
         if (Seleccion.servicioSeleccionado != null){
             lista.add(Seleccion.servicioSeleccionado);
             adaptador.notifyDataSetChanged();
+            calcularPrecioTotal();
             Seleccion.servicioSeleccionado = null;
+        }
+        if (Seleccion.entrenadorSeleccionado != null) {
+            Usuarios entrenador = Seleccion.entrenadorSeleccionado;
+            edtCedulaEntrenador.setText(entrenador.getId());
+            edtNombreEntrenador.setText(entrenador.getTxtPrincipal());
+            Seleccion.entrenadorSeleccionado = null;
+        }
+        if (Seleccion.clienteSeleccionado != null){
+            Clientes cliente = Seleccion.clienteSeleccionado;
+            edtCedula.setText(cliente.getCedula());
+            edtNombreCliente.setText(cliente.getNombre());
+            Seleccion.clienteSeleccionado = null;
         }
     }
 
@@ -192,13 +290,11 @@ public class Activity_AdmMembresias extends AppCompatActivity {
             TipoMembresia tipo = (TipoMembresia) getIntent().getSerializableExtra("tipo");
             String nombreCliente = cargarNombre(cedulaCliente, "clientes");
             String nombreEntrenador = cargarNombre(cedulaEntrenador, "entrenadores");
-            adaptador.setLista(servicioDB.buscarPorMembresia(codigo));
-            edtCedula.setText(cedulaCliente);
-            edtCedulaEntrenador.setText(cedulaEntrenador);
-            edtNombreCliente.setText(nombreCliente);
-            edtNombreEntrenador.setText(nombreEntrenador);
-            spTipo.setSelection(tipo.ordinal());
-            adaptador.notifyDataSetChanged();
+
+            cargarMembresia(codigo, cedulaCliente, cedulaEntrenador, nombreCliente, nombreEntrenador, tipo);
+            calcularPrecioTotal();
+
+            enEdicionMembresia = new Membresia(codigo, tipo, lista.getPrecioTotal(), cedulaCliente, cedulaEntrenador, servicioDB.buscarPorMembresia(codigo));
         }
 
         listaView.setOnItemClickListener(
@@ -245,6 +341,7 @@ public class Activity_AdmMembresias extends AppCompatActivity {
                 if (!edtCedula.isPopupShowing()) {
                     edtCedula.showDropDown();
                 }
+                edtNombreCliente.setText("");
             }
 
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -261,6 +358,7 @@ public class Activity_AdmMembresias extends AppCompatActivity {
                 if (!edtCedulaEntrenador.isPopupShowing()) {
                     edtCedulaEntrenador.showDropDown();
                 }
+                edtNombreEntrenador.setText("");
             }
 
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -368,6 +466,7 @@ public class Activity_AdmMembresias extends AppCompatActivity {
     }
 
     private void setItemSeleccionado(int position) {
+        calcularPrecioTotal();
         itemseleccionado = position;
         if (position == -1){
             deshabilitarBotones();
@@ -384,6 +483,25 @@ public class Activity_AdmMembresias extends AppCompatActivity {
     public void deshabilitarBotones() {
         btnEliminarServicio.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#BDBDBD")));
         btnEditarServicio.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#BDBDBD")));
+    }
+
+    private void cargarMembresia(int codigoMembresia, String cedulaCliente, String cedulaEntrenador, String nombreCliente, String nombreEntrenador, TipoMembresia tipo) {
+        adaptador.setLista(servicioDB.buscarPorMembresia(codigoMembresia));
+        adaptador.notifyDataSetChanged();
+
+        edtCedula.setText(cedulaCliente);
+        edtCedulaEntrenador.setText(cedulaEntrenador);
+        edtNombreCliente.setText(nombreCliente);
+        edtNombreEntrenador.setText(nombreEntrenador);
+
+        spTipo.setSelection(tipo.ordinal());
+    }
+
+    private void calcularPrecioTotal(){
+        double precio = 0.0;
+        if (lista == null) return;
+        precio = lista.getPrecioTotal();
+        edtPrecioTotal.setText(String.valueOf(precio));
     }
 
 }

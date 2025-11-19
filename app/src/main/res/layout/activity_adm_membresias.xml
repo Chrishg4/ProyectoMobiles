@@ -67,8 +67,9 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="8dp"
-                    android:src="@drawable/seleccionar"
-                    android:contentDescription="@string/field_client" />
+                    android:contentDescription="@string/field_client"
+                    android:onClick="irASeleccionarCliente"
+                    android:src="@drawable/seleccionar" />
             </LinearLayout>
 
             <!-- Nombre automático -->
@@ -109,8 +110,9 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="8dp"
-                    android:src="@drawable/seleccionar"
-                    android:contentDescription="@string/title_trainers" />
+                    android:contentDescription="@string/title_trainers"
+                    android:onClick="irASeleccionarEntrenador"
+                    android:src="@drawable/seleccionar" />
             </LinearLayout>
 
             <!-- Nombre del entrenador -->
@@ -293,6 +295,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:backgroundTint="#4CAF50"
+                    android:onClick="guardar"
                     android:text="@string/btn_save"
                     android:textColor="#000000"
                     app:icon="@drawable/guardar"
@@ -306,6 +309,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:backgroundTint="#009688"
+                    android:onClick="reiniciar"
                     android:text="@string/btn_reset"
                     android:textColor="#000000"
                     app:icon="@drawable/reiniciar"
