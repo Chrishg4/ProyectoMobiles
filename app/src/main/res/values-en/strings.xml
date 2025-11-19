@@ -66,4 +66,11 @@
     <string name="toast_membership_delete_error">Error deleting the membership</string>
     <string name="field_client">Client</string>
 
+    <!-- hint de la barra de busqueda-->
+    <string name="hint_search_client">Search Client</string>
+    <string name="hint_search_trainer">Search Trainer</string>
+    <string name="hint_search_service">Search Service</string>
+    <string name="hint_search_membership">Search Membership</string>
+
+
 </resources>

@@ -9,20 +9,6 @@
     android:padding="16dp">
 
 
-    <Button
-        android:id="@+id/btnBuscar4"
-        android:layout_width="66dp"
-        android:layout_height="61dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="32dp"
-        android:background="#00FFFFFF"
-        app:icon="@drawable/busqueda"
-        app:iconPadding="0dp"
-        app:iconSize="30dp"
-        app:iconTint="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/txtTitulo"
         android:layout_width="wrap_content"
@@ -37,11 +23,11 @@
 
     <EditText
         android:id="@+id/edtBuscar"
-        android:layout_width="295dp"
-        android:layout_height="49dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="13dp"
-        android:background="@drawable/edittext_custom"
+        android:hint="Hinted search text"
         android:inputType="text"
         android:padding="12dp"
         app:layout_constraintBottom_toTopOf="@+id/listEntrenadores"
