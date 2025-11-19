@@ -46,7 +46,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cliente (Cédula)" />
+                android:text="@string/adm_membresias_cliente_cedu" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -58,6 +58,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@drawable/edittext_custom"
                     android:hint="Cédula"
                     android:inputType="number" />
 
@@ -74,12 +75,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nombre del cliente" />
+                android:text="@string/adm_membresias_cliente_nombre" />
 
             <EditText
                 android:id="@+id/edtNombreCliente"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/edittext_custom"
                 android:enabled="false"
                 android:hint="(automático)" />
 
@@ -87,7 +89,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Entrenador (Cédula)" />
+                android:text="@string/adm_membresias_entrenador_cedu" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -99,6 +101,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@drawable/edittext_custom"
                     android:hint="Cédula entrenador"
                     android:inputType="number" />
 
@@ -115,12 +118,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nombre del entrenador" />
+                android:text="@string/adm_membresias_entrenador_nombre" />
 
             <EditText
                 android:id="@+id/edtNombreEntrenador"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/edittext_custom"
                 android:enabled="false"
                 android:hint="(automático)" />
 
@@ -128,26 +132,27 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tipo de membresía" />
+                android:text="@string/adm_membresias_tipo" />
 
             <Spinner
                 android:id="@+id/spTipo"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_custom" />
 
             <!-- ============= SERVICIOS ============= -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Servicio"
-                android:textStyle="bold"
-                android:layout_marginTop="20dp" />
+                android:layout_marginTop="20dp"
+                android:text="@string/adm_membresias_servicio"
+                android:textStyle="bold" />
 
             <!-- Código + botón -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Código del servicio" />
+                android:text="@string/adm_membresias_codigo_servicio" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -159,6 +164,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@drawable/edittext_custom"
                     android:hint="Código" />
 
                 <ImageView
@@ -174,12 +180,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nombre del servicio" />
+                android:text="@string/adm_membresias_nombre_servicio" />
 
             <EditText
                 android:id="@+id/edtNombreServicio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/edittext_custom"
                 android:enabled="false"
                 android:hint="(automático)" />
 
@@ -187,26 +194,28 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Precio" />
+                android:text="@string/adm_membresias_precio" />
 
             <EditText
                 android:id="@+id/edtPrecioServicio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:hint="₡0" />
+                android:background="@drawable/edittext_custom"
+                android:hint="₡0"
+                android:inputType="numberDecimal" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Precio total" />
+                android:text="@string/adm_membresias_precio_total" />
 
             <EditText
                 android:id="@+id/edtPrecioTotal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:hint="₡0" />
+                android:background="@drawable/edittext_custom"
+                android:hint="₡0"
+                android:inputType="numberDecimal" />
 
             <!-- Botones de administración -->
             <LinearLayout
@@ -220,21 +229,39 @@
                     android:id="@+id/btnAgregarServicio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Agregar" />
+                    android:backgroundTint="#2E7D32"
+                    android:text="@string/btn_add"
+                    android:textColor="#000000"
+                    app:icon="@drawable/add"
+                    app:iconGravity="textTop"
+                    app:iconSize="20dp"
+                    app:iconTint="#000000" />
 
                 <Button
                     android:id="@+id/btnEditarServicio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="Editar" />
+                    android:backgroundTint="#00838F"
+                    android:text="@string/btn_edit"
+                    android:textColor="#000000"
+                    app:icon="@drawable/pencil"
+                    app:iconGravity="textTop"
+                    app:iconSize="20dp"
+                    app:iconTint="#000000" />
 
                 <Button
                     android:id="@+id/btnEliminarServicio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="Eliminar" />
+                    android:backgroundTint="#C62828"
+                    android:text="@string/btn_delete"
+                    android:textColor="#000000"
+                    app:icon="@drawable/bin"
+                    app:iconGravity="textTop"
+                    app:iconSize="20dp"
+                    app:iconTint="#000000" />
 
             </LinearLayout>
 
@@ -262,7 +289,11 @@
                     android:layout_marginEnd="16dp"
                     android:backgroundTint="#4CAF50"
                     android:text="@string/btn_save"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    app:icon="@drawable/guardar"
+                    app:iconGravity="textTop"
+                    app:iconSize="20dp"
+                    app:iconTint="#000000" />
 
                 <Button
                     android:id="@+id/btnSalir"
@@ -271,7 +302,11 @@
                     android:layout_marginEnd="16dp"
                     android:backgroundTint="#009688"
                     android:text="@string/btn_reset"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    app:icon="@drawable/reiniciar"
+                    app:iconGravity="textTop"
+                    app:iconSize="20dp"
+                    app:iconTint="#000000" />
 
                 <Button
                     android:id="@+id/btnCancelar"
@@ -279,7 +314,11 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="#D33232"
                     android:text="@string/btn_cancel"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    app:icon="@drawable/cancelar"
+                    app:iconGravity="textTop"
+                    app:iconSize="20sp"
+                    app:iconTint="#000000" />
 
             </LinearLayout>
 

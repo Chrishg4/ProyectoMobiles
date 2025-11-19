@@ -71,5 +71,19 @@
     <string name="hint_search_membership">Buscar Membresía</string>
     <string name="toast_no_service_selected">Debe seleccionar un servicio primero</string>
 
+    <!-- titulos campo de busqueda de administrar membresias-->
+    <string name="adm_membresias_cliente_cedu">Cliente (Cedula)</string>
+    <string name="adm_membresias_cliente_nombre">Nombre del cliente</string>
+    <string name="adm_membresias_entrenador_cedu">Entrenador (Cedula)</string>
+    <string name="adm_membresias_entrenador_nombre">Nombre del entrenador</string>
+    <string name="adm_membresias_tipo">Tipo de membresía</string>
+
+    <string name="adm_membresias_servicio">Servicio</string>
+
+    <string name="adm_membresias_codigo_servicio">Código del servicio</string>
+    <string name="adm_membresias_nombre_servicio">Nombre del servicio</string>
+    <string name="adm_membresias_precio">Precio</string>
+    <string name="adm_membresias_precio_total">Precio total</string>
+
 
 </resources>
