@@ -82,6 +82,15 @@ public class Activity_Membresias extends AppCompatActivity {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        lista = membresiaDB.cargarTodos();
+        adaptador.setLista(lista);
+        setItemSeleccionado(-1);
+    }
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
@@ -97,6 +106,8 @@ public class Activity_Membresias extends AppCompatActivity {
         btnEditar = findViewById(R.id.btn_editar);
         btnSalir = findViewById(R.id.btn_salir);
         setItemSeleccionado(-1);
+
+        //Aqui por favor ajusta el color de estos 2 botones de la manera que tu los tienes
         btnAgregar.setBackgroundColor(R.color.verdenes);
         btnSalir.setBackgroundColor(R.color.amarillo);
 
@@ -145,19 +156,17 @@ public class Activity_Membresias extends AppCompatActivity {
     private void setItemSeleccionado(int position) {
         itemseleccionado = position;
         if (position == -1){
-            //cambiar color a gris
             deshabilitarBotones();
+            for (int i = 0; i < listaView.getChildCount(); i++)
+                listaView.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
         } else {
-            //restaurare el color original;
             btnEditar.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2196F3")));
             btnEliminar.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#D33232")));
         }
     }
 
     public void deshabilitarBotones() {
-        //btnEliminarCliente.setEnabled(false);
         btnEliminar.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#BDBDBD")));
-        //btnEditarCliente.setEnabled(false);
         btnEditar.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#BDBDBD")));
     }
 
