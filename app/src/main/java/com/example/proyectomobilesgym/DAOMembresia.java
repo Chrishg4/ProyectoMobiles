@@ -29,8 +29,19 @@ public class DAOMembresia {
             db.insert("membresiaServicio", null, campos);
         }
 
+//        double precio = getServiciosDeMembresia((int)codigoMembresia).getPrecioTotal();;
+//        membresia.setPrecioTotal(precio);
+//        inicializarPrecioTotal(codigoMembresia, precio);
+
         return codigoMembresia;
     }
+
+//    private void inicializarPrecioTotal(long codigoMembresia, double precio) {
+//        ContentValues campos = new ContentValues();
+//        campos.put("precioTotal", precio);
+//        db.update("membresias", campos, "codigo = ?", new String[]{String.valueOf(codigoMembresia)});
+//    }
+
 
     public boolean actualizar(Membresia membresia) {
 
@@ -73,7 +84,7 @@ public class DAOMembresia {
 
         criterio = "%" + criterio.trim() + "%";
 
-        Cursor cursor = db.rawQuery("SELECT codigo, tipo, precioTotal, cedulaCliente, cedulaEntrenador FROM membresias WHERE codigo LIKE ? OR cedulaCliente LIKE ? OR cedulaEntrenador LIKE ?", new String[]{criterio, criterio, criterio});
+        Cursor cursor = db.rawQuery("SELECT m.codigo, m.tipo, m.precioTotal, m.cedulaCliente, r.cedulaEntrenador FROM membresia m JOIN clientes c ON m.cedulaCliente = c.cedula JOIN rutina r ON m.codigoRutina = r.codigo JOIN entrenador e ON r.cedulaEntrenador = e.cedula WHERE m.codigo LIKE ? OR c.nombre LIKE ? OR e.nombre LIKE ?", new String[]{criterio, criterio, criterio});
 
         while (cursor.moveToNext()) {
             int codigo = cursor.getInt(0);

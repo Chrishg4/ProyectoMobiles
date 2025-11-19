@@ -34,6 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:onClick="agregar"
             android:text="Button" />
 
         <Button
@@ -41,6 +42,7 @@
             android:layout_width="103dp"
             android:layout_height="77dp"
             android:layout_weight="1"
+            android:onClick="editar"
             android:text="Button" />
 
         <Button
@@ -48,6 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="77dp"
             android:layout_weight="1"
+            android:onClick="eliminar"
             android:text="Button" />
 
         <Button
@@ -55,34 +58,23 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:onClick="salir"
             android:text="Button" />
     </LinearLayout>
 
     <EditText
         android:id="@+id/textBuscar"
-        android:layout_width="264dp"
-        android:layout_height="41dp"
+        android:layout_width="348dp"
+        android:layout_height="49dp"
         android:layout_marginStart="14dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="133dp"
+        android:layout_marginEnd="38dp"
         android:ems="10"
         android:inputType="text"
         android:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textTitleMembresias" />
-
-    <Button
-        android:id="@+id/btn_buscarMem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="62dp"
-        android:layout_marginEnd="25dp"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textBuscar"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
         android:id="@+id/listMembresias"
