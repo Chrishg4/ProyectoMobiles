@@ -157,6 +157,8 @@ public class Activity_Membresias extends AppCompatActivity {
         itemseleccionado = position;
         if (position == -1){
             deshabilitarBotones();
+            if (listaView == null || listaView.getChildCount() == 0)
+                return;
             for (int i = 0; i < listaView.getChildCount(); i++)
                 listaView.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
         } else {
