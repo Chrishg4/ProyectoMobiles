@@ -66,10 +66,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void inicializarLista() {
         lista = new ArrayList<>();
-        lista.add(new Class_Menu(1, R.drawable.entrenadores, getString(R.string.title_trainers)));
-        lista.add(new Class_Menu(2, R.drawable.clientes, getString(R.string.title_clients)));
-        lista.add(new Class_Menu(3, R.drawable.membresias, getString(R.string.title_memberships)));
-        lista.add(new Class_Menu(4, R.drawable.gym, getString(R.string.title_services)));
+        lista.add(new Class_Menu(1, R.drawable.entrenador, getString(R.string.title_trainers)));
+        lista.add(new Class_Menu(2, R.drawable.client, getString(R.string.title_clients)));
+        lista.add(new Class_Menu(3, R.drawable.membresia, getString(R.string.title_memberships)));
+        lista.add(new Class_Menu(4, R.drawable.servicios, getString(R.string.title_services)));
     }
 
 
