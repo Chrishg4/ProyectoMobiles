@@ -52,36 +52,6 @@ public class Activity_AdmMembresias extends AppCompatActivity {
             return;
         }
 
-        if (enEdicionMembresia != null){
-            int codigo = enEdicionMembresia.getCodigo();
-
-            int posicionTipo = spTipo.getSelectedItemPosition();
-            if (posicionTipo < 0 || posicionTipo >= TipoMembresia.values().length) {
-                Toast.makeText(this, R.string.toast_type_required, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            TipoMembresia tipo = TipoMembresia.values()[posicionTipo];
-
-            String cedulaCliente = edtCedula.getText().toString().trim();
-            String cedulaEntrenador = edtCedulaEntrenador.getText().toString().trim();
-            double precio = 0.0;
-            String precioTxt = edtPrecioTotal.getText().toString().trim();
-            if (!precioTxt.isEmpty()) {
-                precio = Double.parseDouble(precioTxt);
-            }
-            Membresia membresia = new Membresia(
-                    codigo,
-                    tipo,
-                    precio,
-                    cedulaCliente,
-                    cedulaEntrenador,
-                    lista
-            );
-            membresiaDB.actualizar(membresia);
-            finish();
-
-        }
-
         double precioTotal = 0.0;
         String precioTexto = edtPrecioTotal.getText().toString().trim();
 
@@ -89,18 +59,38 @@ public class Activity_AdmMembresias extends AppCompatActivity {
             precioTotal = Double.parseDouble(precioTexto);
         }
 
-        TipoMembresia tipo = TipoMembresia.values()[spTipo.getSelectedItemPosition()];
+        int posicionTipo = spTipo.getSelectedItemPosition();
+        if (posicionTipo < 0 || posicionTipo >= TipoMembresia.values().length) {
+            Toast.makeText(this, R.string.toast_type_required, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        TipoMembresia tipo = TipoMembresia.values()[posicionTipo];
 
-        if (lista == null) {
-            lista = new ListServicio();
+        String cedulaCliente = edtCedula.getText().toString().trim();
+        String cedulaEntrenador = edtCedulaEntrenador.getText().toString().trim();
+
+        if (enEdicionMembresia != null) {
+            // actualizar
+            Membresia membresia = new Membresia(
+                    enEdicionMembresia.getCodigo(),
+                    tipo,
+                    precioTotal,
+                    cedulaCliente,
+                    cedulaEntrenador,
+                    lista
+            );
+            membresiaDB.actualizar(membresia);
+            finish();
+            return;
         }
 
+        // insertar nueva membresia
         Membresia membresia = new Membresia(
                 -1,
                 tipo,
                 precioTotal,
-                edtCedula.getText().toString(),
-                edtCedulaEntrenador.getText().toString(),
+                cedulaCliente,
+                cedulaEntrenador,
                 lista
         );
         membresiaDB.insertar(membresia);
@@ -130,35 +120,45 @@ public class Activity_AdmMembresias extends AppCompatActivity {
                 edtNombreServicio.getText().toString(),
                 Double.parseDouble(edtPrecioServicio.getText().toString())
         );
-        if (editar){
+        if (editar && enEdicionServicio != null){
+            // actualizar servicio en DB y en la lista
             codigo = enEdicionServicio.getCodigo();
             servicio.setCodigo(codigo);
             servicioDB.actualizar(servicio);
+            // reemplazar en la lista la posición correspondiente (si existe)
+            for (int i = 0; i < lista.size(); i++){
+                Servicio s = lista.get(i);
+                if (s.getCodigo() == codigo){
+                    // reemplazar
+                    lista.remove(i);
+                    lista.add(servicio);
+                    break;
+                }
+            }
             editar = false;
         } else {
             codigo= (int) servicioDB.insertar(servicio);
+            servicio.setCodigo(codigo);
+            lista.add(servicio);
         }
-        servicio.setCodigo(codigo);
-        lista.add(servicio);
         adaptador.notifyDataSetChanged();
         edtCodigoServicio.setText("");
         edtNombreServicio.setText("");
         edtPrecioServicio.setText("");
         setItemSeleccionado(-1);
         enEdicionServicio = null;
+        calcularPrecioTotal();
     }
 
     public void editarServicio(View view) {
         if (editar) {
+            // Cancelar edición
             editar = false;
             edtCodigoServicio.setText("");
             edtNombreServicio.setText("");
             edtPrecioServicio.setText("");
             setItemSeleccionado(-1);
 
-            if (enEdicionServicio == null) return;
-            lista.add(enEdicionServicio);
-            adaptador.notifyDataSetChanged();
             enEdicionServicio = null;
             return;
         }
@@ -167,7 +167,9 @@ public class Activity_AdmMembresias extends AppCompatActivity {
             return;
         }
         Servicio servicio = lista.get(itemseleccionado);
-        adaptador.remove(itemseleccionado);
+        // Sacarlo de la lista temporalmente para evitar duplicados
+        lista.remove(itemseleccionado);
+        adaptador.notifyDataSetChanged();
         edtCodigoServicio.setText(String.valueOf(servicio.getCodigo()));
         edtNombreServicio.setText(servicio.getNombre());
         edtPrecioServicio.setText(String.valueOf(servicio.getPrecio()));
@@ -295,7 +297,8 @@ public class Activity_AdmMembresias extends AppCompatActivity {
             cargarMembresia(codigo, cedulaCliente, cedulaEntrenador, nombreCliente, nombreEntrenador, tipo);
             calcularPrecioTotal();
 
-            enEdicionMembresia = new Membresia(codigo, tipo, lista.getPrecioTotal(), cedulaCliente, cedulaEntrenador, servicioDB.buscarPorMembresia(codigo));
+            // usar la lista ya cargada en memoria en lugar de volver a consultar la BD
+            enEdicionMembresia = new Membresia(codigo, tipo, lista.getPrecioTotal(), cedulaCliente, cedulaEntrenador, lista);
         }
 
         listaView.setOnItemClickListener(
@@ -352,7 +355,7 @@ public class Activity_AdmMembresias extends AppCompatActivity {
         edtCedulaEntrenador.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                List<String> nuevasCedulas = buscarCedulaPor(edtCedula.getText().toString(), "entrenadores");
+                List<String> nuevasCedulas = buscarCedulaPor(edtCedulaEntrenador.getText().toString(), "entrenadores");
                 adapterCedulasEntrenadores.clear();
                 adapterCedulasEntrenadores.addAll(nuevasCedulas);
                 adapterCedulasEntrenadores.notifyDataSetChanged();
@@ -368,7 +371,7 @@ public class Activity_AdmMembresias extends AppCompatActivity {
         edtCodigoServicio.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                List<Integer> nuevasCedulas = buscarCodigos(edtCedula.getText().toString());
+                List<Integer> nuevasCedulas = buscarCodigos(edtCodigoServicio.getText().toString());
                 adapterCodigos.clear();
                 adapterCodigos.addAll(nuevasCedulas);
                 adapterCodigos.notifyDataSetChanged();
@@ -394,8 +397,10 @@ public class Activity_AdmMembresias extends AppCompatActivity {
             edtNombreEntrenador.setText(nombre);
         });
         edtCodigoServicio.setOnItemClickListener((parent, view, position, id) -> {
-            int seleccionado = adapterCodigos.getItem(position);
+            Integer seleccionado = adapterCodigos.getItem(position);
+            if (seleccionado == null) return;
             Servicio servicio = servicioDB.buscarPorCodigo(seleccionado);
+            if (servicio == null) return;
             edtNombreServicio.setText(servicio.getNombre());
             edtPrecioServicio.setText(String.valueOf(servicio.getPrecio()));
             editar = true;
@@ -487,7 +492,10 @@ public class Activity_AdmMembresias extends AppCompatActivity {
     }
 
     private void cargarMembresia(int codigoMembresia, String cedulaCliente, String cedulaEntrenador, String nombreCliente, String nombreEntrenador, TipoMembresia tipo) {
-        adaptador.setLista(servicioDB.buscarPorMembresia(codigoMembresia));
+        // obtener lista de servicios asociada y sincronizar la lista local y el adaptador
+        ListServicio serviciosAsociados = servicioDB.buscarPorMembresia(codigoMembresia);
+        this.lista = serviciosAsociados;
+        adaptador.setLista(this.lista);
         adaptador.notifyDataSetChanged();
 
         edtCedula.setText(cedulaCliente);

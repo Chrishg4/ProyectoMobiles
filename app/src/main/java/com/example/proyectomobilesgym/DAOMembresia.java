@@ -43,15 +43,15 @@ public class DAOMembresia {
 
         int filas = db.update("membresias", campos, "codigo = ?", new String[]{String.valueOf(membresia.getCodigo())});
 
-        // borrar servicios existentes
-        db.delete("membresiaServicio", "codigoMembresia = ?", new String[]{String.valueOf(membresia.getCodigo())});
+        // borrar servicios existentes (usar el nombre correcto de la tabla)
+        db.delete("membresiaServicios", "codigoMembresia = ?", new String[]{String.valueOf(membresia.getCodigo())});
 
-        // insertar servicios de nuevo
+        // insertar servicios de nuevo (usar el nombre correcto de la tabla)
         for (Servicio servicio : membresia.getServicios()) {
             ContentValues rel = new ContentValues();
             rel.put("codigoMembresia", membresia.getCodigo());
             rel.put("codigoServicio", servicio.getCodigo());
-            db.insert("membresiaServicio", null, rel);
+            db.insert("membresiaServicios", null, rel);
         }
 
         return filas > 0;

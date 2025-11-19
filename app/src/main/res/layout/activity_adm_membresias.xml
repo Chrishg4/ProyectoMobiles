@@ -226,7 +226,7 @@
                 android:gravity="center"
                 android:layout_marginTop="16dp">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnAgregarServicio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -239,7 +239,7 @@
                     app:iconSize="20dp"
                     app:iconTint="#000000" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnEditarServicio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -253,7 +253,7 @@
                     app:iconSize="20dp"
                     app:iconTint="#000000" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnEliminarServicio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -289,7 +289,7 @@
                 android:gravity="center"
                 android:layout_marginTop="24dp">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnGuardar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -303,7 +303,7 @@
                     app:iconSize="20dp"
                     app:iconTint="#000000" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnSalir"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -317,7 +317,7 @@
                     app:iconSize="20dp"
                     app:iconTint="#000000" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnCancelar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
