@@ -32,8 +32,12 @@ public class Activity_Membresias extends AppCompatActivity {
     private Button btnAgregar, btnEliminar, btnEditar, btnSalir;
 
     public void agregar(View view){
-        Intent intent = new Intent(this, Activity_AdmMembresias.class);
-        startActivity(intent);
+        try {
+            Intent intent = new Intent(this, Activity_AdmMembresias.class);
+            startActivity(intent);
+        } catch (Exception e) {
+            Toast.makeText(this, "Error al agregar la membresia", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void editar(View view){

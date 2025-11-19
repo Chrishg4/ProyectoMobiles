@@ -62,4 +62,9 @@ public class CustomAdapterServicio extends BaseAdapter {
         lst.remove(s.getCodigo());
         notifyDataSetChanged();
     }
+
+    public void setLista(ListServicio lista) {
+        this.lst = lista;
+        notifyDataSetChanged();
+    }
 }

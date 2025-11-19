@@ -62,5 +62,6 @@
     <string name="toast_select_membership_first">Seleccione una membresía primero</string>
     <string name="toast_membership_deleted">Membresía eliminada</string>
     <string name="toast_membership_delete_error">Error al eliminar la membresía</string>
+    <string name="field_client">Cliente</string>
 
 </resources>
