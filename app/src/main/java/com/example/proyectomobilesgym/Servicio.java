@@ -14,6 +14,13 @@ public class Servicio {
     public int getCodigo() {
         return codigo;
     }
+    public boolean setCodigo(int codigo) {
+        if (codigo<=0 || this.codigo != -1){
+            return false;
+        }
+        this.codigo = codigo;
+        return true;
+    }
 
     public String getNombre() {
         return nombre;

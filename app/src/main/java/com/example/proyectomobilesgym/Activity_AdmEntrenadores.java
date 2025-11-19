@@ -49,12 +49,7 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
             edNombre.setText(nombreOriginal);
             edTelefono.setText(telefonoOriginal);
 
-            /*// valido los datos de id no sean nulos para cargar la info
-            edNombre.setText(getIntent().getStringExtra("nombre"));
-            edCedula.setText(getIntent().getStringExtra("id"));
-            edTelefono.setText(getIntent().getStringExtra("contacto"));
 
-             */
 //            hago que el texto cambie a editar con las varuiables que hay en values
             btn.setText(getString(R.string.btn_edit));
             edCedula.setEnabled(false);
@@ -82,17 +77,27 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
         AdminDB admin = new AdminDB(this);
         SQLiteDatabase db = admin.getWritableDatabase();
         String id = getIntent().getStringExtra("id");
+        // Editar entrenador existente
         if (id != null) {
-            // Editar entrenador existente
-            ContentValues registro = new ContentValues();
-            registro.put("nombre", edNombre.getText().toString());
-            registro.put("contacto", edTelefono.getText().toString());
 
+
+            // Validar que todos los campos estén llenos
+            String nombre = edNombre.getText().toString().trim();
+            String contacto = edTelefono.getText().toString().trim();
+
+            if (nombre.isEmpty() || contacto.isEmpty()) {
+                Toast.makeText(this, getString(R.string.toast_complete_fields), Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            ContentValues registro = new ContentValues();
+            registro.put("nombre", nombre);
+            registro.put("contacto", contacto);
 
             int filasAfectadas = db.update("entrenadores", registro, "cedula=?", new String[]{id});
             db.close();
             if (filasAfectadas > 0) {
-                Toast.makeText(this, "Actualizado correctamente", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.toast_registered), Toast.LENGTH_SHORT).show();
                 finish();
             }
         }else {//aregar un nuevo entrenador
@@ -102,12 +107,12 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
             String contacto = edTelefono.getText().toString().trim();
 
             if (nombre.isEmpty() || cedula.isEmpty() || contacto.isEmpty()) {
-                Toast.makeText(this, "Debe completar todos los campos", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.toast_complete_fields), Toast.LENGTH_SHORT).show();
                 return;
             }
 //            valida que no este registrada la cedula
             if (cedulaExiste(edCedula.getText().toString())) {
-                Toast.makeText(this, "La cédula ya está registrada", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.toast_id_exists), Toast.LENGTH_SHORT).show();
                 return;
             }
             ContentValues registro = new ContentValues();
@@ -116,7 +121,7 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
             registro.put("contacto", contacto);
     db.insert("entrenadores", null, registro);
     db.close();
-            Toast.makeText(this, "Registrado correctamente", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_registered), Toast.LENGTH_SHORT).show();
             finish();
         }
     }

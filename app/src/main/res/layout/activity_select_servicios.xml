@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DFF0D8"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textSelectServiciosTittle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="4dp"
+        android:text="@string/title_select_services"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnBuscar4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Botones inferiores -->
+
+    <ListView
+        android:id="@+id/listServicios"
+        android:layout_width="399dp"
+        android:layout_height="466dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginBottom="9dp"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/layoutBotones"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+
+    <LinearLayout
+        android:id="@+id/layoutBotones"
+        android:layout_width="391dp"
+        android:layout_height="69dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listServicios">
+
+
+        <Button
+            android:id="@+id/btnSalir"
+            android:layout_width="wrap_content"
+            android:layout_height="74dp"
+            android:backgroundTint="#D33232"
+            android:onClick="salir"
+            android:text="@string/btn_exit"
+            android:textColor="#000000"
+            app:icon="@drawable/salida"
+            app:iconGravity="textTop"
+            app:iconSize="20dp"
+            app:iconTint="#000000" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/editTextText"
+        android:layout_width="270dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/edittext_custom"
+        android:ems="10"
+        android:hint="@string/hint_search_service"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/listServicios"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textSelectServiciosTittle" />
+
+    <Button
+        android:id="@+id/btnBuscar4"
+        android:layout_width="59dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="52dp"
+        android:background="#00FFFFFF"
+        app:icon="@drawable/busqueda"
+        app:iconPadding="0dp"
+        app:iconSize="30dp"
+        app:iconTint="#000000"
+        app:layout_constraintStart_toEndOf="@+id/editTextText"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

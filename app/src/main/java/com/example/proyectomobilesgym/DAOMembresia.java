@@ -26,11 +26,12 @@ public class DAOMembresia {
             campos = new ContentValues();
             campos.put("codigoMembresia", codigoMembresia);
             campos.put("codigoServicio", servicio.getCodigo());
-            db.insert("membresiaServicio", null, campos);
+            db.insert("membresiaServicios", null, campos);
         }
 
         return codigoMembresia;
     }
+
 
     public boolean actualizar(Membresia membresia) {
 
@@ -42,15 +43,15 @@ public class DAOMembresia {
 
         int filas = db.update("membresias", campos, "codigo = ?", new String[]{String.valueOf(membresia.getCodigo())});
 
-        // borrar servicios existentes
-        db.delete("membresiaServicio", "codigoMembresia = ?", new String[]{String.valueOf(membresia.getCodigo())});
+        // borrar servicios existentes (usar el nombre correcto de la tabla)
+        db.delete("membresiaServicios", "codigoMembresia = ?", new String[]{String.valueOf(membresia.getCodigo())});
 
-        // insertar servicios de nuevo
+        // insertar servicios de nuevo (usar el nombre correcto de la tabla)
         for (Servicio servicio : membresia.getServicios()) {
             ContentValues rel = new ContentValues();
             rel.put("codigoMembresia", membresia.getCodigo());
             rel.put("codigoServicio", servicio.getCodigo());
-            db.insert("membresiaServicio", null, rel);
+            db.insert("membresiaServicios", null, rel);
         }
 
         return filas > 0;
@@ -59,12 +60,46 @@ public class DAOMembresia {
     public boolean eliminar(int codigo) {
 
         // primero borrar relaciones
-        db.delete("membresiaServicio", "codigoMembresia = ?", new String[]{String.valueOf(codigo)});
+        db.delete("membresiaServicios", "codigoMembresia = ?", new String[]{String.valueOf(codigo)});
 
         // luego borrar membresia
         int filas = db.delete("membresias", "codigo = ?", new String[]{String.valueOf(codigo)});
 
         return filas > 0;
+    }
+
+    public ListMembresia buscarPor(String criterio) {
+
+        ListMembresia lista = new ListMembresia();
+
+        String patron = "%" + criterio.trim() + "%";
+
+        Cursor cursor = db.rawQuery(
+                "SELECT m.codigo, m.tipo, m.precioTotal, m.cedulaCliente, m.cedulaEntrenador " +
+                        "FROM membresias m " +
+                        "JOIN clientes c ON m.cedulaCliente = c.cedula " +
+                        "JOIN entrenadores e ON m.cedulaEntrenador = e.cedula " +
+                        "WHERE CAST(m.codigo AS TEXT) LIKE ? " +
+                        "OR c.nombre LIKE ? " +
+                        "OR e.nombre LIKE ?",
+                new String[]{patron, patron, patron}
+        );
+
+        while (cursor.moveToNext()) {
+            int codigo = cursor.getInt(0);
+            TipoMembresia tipo = TipoMembresia.valueOf(cursor.getString(1));
+            double precioTotal = cursor.getDouble(2);
+            String cliente = cursor.getString(3);
+            String entrenador = cursor.getString(4);
+            ListServicio servicios = getServiciosDeMembresia(codigo);
+            Membresia membresia = new Membresia(codigo, tipo, precioTotal, cliente, entrenador, servicios);
+
+            lista.add(membresia);
+        }
+
+        cursor.close();
+
+        return lista;
     }
 
     public ListMembresia cargarTodos() {
@@ -77,12 +112,12 @@ public class DAOMembresia {
             int codigo = cursor.getInt(0);
             TipoMembresia tipo = TipoMembresia.valueOf(cursor.getString(1));
             double precioTotal = cursor.getDouble(2);
-            int cliente = Integer.parseInt(cursor.getString(3));
-            int entrenador = Integer.parseInt(cursor.getString(4));
+            String cliente = cursor.getString(3);
+            String entrenador = cursor.getString(4);
             ListServicio servicios = getServiciosDeMembresia(codigo);
             Membresia membresia = new Membresia(codigo, tipo, precioTotal, cliente, entrenador, servicios);
 
-            lista.put(membresia);
+            lista.add(membresia);
         }
 
         cursor.close();
@@ -96,7 +131,7 @@ public class DAOMembresia {
 
         while (cursor.moveToNext()) {
             Servicio servicio = new Servicio(cursor.getInt(0), cursor.getString(1), cursor.getDouble(2));
-            servicios.put(servicio);
+            servicios.add(servicio);
         }
 
         cursor.close();

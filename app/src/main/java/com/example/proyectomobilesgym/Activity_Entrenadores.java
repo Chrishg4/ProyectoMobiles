@@ -71,14 +71,11 @@ public class Activity_Entrenadores extends AppCompatActivity {
             view.setBackgroundColor(Color.LTGRAY);
             //habilito los botones de editar y eliminar
             if(itemseleccionado >= 0){
-                //btnEditar.setEnabled(true);
-               // btnEliminar.setEnabled(true);
                 btnEliminar.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#D33232")));
                 btnEditar.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2196F3")));
             }
 
         });
-//        insertarDatosPrueba(); descomentar para insertar datos de prueba
         cargarEntrenadores();
 
         // buscar cliente al escribir en el editText
@@ -98,9 +95,7 @@ public class Activity_Entrenadores extends AppCompatActivity {
     }
 
     public void deshabilitarBotones() {
-        //btnEliminar.setEnabled(false);
         btnEliminar.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#BDBDBD")));
-        //btnEditar.setEnabled(false);
         btnEditar.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#BDBDBD")));
     }
     public void buscarCliente() {
@@ -108,6 +103,13 @@ public class Activity_Entrenadores extends AppCompatActivity {
         String nombreBuscado = edSearch.getText().toString().trim();// obtener el texto del EditText y eliminar espacios en blanco al inicio y al final
         if (nombreBuscado.isEmpty()) {
             cargarEntrenadores();// si el texto esta vacio cargar todos los clientes
+            deshabilitarBotones();
+            itemseleccionado = -1;
+//        quitar el color de seleccion de los items
+            for (int i = 0; i < lista.getChildCount(); i++)
+                lista.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
+
+
             return;
         }
         AdminDB adminDB = new AdminDB(this);
@@ -139,6 +141,12 @@ public class Activity_Entrenadores extends AppCompatActivity {
         cursor.close();
         db.close();
         adapter.notifyDataSetChanged();
+        deshabilitarBotones();
+        itemseleccionado = -1;
+
+//        quitar el color de seleccion de los items
+        for (int i = 0; i < lista.getChildCount(); i++)
+            lista.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
     }
     public void agregar(View view) {
         Intent intent = new Intent(this, Activity_AdmEntrenadores.class);
@@ -151,28 +159,25 @@ public class Activity_Entrenadores extends AppCompatActivity {
 
             // obtiene el objeto seleccionado
             Usuarios u = adapter.getItem(itemseleccionado);
-
             // elimino en db usando el nombre
             EliminarPorNombre(u.getTxtPrincipal());
-
             // elimino del adapter, tuve que crear un metodo remove en CustomAdapter porque no existia
             adapter.remove(u);
-            //  deshabilita los botones
             itemseleccionado = -1;
-            btnEditar.setEnabled(false);
-            btnEliminar.setEnabled(false);
 
+            deshabilitarBotones();
 
             View item = lista.getChildAt(itemseleccionado);
             if (item != null) item.setBackgroundColor(0);
 
             itemseleccionado = -1;
+            edSearch.setText("");
         } else {
-            Toast.makeText(this, "Debe seleccionar un Entrenador", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_select_trainer), Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void EliminarPorNombre(String nombre) {
+        public void EliminarPorNombre(String nombre) {
         AdminDB admin = new AdminDB(this);
         SQLiteDatabase BaseDatos = admin.getWritableDatabase();
 
@@ -183,12 +188,12 @@ public class Activity_Entrenadores extends AppCompatActivity {
             BaseDatos.close();
 
             if (registrosEliminados > 0)
-                Toast.makeText(this, "Eliminado correctamente", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.toast_deleted_success), Toast.LENGTH_LONG).show();
             else
-                Toast.makeText(this, "No se encontró ese nombre", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.toast_name_not_found), Toast.LENGTH_LONG).show();
 
         } else {
-            Toast.makeText(this, "Falta el nombre para eliminar", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.toast_missing_name), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -204,29 +209,11 @@ public class Activity_Entrenadores extends AppCompatActivity {
             startActivity(intent);
 
         } else {
-            Toast.makeText(this, "Debe seleccionar un Entrenador", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_select_trainer), Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void insertarDatosPrueba() {
-        AdminDB admin = new AdminDB(this);
-        SQLiteDatabase db = admin.getWritableDatabase();
 
-        ContentValues cv = new ContentValues();
-
-        cv.put("cedula", "201");
-        cv.put("nombre", "Entrenador Demo 1");
-        cv.put("contacto", "7000-0000");
-        db.insert("entrenadores", null, cv);
-
-        cv.clear();
-        cv.put("cedula", "202");
-        cv.put("nombre", "Entrenador Demo 2");
-        cv.put("contacto", "7111-1111");
-        db.insert("entrenadores", null, cv);
-
-        db.close();
-    }
 
     private void cargarEntrenadores() {
 
@@ -271,6 +258,7 @@ public class Activity_Entrenadores extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         cargarEntrenadores();
+        edSearch.setText("");
     }
 
     public void exit(View view) {

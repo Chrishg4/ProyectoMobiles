@@ -3,6 +3,7 @@ package com.example.proyectomobilesgym;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -57,6 +59,13 @@ public class Activity_AdmClientes extends AppCompatActivity {
         btnGuadar = findViewById(R.id.btnGuardar);
         btnCancelar = findViewById(R.id.btnCancelar);
 
+        Drawable flecha = ContextCompat.getDrawable(this, android.R.drawable.arrow_down_float);
+        flecha.setTint(ContextCompat.getColor(this, R.color.white));
+
+
+        // Configurar el spinner de géneros
+
+
         //obtener los generos del enum como un array de strings con un for
         Genero[] generosEnum = Genero.values();//devuelve un array con los valores del enum
         String[] generos = new String[generosEnum.length];//crea un array de strings con la misma longitud que el enum
@@ -70,9 +79,9 @@ public class Activity_AdmClientes extends AppCompatActivity {
         spGenero.setAdapter(adapter);
 
         //poner la imagen segun el genero seleccionado
-        spGenero.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
+        spGenero.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(android.widget.AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String generoSeleccionado = spGenero.getSelectedItem().toString();
                 if (generoSeleccionado.equalsIgnoreCase("HOMBRE")) {
                     imgClientes.setImageResource(R.drawable.user_h);
@@ -84,7 +93,7 @@ public class Activity_AdmClientes extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(android.widget.AdapterView<?> parent) {
+            public void onNothingSelected(AdapterView<?> parent) {
                 imgClientes.setImageResource(R.drawable.ic_launcher_foreground);
             }
         });
@@ -105,8 +114,8 @@ public class Activity_AdmClientes extends AppCompatActivity {
             etNombre.setText(nombreOriginal);
             etNumero.setText(numeroOriginal);
             etEdad.setText(String.valueOf(edadOriginal));
-            etAltura.setText(String.valueOf(alturaOriginal));
-            EtPeso.setText(String.valueOf(pesoOriginal));
+            etAltura.setText(String.format("%.2f", alturaOriginal));
+            EtPeso.setText(String.format("%.2f", pesoOriginal));
 
             // selecciona el género en el spinner
             int spinnerPosition = adapter.getPosition(generoOriginal);
@@ -124,12 +133,12 @@ public class Activity_AdmClientes extends AppCompatActivity {
 
     }
 
-    public void BtnVolver(View view) {
+    public void cancelar(View view) {
         finish();
     }
 
     //aca vualve a traer los campos de la seleccion
-    public void cancelar(View view) {
+    public void reiniciar(View view) {
         if (cedulaOriginal == null) {
             etCedula.setText("");
             etNombre.setText("");
@@ -144,8 +153,8 @@ public class Activity_AdmClientes extends AppCompatActivity {
             etNombre.setText(nombreOriginal);
             etNumero.setText(numeroOriginal);
             etEdad.setText(String.valueOf(edadOriginal));
-            etAltura.setText(String.valueOf(alturaOriginal));
-            EtPeso.setText(String.valueOf(pesoOriginal));
+            etAltura.setText(String.format("%.2f", alturaOriginal));
+            EtPeso.setText(String.format("%.2f", pesoOriginal));
 
             String generoCliente = generoOriginal;
             ArrayAdapter<String> adapter = (ArrayAdapter<String>) spGenero.getAdapter();
@@ -172,13 +181,13 @@ public class Activity_AdmClientes extends AppCompatActivity {
             int filasAfectadas = db.update("clientes", registro, "cedula=?", new String[]{id});
             db.close();
             if (filasAfectadas > 0) {
-                Toast.makeText(this, "Cliente actualizado correctamente", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.toast_client_updated), Toast.LENGTH_SHORT).show();
                 finish();
             }
         } else {
             // Agregar un nuevo cliente
             if (validarCedula(etCedula.getText())) {
-                Toast.makeText(this, "La cédula ya existe", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.toast_id_exists), Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -186,7 +195,7 @@ public class Activity_AdmClientes extends AppCompatActivity {
             if (etCedula.getText().toString().isEmpty() || etNombre.getText().toString().isEmpty() ||
                     etNumero.getText().toString().isEmpty() || etEdad.getText().toString().isEmpty() ||
                     etAltura.getText().toString().isEmpty() || EtPeso.getText().toString().isEmpty()) {
-                Toast.makeText(this, "Por favor complete todos los campos", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.toast_fields_required), Toast.LENGTH_SHORT).show();
                 return;
             }
             ContentValues registro = new ContentValues();
@@ -199,7 +208,7 @@ public class Activity_AdmClientes extends AppCompatActivity {
             registro.put("peso", Double.parseDouble(EtPeso.getText().toString()));
             db.insert("clientes", null, registro);
             db.close();
-            Toast.makeText(this, "Cliente registrado correctamente", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_client_registered), Toast.LENGTH_SHORT).show();
             finish();
         }
     }

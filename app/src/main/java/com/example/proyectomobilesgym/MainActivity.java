@@ -53,10 +53,6 @@ public class MainActivity extends AppCompatActivity {
                         intent = new Intent(this, Activity_Membresias.class);
                         startActivity(intent);
                         break;
-                    case 4:
-                        intent = new Intent(this, Activity_Servicios.class);
-                        startActivity(intent);
-                        break;
                 }
             }
         );
@@ -66,25 +62,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void inicializarLista() {
         lista = new ArrayList<>();
-        lista.add(new Class_Menu(1, R.drawable.entrenadores, getString(R.string.title_trainers)));
-        lista.add(new Class_Menu(2, R.drawable.clientes, getString(R.string.title_clients)));
-        lista.add(new Class_Menu(3, R.drawable.membresias, getString(R.string.title_memberships)));
-        lista.add(new Class_Menu(4, R.drawable.gym, getString(R.string.title_services)));
+        lista.add(new Class_Menu(1, R.drawable.entrenador, getString(R.string.title_trainers)));
+        lista.add(new Class_Menu(2, R.drawable.client, getString(R.string.title_clients)));
+        lista.add(new Class_Menu(3, R.drawable.membresia, getString(R.string.title_memberships)));
     }
 
-
-//    public void irAEntrenadores(View view) {
-//        // Crea un Intent para abrir Activity_Entrenadores
-//        Intent intent = new Intent(this, Activity_Entrenadores.class);
-//        // Inicia la nueva actividad
-//        startActivity(intent);
-//    }
-//
-//    public void irAClientes(View view) {
-//        // Crea un Intent para abrir Activity_Clientes
-//        Intent intent = new Intent(this, Activity_Clientes.class);
-//        // Inicia la nueva actividad
-//        startActivity(intent);
-//    }
 
 }

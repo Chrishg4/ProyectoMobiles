@@ -1,5 +1,6 @@
 package com.example.proyectomobilesgym;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.database.Cursor;
@@ -85,14 +86,23 @@ public class Activity_Clientes extends AppCompatActivity {
 
 
     }
+    // funcion para poner el fondo transparente a todos los items del listView
+    public void fonfoTransparenteListView(View view) {
+        for (int i = 0; i < listaClientes.getChildCount(); i++) {
+            listaClientes.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
+        }
+    }
     public void deshabilitarBotones() {
         //btnEliminarCliente.setEnabled(false);
-        btnEliminarCliente.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#BDBDBD")));
-        //btnEditarCliente.setEnabled(false);
-        btnEditarCliente.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#BDBDBD")));
+        if (itemseleccionado < 0) {
+            btnEliminarCliente.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#BDBDBD")));
+            //btnEditarCliente.setEnabled(false);
+            btnEditarCliente.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#BDBDBD")));
+        }
     }
     public void volverAtras(View view) {
         finish();
+
     }
 
 
@@ -102,6 +112,9 @@ public class Activity_Clientes extends AppCompatActivity {
         String nombreBuscado = BuscarClientes.getText().toString().trim();// obtener el texto del EditText y eliminar espacios en blanco al inicio y al final
         if (nombreBuscado.isEmpty()) {
             cargarClientes();// si el texto esta vacio cargar todos los clientes
+            itemseleccionado = -1;
+            deshabilitarBotones();
+            fonfoTransparenteListView(listaClientes);
             return;
         }
         AdminDB adminDB = new AdminDB(this);
@@ -140,6 +153,9 @@ public class Activity_Clientes extends AppCompatActivity {
         cursor.close();
         db.close();
         adapterClientes.notifyDataSetChanged();
+        itemseleccionado = -1;
+        deshabilitarBotones();
+        fonfoTransparenteListView(listaClientes);
     }
 
     public void agregarCliente(View view) {
@@ -160,8 +176,9 @@ public class Activity_Clientes extends AppCompatActivity {
             if (item != null) item.setBackgroundColor(0);
 
             itemseleccionado = -1;
+            deshabilitarBotones();
         }else {
-            Toast.makeText(this, "No se ha seleccionado ningun cliente", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_no_client_selected), Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -176,12 +193,12 @@ public class Activity_Clientes extends AppCompatActivity {
             db.close();
 
             if (registrosEliminados > 0) {
-                Toast.makeText(this, "Cliente eliminado", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.toast_client_deleted), Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, "No se encontro ese nombre", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.toast_name_not_found), Toast.LENGTH_SHORT).show();
             }
         }else {
-            Toast.makeText(this, "El nombre esta vacio", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_name_empty), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -201,7 +218,7 @@ public class Activity_Clientes extends AppCompatActivity {
             startActivity(intent);
         } else {
 
-            Toast.makeText(this, "No se ha seleccionado ningun cliente", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_no_client_selected), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -246,9 +263,12 @@ public class Activity_Clientes extends AppCompatActivity {
 
         adapterClientes.notifyDataSetChanged();
     }
+    
+
 
     public void onResume() {
         super.onResume();
         cargarClientes();
+        BuscarClientes.setText("");
     }
 }

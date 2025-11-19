@@ -34,5 +34,58 @@
     <string name="field_height">Altura</string>
     <string name="field_weight">Peso</string>
     <string name="header_membership">Membresia</string>
+    <string name="header_service">Servicio</string>
+    <string name="title_select_services">Seleccionar Servicios</string>
+
+<!--Entrenadores , mensajes de errores o exitoso-->
+
+    <string name="toast_complete_fields">Debe completar todos los campos</string>
+    <string name="toast_updated">Actualizado correctamente</string>
+    <string name="toast_registered">Registrado correctamente</string>
+    <string name="toast_id_exists">La cédula ya está registrada</string>
+
+    <string name="toast_select_trainer">Debe seleccionar un Entrenador</string>
+    <string name="toast_deleted_success">Eliminado correctamente</string>
+    <string name="toast_name_not_found">No se encontró ese nombre</string>
+    <string name="toast_missing_name">Falta el nombre para eliminar</string>
+
+<!-- Clientes , mensajes de error o exito-->
+    <string name="toast_no_client_selected">No se ha seleccionado ningún cliente</string>
+    <string name="toast_client_deleted">Cliente eliminado</string>
+    <string name="toast_client_not_found">No se encontró ese nombre</string>
+    <string name="toast_name_empty">El nombre está vacío</string>
+
+    <string name="toast_client_updated">Cliente actualizado correctamente</string>
+    <string name="toast_fields_required">Por favor complete todos los campos</string>
+    <string name="toast_client_registered">Cliente registrado correctamente</string>
+
+    <string name="toast_select_membership_first">Seleccione una membresía primero</string>
+    <string name="toast_membership_deleted">Membresía eliminada</string>
+    <string name="toast_membership_delete_error">Error al eliminar la membresía</string>
+    <string name="field_client">Cliente</string>
+
+    <!-- hint de la barra de busqueda-->
+    <string name="hint_search_client">Buscar Cliente</string>
+    <string name="hint_search_trainer">Buscar Entrenador</string>
+    <string name="hint_search_service">Buscar Servicio</string>
+    <string name="hint_search_membership">Buscar Membresía</string>
+    <string name="toast_no_service_selected">Debe seleccionar un servicio primero</string>
+
+    <!-- titulos campo de busqueda de administrar membresias-->
+    <string name="adm_membresias_cliente_cedu">Cliente (Cedula)</string>
+    <string name="adm_membresias_cliente_nombre">Nombre del cliente</string>
+    <string name="adm_membresias_entrenador_cedu">Entrenador (Cedula)</string>
+    <string name="adm_membresias_entrenador_nombre">Nombre del entrenador</string>
+    <string name="adm_membresias_tipo">Tipo de membresía</string>
+
+    <string name="adm_membresias_servicio">Servicio</string>
+
+    <string name="adm_membresias_codigo_servicio">Código del servicio</string>
+    <string name="adm_membresias_nombre_servicio">Nombre del servicio</string>
+    <string name="adm_membresias_precio">Precio</string>
+    <string name="adm_membresias_precio_total">Precio total</string>
+    <string name="toast_fields_service_required">Por favor, introduzca un nombre y un precio</string>
+    <string name="toast_type_required">Debe seleccionar un tipo de membresía</string>
+
 
 </resources>

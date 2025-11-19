@@ -43,7 +43,7 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="24dp"
                 android:scaleType="centerCrop"
-                android:src="@android:drawable/ic_menu_gallery" />
+                app:srcCompat="@drawable/entrenador" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -55,6 +55,7 @@
                 android:id="@+id/edtCedula"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/edittext_custom"
                 android:inputType="number" />
 
             <TextView
@@ -66,6 +67,7 @@
                 android:id="@+id/edtNombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/edittext_custom"
                 android:inputType="textPersonName" />
 
             <!-- Campo: Número -->
@@ -78,6 +80,7 @@
                 android:id="@+id/edtNumero"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/edittext_custom"
                 android:inputType="phone" />
 
 

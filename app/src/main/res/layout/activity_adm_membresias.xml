@@ -1,10 +1,338 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity_AdmMembresias">
+    android:background="#DFF0D8">
+
+    <ScrollView
+        android:id="@+id/scrollFormulario"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <!-- TÍTULO -->
+            <TextView
+                android:id="@+id/txtTitulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="16dp"
+                android:text="@string/title_manage_memberships"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <!-- AVATAR -->
+            <ImageView
+                android:id="@+id/imgMembresia"
+                android:layout_width="113dp"
+                android:layout_height="106dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="24dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/membresia" />
+
+            <!-- ============= CLIENTE ============= -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/adm_membresias_cliente_cedu" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <AutoCompleteTextView
+                    android:id="@+id/edtCedula"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/edittext_custom"
+                    android:inputType="number"
+                    android:completionThreshold="1" />
+
+                <ImageView
+                    android:id="@+id/btnCliente"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
+                    android:contentDescription="@string/field_client"
+                    android:onClick="irASeleccionarCliente"
+                    android:src="@drawable/seleccionar" />
+            </LinearLayout>
+
+            <!-- Nombre automático -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/adm_membresias_cliente_nombre" />
+
+            <EditText
+                android:id="@+id/edtNombreCliente"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_custom"
+                android:enabled="false" />
+
+            <!-- ============= ENTRENADOR ============= -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/adm_membresias_entrenador_cedu" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <AutoCompleteTextView
+                    android:id="@+id/edtCedulaEntrenador"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/edittext_custom"
+                    android:inputType="number"
+                    android:completionThreshold="1" />
+
+                <ImageView
+                    android:id="@+id/btnEntrenador"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
+                    android:contentDescription="@string/title_trainers"
+                    android:onClick="irASeleccionarEntrenador"
+                    android:src="@drawable/seleccionar" />
+            </LinearLayout>
+
+            <!-- Nombre del entrenador -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/adm_membresias_entrenador_nombre" />
+
+            <EditText
+                android:id="@+id/edtNombreEntrenador"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_custom"
+                android:enabled="false" />
+
+            <!-- ============= TIPO (ANTES GÉNERO) ============= -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/adm_membresias_tipo" />
+
+            <Spinner
+                android:id="@+id/spTipo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_custom" />
+
+            <!-- ============= SERVICIOS ============= -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/adm_membresias_servicio"
+                android:textStyle="bold" />
+
+            <!-- Código + botón -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/adm_membresias_codigo_servicio" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <AutoCompleteTextView
+                    android:id="@+id/edtCodigoServicio"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/edittext_custom"
+                    android:inputType="number"
+                    android:completionThreshold="1" />
+
+                <ImageView
+                    android:id="@+id/btnBuscarServicio"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
+                    android:contentDescription="@string/title_services"
+                    android:onClick="irASeleccionarServicio"
+                    android:src="@drawable/seleccionar" />
+            </LinearLayout>
+
+            <!-- Nombre -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/adm_membresias_nombre_servicio" />
+
+            <EditText
+                android:id="@+id/edtNombreServicio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_custom"
+                android:enabled="false" />
+
+            <!-- Precio -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/adm_membresias_precio" />
+
+            <EditText
+                android:id="@+id/edtPrecioServicio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_custom"
+                android:hint="₡0"
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/adm_membresias_precio_total" />
+
+            <EditText
+                android:id="@+id/edtPrecioTotal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_custom"
+                android:hint="₡0"
+                android:inputType="numberDecimal" />
+
+            <!-- Botones de administración -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="16dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnAgregarServicio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#2E7D32"
+                    android:onClick="agregarServicio"
+                    android:text="@string/btn_add"
+                    android:textColor="#000000"
+                    app:icon="@drawable/add"
+                    app:iconGravity="textTop"
+                    app:iconSize="20dp"
+                    app:iconTint="#000000" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnEditarServicio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:backgroundTint="#00838F"
+                    android:onClick="editarServicio"
+                    android:text="@string/btn_edit"
+                    android:textColor="#000000"
+                    app:icon="@drawable/pencil"
+                    app:iconGravity="textTop"
+                    app:iconSize="20dp"
+                    app:iconTint="#000000" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnEliminarServicio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:backgroundTint="#C62828"
+                    android:onClick="eliminarServicio"
+                    android:text="@string/btn_delete"
+                    android:textColor="#000000"
+                    app:icon="@drawable/bin"
+                    app:iconGravity="textTop"
+                    app:iconSize="20dp"
+                    app:iconTint="#000000" />
+
+            </LinearLayout>
+
+            <!-- LISTVIEW DE SERVICIOS -->
+            <ListView
+                android:id="@+id/listServicios"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="16dp"
+                android:divider="#444"
+                android:dividerHeight="1dp"
+                android:scrollbars="vertical"
+                android:fadeScrollbars="false"
+                android:nestedScrollingEnabled="true" />
+
+            <!-- ============= BOTONES FINALES ============= -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="24dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnGuardar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:backgroundTint="#4CAF50"
+                    android:onClick="guardar"
+                    android:text="@string/btn_save"
+                    android:textColor="#000000"
+                    app:icon="@drawable/guardar"
+                    app:iconGravity="textTop"
+                    app:iconSize="20dp"
+                    app:iconTint="#000000" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSalir"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:backgroundTint="#009688"
+                    android:onClick="reiniciar"
+                    android:text="@string/btn_reset"
+                    android:textColor="#000000"
+                    app:icon="@drawable/reiniciar"
+                    app:iconGravity="textTop"
+                    app:iconSize="20dp"
+                    app:iconTint="#000000" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCancelar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#D33232"
+                    android:onClick="salir"
+                    android:text="@string/btn_cancel"
+                    android:textColor="#000000"
+                    app:icon="@drawable/cancelar"
+                    app:iconGravity="textTop"
+                    app:iconSize="20sp"
+                    app:iconTint="#000000" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

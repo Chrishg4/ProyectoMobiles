@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoMobilesGYM">
         <activity
+            android:name=".Activity_SelectServicios"
+            android:exported="false" />
+        <activity
             android:name=".Activity_SelectClientes"
             android:exported="false" />
         <activity
@@ -19,40 +22,32 @@
             android:exported="false" />
         <activity
             android:name=".Activity_AdmMembresias"
-            android:screenOrientation="portrait"
-            android:exported="false" />
-        <activity
-            android:name=".Activity_AdmServicios"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity_AdmEntrenadores"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity_AdmClientes"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity_Membresias"
-            android:screenOrientation="portrait"
-            android:exported="false" />
-        <activity
-            android:name=".Activity_Servicios"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity_Entrenadores"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity_Clientes"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,6 +1,8 @@
 package com.example.proyectomobilesgym;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +14,9 @@ import java.util.List;
 
 public class CustomAdapterMembresia extends BaseAdapter {
     Context context;
-    List<Membresia> lst;
+    ListMembresia lst;
 
-    public CustomAdapterMembresia(Context context, List<Membresia> lst) {
+    public CustomAdapterMembresia(Context context, ListMembresia lst) {
         this.context = context;
         this.lst = lst;
     }
@@ -47,19 +49,37 @@ public class CustomAdapterMembresia extends BaseAdapter {
 
         //ImageViewContacto=view.findViewById(R.id.imageViewContacto);
         TextViewNombre=view.findViewById(R.id.textViewNombre);
-        TextViewDes=view.findViewById(R.id.textViewDetalles);
+        TextViewDes=view.findViewById(R.id.textViewDes);
 
         //ImageViewContacto.setImageResource(c.imagen);
         String nombre = context.getString(R.string.header_membership) + " " + membresia.getCodigo() + " - " + membresia.getTipo().toString().toLowerCase();
-        String detalles = String.valueOf(membresia.getCliente()) + " - " + String.valueOf(membresia.getEntrenador()) + " : " + String.valueOf(membresia.getPrecioTotal());
+        String detalles = cargarNombre(membresia.getCliente(), "clientes") + " - " + cargarNombre(membresia.getEntrenador(), "entrenadores") +  " : " + String.valueOf(membresia.getPrecioTotal());
         TextViewNombre.setText(nombre);
         TextViewDes.setText(detalles);
 
         return view;
 
     }
-    public void remove(Usuarios u) {
-        lst.remove(u);
+
+    private String cargarNombre(String cedula, String tabla){
+        String valor = "";
+        AdminDB admin = new AdminDB(context);
+        SQLiteDatabase db = admin.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT nombre FROM " + tabla + " WHERE cedula = '" + cedula + "'", null);
+        if (cursor.moveToFirst()) {
+            valor = cursor.getString(0);
+        }
+        cursor.close();
+        return valor;
+    }
+
+    public void remove(int indice) {
+        lst.remove(indice);
+        notifyDataSetChanged();
+    }
+
+    public void setLista(ListMembresia lista) {
+        this.lst = lista;
         notifyDataSetChanged();
     }
 }
