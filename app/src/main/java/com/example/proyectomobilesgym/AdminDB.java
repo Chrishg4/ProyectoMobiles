@@ -24,6 +24,9 @@ public class AdminDB extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE membresias (codigo INTEGER PRIMARY KEY AUTOINCREMENT, tipo TEXT CHECK (tipo IN ('mensual','trimestral','anual','especial')), precioTotal REAL, cedulaCliente TEXT, cedulaEntrenador TEXT, FOREIGN KEY(cedulaCliente) REFERENCES clientes(cedula), FOREIGN KEY(cedulaEntrenador) REFERENCES entrenadores(cedula))");
 
         db.execSQL("CREATE TABLE membresiaServicios (codigo INTEGER PRIMARY KEY AUTOINCREMENT, codigoMembresia INTEGER, codigoServicio INTEGER, FOREIGN KEY(codigoMembresia) REFERENCES membresias(codigo), FOREIGN KEY(codigoServicio) REFERENCES servicios(codigo))");
+
+        db.execSQL("CREATE TABLE ubicaciones (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, latitud REAL , longitud REAL )");
+
     }
 
     @Override

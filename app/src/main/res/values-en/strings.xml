@@ -8,11 +8,13 @@
     <string name="title_trainers">Trainers</string>
     <string name="title_services">Services</string>
     <string name="title_memberships">Memberships</string>
+    <string name="title_locations">Locations</string>
 
     <string name="title_manage_clients">Manage Clients</string>
     <string name="title_manage_trainers">Manage Trainers</string>
     <string name="title_manage_services">Manage Services</string>
     <string name="title_manage_memberships">Manage Memberships</string>
+    <string name="title_manage_locations">Manage Locations</string>
 
     <string name="title_select_trainers">Select Trainers</string>
     <string name="title_select_clients">Select Clients</string>
@@ -88,6 +90,11 @@
     <string name="adm_membresias_precio_total">Total price</string>
     <string name="toast_fields_service_required">Please enter a name and a price</string>
     <string name="toast_type_required">You must select a membership type</string>
+
+    <!-- Campos de ubicacion-->
+    <string name="field_location_name">Name</string>
+    <string name="field_location_latitude">Latitude</string>
+    <string name="field_location_longitude">Longitude</string>
 
 
 </resources>

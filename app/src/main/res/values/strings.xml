@@ -11,6 +11,12 @@
     <string name="title_manage_trainers">Administrar entrenadores</string>
     <string name="title_manage_services">Administrar servicios</string>
     <string name="title_manage_memberships">Administrar membresías</string>
+    <string name="title_locations">Ubicaciones</string>
+    <string name="title_manage_locations">Administrar Ubicaciones</string>
+
+
+
+    <!-- titulos de las pantallas -->
 
     <string name="title_select_trainers">Seleccionar Entrenadores</string>
     <string name="title_select_clients">Seleccionar Clientes</string>
@@ -37,7 +43,7 @@
     <string name="header_service">Servicio</string>
     <string name="title_select_services">Seleccionar Servicios</string>
 
-<!--Entrenadores , mensajes de errores o exitoso-->
+    <!--Entrenadores , mensajes de errores o exitoso-->
 
     <string name="toast_complete_fields">Debe completar todos los campos</string>
     <string name="toast_updated">Actualizado correctamente</string>
@@ -49,7 +55,7 @@
     <string name="toast_name_not_found">No se encontró ese nombre</string>
     <string name="toast_missing_name">Falta el nombre para eliminar</string>
 
-<!-- Clientes , mensajes de error o exito-->
+    <!-- Clientes , mensajes de error o exito-->
     <string name="toast_no_client_selected">No se ha seleccionado ningún cliente</string>
     <string name="toast_client_deleted">Cliente eliminado</string>
     <string name="toast_client_not_found">No se encontró ese nombre</string>
@@ -86,6 +92,11 @@
     <string name="adm_membresias_precio_total">Precio total</string>
     <string name="toast_fields_service_required">Por favor, introduzca un nombre y un precio</string>
     <string name="toast_type_required">Debe seleccionar un tipo de membresía</string>
+
+    <!-- Campos de ubicacion-->
+    <string name="field_location_name">Nombre</string>
+    <string name="field_location_latitude">Latitud</string>
+    <string name="field_location_longitude">Longitud</string>
 
 
 </resources>
