@@ -185,6 +185,12 @@ public class Activity_AdmUbicacion extends AppCompatActivity implements MapEvent
             txtLatitud.setText(String.valueOf(latitudOriginal));
             txtLongitud.setText(String.valueOf(longitudOriginal));
 
+            //vuelve a colocar el marcador en la ubicacion original
+            GeoPoint puntoOriginal = new GeoPoint(latitudOriginal, longitudOriginal);
+            marcador.setPosition(puntoOriginal);
+            mapController.setCenter(puntoOriginal);
+            map.invalidate();
+
         }
     }
 

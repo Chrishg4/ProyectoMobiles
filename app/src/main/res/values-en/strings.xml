@@ -96,5 +96,16 @@
     <string name="field_location_latitude">Latitude</string>
     <string name="field_location_longitude">Longitude</string>
 
+    <!-- Ubicacion , mensajes de error o exito-->
+    <string name="toast_location_registered">Location successfully recorded</string>
+    <string name="toast_location_updated">Location updated successfully</string>
+    <string name="toast_location_deleted">Location successfully removed</string>
+    <string name="toast_select_location_for_edit">Select a location to edit</string>
+    <string name="toast_select_location_for_delete">Select a location to delete</string>
+    <string name="toast_location_not_found">That location was not found</string>
+    <string name="toast_location_name_empty">The location name cannot be empty</string>
+    <string name="toast_location_name_validate">The location name already exists</string>
+    <string name="toast_complete_location_fields">You must complete all location fields</string>
+
 
 </resources>
