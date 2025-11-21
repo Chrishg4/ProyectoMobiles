@@ -19,6 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoMobilesGYM">
         <activity
+            android:name=".Activity_AdmAudio"
+            android:exported="false" />
+        <activity
             android:name=".Activity_AdmImagen"
             android:exported="false" />
         <activity

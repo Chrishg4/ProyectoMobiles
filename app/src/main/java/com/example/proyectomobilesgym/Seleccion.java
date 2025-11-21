@@ -6,4 +6,5 @@ public class Seleccion {
     public static Servicio servicioSeleccionado = null;
     public static Ubicaciones ubicacionSeleccionada = null;
     public static Audio audioSeleccionado = null;
+    public static Imagen imagenSeleccionada = null;
 }
