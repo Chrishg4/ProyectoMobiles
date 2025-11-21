@@ -118,6 +118,10 @@
     <string name="toast_stop_playing">Reproducción detenida</string>
     <string name="toast_error_save_audio">Error al guardar el audio</string>
     <string name="toast_stop_recordig">Grabación exitosa</string>
+    <string name="btn_play">Reproducir</string>
+    <string name="btn_record">Grabar Audio</string>
+    <string name="toast_audio_reading_error">Error al convertir el audio</string>
+    <string name="toast_no_audio">No hay audio cargado</string>
 
 
 </resources>

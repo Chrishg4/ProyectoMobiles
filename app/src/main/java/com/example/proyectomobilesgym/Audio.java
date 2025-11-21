@@ -8,10 +8,6 @@ public class Audio {
         this.ruta = ruta;
         this.enBytes = null;
     }
-    public Audio(){
-        this.ruta = "audio_temp";
-        this.enBytes = null;
-    }
 
     public void setEnBytes(byte[] enBytes) {
         this.enBytes = enBytes;

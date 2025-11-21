@@ -1,9 +1,7 @@
 package com.example.proyectomobilesgym;
 
 import android.Manifest;
-import android.content.ContentValues;
 import android.content.pm.PackageManager;
-import android.database.sqlite.SQLiteDatabase;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
@@ -21,6 +19,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class Activity_AdmAudio extends AppCompatActivity {
@@ -34,7 +33,9 @@ public class Activity_AdmAudio extends AppCompatActivity {
     private MediaPlayer mediaPlayer;
     private boolean isRecording = false;
     private boolean isPlaying = false;
+    private boolean hayAudio = false;
     private String outputFile;
+    private Audio audio;
 
     private static final int REQUEST_PERMISSION_CODE = 1000;
 
@@ -78,6 +79,36 @@ public class Activity_AdmAudio extends AppCompatActivity {
         btnIniciarReproduccion.setEnabled(false);
         btnDetenerReproduccion.setEnabled(false);
         btnGuardarAudio.setEnabled(false);
+
+        byte[] audioData = getIntent().getByteArrayExtra("audio");
+        if (audioData != null && audioData.length > 0) {
+            audio = new Audio(outputFile);
+            audio.setEnBytes(audioData);
+            prepararAudio();
+        }
+    }
+
+    private void prepararAudio() {
+        try {
+            // Crea un archivo temporal
+            File tempFile = new File(audio.getRuta());
+
+            // Escribe los bytes en el archivo
+            FileOutputStream fos = new FileOutputStream(tempFile);
+            fos.write(audio.getEnBytes());
+            fos.close();
+
+            // Prepara el MediaPlayer con el archivo recuperado
+            mediaPlayer.reset();
+            mediaPlayer.setDataSource(tempFile.getAbsolutePath());
+            mediaPlayer.prepare();
+            hayAudio = true;
+            btnIniciarReproduccion.setEnabled(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            hayAudio = false;
+            Toast.makeText(this, "Error al convertir el audio", Toast.LENGTH_SHORT).show();
+        }
     }
 
     // Método para iniciar la grabación de audio

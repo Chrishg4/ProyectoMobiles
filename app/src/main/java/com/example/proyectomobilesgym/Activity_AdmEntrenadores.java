@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,9 +18,18 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Arrays;
+
 public class Activity_AdmEntrenadores extends AppCompatActivity {
 EditText edNombre, edCedula, edTelefono;
-Button btn, btnCancelar, btnReiniciar;
+Button btn, btnCancelar, btnReiniciar, btnAudio, btnGrabar;
+MediaPlayer reproductor;
+Audio audio = null, audioOriginal = null;
+boolean hayAudio = false;
 
 String nombreOriginal, cedulaOriginal, telefonoOriginal;
     @Override
@@ -38,12 +49,19 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
         btnCancelar = findViewById(R.id.btnCancelar);
         btnReiniciar = findViewById(R.id.Reiniciar);
 
+        reproductor = new MediaPlayer();
+        audio = new Audio(getExternalFilesDir(null).getAbsolutePath() + "/Grabacion.3gp");
+
         String id = getIntent().getStringExtra("id");
         if (id != null) {
 
             cedulaOriginal = getIntent().getStringExtra("id");
             nombreOriginal = getIntent().getStringExtra("nombre");
             telefonoOriginal = getIntent().getStringExtra("contacto");
+            audio.setEnBytes(getIntent().getByteArrayExtra("audio"));
+            audioOriginal = new Audio(audio.getRuta());
+            audioOriginal.setEnBytes(Arrays.copyOf(audio.getEnBytes(), audio.getEnBytes().length));
+            prepararAudio();
 
             edCedula.setText(cedulaOriginal);
             edNombre.setText(nombreOriginal);
@@ -56,6 +74,61 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
         }
 
     }
+
+    public void irAGrabarAudio(View view) {
+        Seleccion.audioSeleccionado = null;
+        Intent intent = new Intent(this, Activity_AdmAudio.class);
+        if (audio.getEnBytes() != null && audio.getEnBytes().length > 0){
+            intent.putExtra("audio", audio.getEnBytes());
+        }
+        startActivity(intent);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (Seleccion.audioSeleccionado != null){
+            hayAudio = true;
+            audio = Seleccion.audioSeleccionado;
+            prepararAudio();
+        }
+    }
+
+    private void prepararAudio() {
+        if (audio.getEnBytes() != null && audio.getEnBytes().length > 0){
+            return;
+        }
+        try {
+            // Crea un archivo temporal
+            File tempFile = new File(audio.getRuta());
+
+            // Escribe los bytes en el archivo
+            FileOutputStream fos = new FileOutputStream(tempFile);
+            fos.write(audio.getEnBytes());
+            fos.close();
+
+            // Prepara el MediaPlayer con el archivo recuperado
+            reproductor.reset();
+            reproductor.setDataSource(tempFile.getAbsolutePath());
+            reproductor.prepare();
+            hayAudio = true;
+            Seleccion.audioSeleccionado = null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            Seleccion.audioSeleccionado = null;
+            hayAudio = false;
+            Toast.makeText(this, getString(R.string.toast_audio_reading_error), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void reproducirAudio(View view) {
+        if (hayAudio){
+            reproductor.start();
+        } else {
+            Toast.makeText(this, getString(R.string.toast_no_audio), Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public void cancelar(View view) {
         finish();
     }
@@ -65,10 +138,15 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
             edNombre.setText("");
             edCedula.setText("");
             edTelefono.setText("");
+            hayAudio = false;
+            audio = null;
         } else {
             edNombre.setText(nombreOriginal);
             edCedula.setText(cedulaOriginal);
             edTelefono.setText(telefonoOriginal);
+            hayAudio = true;
+            audio = audioOriginal;
+            prepararAudio();
         }
 
     }
@@ -93,6 +171,9 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
             ContentValues registro = new ContentValues();
             registro.put("nombre", nombre);
             registro.put("contacto", contacto);
+            if (hayAudio) {
+                registro.put("audio", audio.getEnBytes());
+            }
 
             int filasAfectadas = db.update("entrenadores", registro, "cedula=?", new String[]{id});
             db.close();
@@ -119,6 +200,9 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
             registro.put("nombre", nombre);
             registro.put("cedula", cedula);
             registro.put("contacto", contacto);
+            if (hayAudio){
+                registro.put("audio", audio.getEnBytes());
+            }
     db.insert("entrenadores", null, registro);
     db.close();
             Toast.makeText(this, getString(R.string.toast_registered), Toast.LENGTH_SHORT).show();
