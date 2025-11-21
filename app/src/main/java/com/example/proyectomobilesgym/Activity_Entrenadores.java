@@ -206,6 +206,10 @@ public class Activity_Entrenadores extends AppCompatActivity {
             intent.putExtra("id", u.getId());
             intent.putExtra("nombre", u.getTxtPrincipal());
             intent.putExtra("contacto", u.getTxtSecundario());
+            Audio audio = cargarAudio(u.getId());
+            if (audio.getEnBytes() != null && audio.getEnBytes().length > 0) {
+                intent.putExtra("audio", audio.getEnBytes());
+            }
             startActivity(intent);
 
         } else {
@@ -213,6 +217,25 @@ public class Activity_Entrenadores extends AppCompatActivity {
         }
     }
 
+    private Audio cargarAudio(String id) {
+        AdminDB admin = new AdminDB(this);
+        SQLiteDatabase db = admin.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(
+                "SELECT audio FROM entrenadores WHERE cedula=?",
+                new String[]{id}
+        );
+        Audio audio = new Audio(getExternalFilesDir(null).getAbsolutePath() + "/Grabacion.3gp");
+        if (cursor.moveToFirst()) {
+            do {
+                byte[] audioBytes = cursor.getBlob(0);
+                audio.setEnBytes(audioBytes);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return audio;
+    }
 
 
     private void cargarEntrenadores() {
