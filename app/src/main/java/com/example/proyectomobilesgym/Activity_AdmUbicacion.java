@@ -83,13 +83,12 @@ public class Activity_AdmUbicacion extends AppCompatActivity implements MapEvent
         //obtener datos del intent
         String id = getIntent().getStringExtra("id");
         if (id != null) {
-           idOriginal = getIntent().getStringExtra("id");
-           nombreOriginal = getIntent().getStringExtra("nombre");
+
            latitudOriginal = getIntent().getDoubleExtra("latitud", 0);
            longitudOriginal = getIntent().getDoubleExtra("longitud", 0);
 
            //cargar datos en los campos
-           txtName.setText(nombreOriginal);
+
             txtLatitud.setText(String.valueOf(latitudOriginal));
             txtLongitud.setText(String.valueOf(longitudOriginal));
 
@@ -175,8 +174,7 @@ public class Activity_AdmUbicacion extends AppCompatActivity implements MapEvent
 
     // aca vuelve a traer los campos de la seleccion
     public void reiniciar(View view) {
-        if (idOriginal == null) {
-            txtName.setText("");
+        if (txtLatitud.getText().toString().isEmpty() || txtLongitud.getText().toString().isEmpty()) {
             txtLatitud.setText("");
             txtLongitud.setText("");
             return;
@@ -195,61 +193,25 @@ public class Activity_AdmUbicacion extends AppCompatActivity implements MapEvent
     }
 
     public void guardar(View view) {
-        AdminDB admin = new AdminDB(this);
-        SQLiteDatabase db = admin.getWritableDatabase();
-        String id = getIntent().getStringExtra("id");
-        if (id != null) {
-            //editar la ubicacion existente
-            ContentValues registro = new ContentValues();
-            registro.put("nombre", txtName.getText().toString());
-            registro.put("latitud", Double.parseDouble(txtLatitud.getText().toString()));
-            registro.put("longitud", Double.parseDouble(txtLongitud.getText().toString()));
-
-            int filasAfectadas = db.update("ubicaciones", registro, "id=?", new String[]{idOriginal});
-            db.close();
-            if (filasAfectadas > 0) {
-                Toast.makeText(this, "Ubicacion actualizada", Toast.LENGTH_SHORT).show();
-                finish();
-            }
+        if (txtLatitud.getText().toString().isEmpty() || txtLongitud.getText().toString().isEmpty()) {
+            Toast.makeText(this, getString(R.string.toast_complete_fields), Toast.LENGTH_SHORT).show();
+            return;
         }else {
-            // validar que el nombre no exista antes de agregar
-            if (validarNombreUbicacion(txtName.getText())) {
-                Toast.makeText(this, "El nombre de la ubicacion ya existe", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            //validar que los campos no esten vacios
-             if (txtName.getText().toString().isEmpty() ||
-                txtLatitud.getText().toString().isEmpty() ||
-                txtLongitud.getText().toString().isEmpty()) {
-                Toast.makeText(this, "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            // agregar una nueva ubicacion
-            ContentValues registro = new ContentValues();
-            registro.put("nombre", txtName.getText().toString());
-            registro.put("latitud", Double.parseDouble(txtLatitud.getText().toString()));
-            registro.put("longitud", Double.parseDouble(txtLongitud.getText().toString()));
-            db.insert("ubicaciones", null, registro);
-            db.close();
-            Toast.makeText(this, "Ubicacion agregada", Toast.LENGTH_SHORT).show();
+            double latitud = Double.parseDouble(txtLatitud.getText().toString());
+            double longitud = Double.parseDouble(txtLongitud.getText().toString());
+
+            // Guardar en la variable global
+            Seleccion.ubicacionSeleccionada = new Ubicaciones(latitud, longitud);
+
+            // Cerrar la Activity
             finish();
-
-
         }
 
 
     }
 
-    public boolean validarNombreUbicacion(Editable nombre) {
-        AdminDB admin = new AdminDB(this);
-        SQLiteDatabase db = admin.getReadableDatabase();
-        String[] name = new String[]{nombre.toString()};
-        Cursor cursor = db.rawQuery("SELECT nombre FROM ubicaciones WHERE nombre = ?", name);
-        boolean existe = cursor.moveToFirst();
-        cursor.close();
-        db.close();
-        return existe;
 
-    }
+
+
 
 }
