@@ -5,6 +5,90 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity_AdmImagen">
+    android:background="#DFF0D8"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/txtTitulo3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="152dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="13dp"
+        android:text="Imagen"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="398dp"
+        android:layout_height="88dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <Button
+            android:id="@+id/btnSalir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="#009688"
+            android:onClick="tomarFoto"
+            android:text="@string/btn_reset"
+            android:textColor="#000000"
+            app:icon="@drawable/reiniciar"
+            app:iconGravity="textTop"
+            app:iconSize="20dp"
+            app:iconTint="#000000"
+            tools:text="Tomar foto" />
+
+        <Button
+            android:id="@+id/btnGuardar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="#4CAF50"
+            android:onClick="guardarImagen"
+            android:text="@string/btn_save"
+            android:textColor="#000000"
+            app:icon="@drawable/guardar"
+            app:iconGravity="textTop"
+            app:iconSize="20dp"
+            app:iconTint="#000000" />
+
+        <Button
+            android:id="@+id/btnCancelar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="#D33232"
+            android:onClick="cancelar"
+            android:text="salñir"
+            android:textColor="#000000"
+            app:icon="@drawable/cancelar"
+            app:iconGravity="textTop"
+            app:iconSize="20dp"
+            app:iconTint="#000000" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/vistaImagen"
+        android:layout_width="355dp"
+        android:layout_height="463dp"
+        android:layout_marginTop="72dp"
+        android:background="@android:color/darker_gray"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
