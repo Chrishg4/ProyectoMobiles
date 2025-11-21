@@ -17,7 +17,7 @@ public class AdminDB extends SQLiteOpenHelper {
 
         db.execSQL("CREATE TABLE clientes (cedula TEXT PRIMARY KEY, nombre TEXT NOT NULL, numero INTEGER, genero TEXT CHECK (genero IN ('HOMBRE','MUJER')), edad INTEGER, altura REAL, peso REAL)");
 
-        db.execSQL("CREATE TABLE entrenadores (cedula TEXT PRIMARY KEY, nombre TEXT NOT NULL, contacto TEXT)");
+        db.execSQL("CREATE TABLE entrenadores (cedula TEXT PRIMARY KEY, nombre TEXT NOT NULL, contacto TEXT , imagen BLOB , audio BLOB , latitud REAL , longitud REAL )");
 
         db.execSQL("CREATE TABLE servicios (codigo INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, precio REAL)");
 
