@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -28,9 +30,6 @@ public class Activity_AdmAudio extends AppCompatActivity {
     Button btnIniciarReproduccion;
     Button btnDetenerReproduccion;
     Button btnGuardarAudio;
-
-    // Variables para manejar la base de datos y los medios
-    private SQLiteDatabase database;
     private MediaRecorder mediaRecorder;
     private MediaPlayer mediaPlayer;
     private boolean isRecording = false;
@@ -39,21 +38,20 @@ public class Activity_AdmAudio extends AppCompatActivity {
 
     private static final int REQUEST_PERMISSION_CODE = 1000;
 
-
+    public void salir(View view){
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_adm_audio);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        // Inicializar la base de datos
-        database = openOrCreateDatabase("AudiosDB", MODE_PRIVATE, null);
-        database.execSQL("CREATE TABLE IF NOT EXISTS Audios (ID INTEGER PRIMARY KEY AUTOINCREMENT, audio_data BLOB)");
 
         // Vincular elementos de la interfaz con sus IDs
         btnIniciarGrabacion = findViewById(R.id.btnIniciarGrabacion);
@@ -97,7 +95,7 @@ public class Activity_AdmAudio extends AppCompatActivity {
             // Actualizar estado de botones
             btnIniciarGrabacion.setEnabled(false);
             btnDetenerGrabacion.setEnabled(true);
-            Toast.makeText(this, "La grabación comenzó", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_start_recordig), Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -114,7 +112,7 @@ public class Activity_AdmAudio extends AppCompatActivity {
         btnIniciarGrabacion.setEnabled(false);
         btnDetenerGrabacion.setEnabled(false);
         btnIniciarReproduccion.setEnabled(true);
-        Toast.makeText(this, "El audio se grabó con éxito", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.toast_stop_recordig), Toast.LENGTH_SHORT).show();
     }
 
     // Método para iniciar la reproducción de audio
@@ -128,13 +126,13 @@ public class Activity_AdmAudio extends AppCompatActivity {
             // Actualizar estado de botones
             btnIniciarReproduccion.setEnabled(false);
             btnDetenerReproduccion.setEnabled(true);
-            Toast.makeText(this, "Reproducción de audio", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_start_playing), Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    // Método para detener la reproducción de audio
+    // Metodo para detener la reproducción de audio
     public void detenerReproduccion(View view) {
         if (mediaPlayer != null) {
             try {
@@ -145,13 +143,13 @@ public class Activity_AdmAudio extends AppCompatActivity {
                 // Actualizar estado de botones
                 btnDetenerReproduccion.setEnabled(false);
                 btnGuardarAudio.setEnabled(true);
-                Toast.makeText(this, "Reproducción de audio detenida", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.toast_stop_playing), Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
-    // Método para guardar el audio en la base de datos
+    // Metodo para guardar el audio en la base de datos
     public void guardarAudio(View view) {
         // Leer el archivo de audio y convertirlo en un arreglo de bytes
         File audioFile = new File(outputFile); // Ruta del archivo de audio grabado
@@ -163,25 +161,14 @@ public class Activity_AdmAudio extends AppCompatActivity {
             fileInputStream.close(); // Cerrar el flujo de entrada
         } catch (IOException e) {
             e.printStackTrace(); // Manejar excepción de entrada/salida
-            Toast.makeText(this, "Error al leer el archivo de audio", Toast.LENGTH_SHORT).show(); // Notificar al usuario
+            Toast.makeText(this, getString(R.string.toast_error_save_audio), Toast.LENGTH_SHORT).show(); // Notificar al usuario
             return; // Salir del método si hay un error
         }
 
-        // Almacenar el arreglo de bytes en SQLite
-        ContentValues values = new ContentValues();
-        values.put("audio_data", audioData); // Nombre de la columna en la tabla donde almacenarás el audio
+        Audio audio = new Audio(outputFile);
+        audio.setEnBytes(audioData);
+        Seleccion.audioSeleccionado = audio;
 
-        long newRowId = database.insert("Audios", null, values); // Insertar el nuevo registro en la base de datos
-
-        // Verificar si la inserción fue exitosa
-        if (newRowId != -1) {
-            Toast.makeText(this, "Audio guardado en la base de datos", Toast.LENGTH_SHORT).show(); // Notificar éxito
-        } else {
-            Toast.makeText(this, "Error al guardar el audio en la base de datos", Toast.LENGTH_SHORT).show(); // Notificar error
-        }
-
-        // Restablecer el estado de los botones
-        btnIniciarGrabacion.setEnabled(true); // Habilitar botón de grabación
-        btnGuardarAudio.setEnabled(false); // Deshabilitar botón de guardar audio
+        finish();
     }
 }

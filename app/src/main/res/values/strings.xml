@@ -107,6 +107,17 @@
     <string name="toast_location_name_empty">El nombre de la ubicación no puede estar vacío</string>
     <string name="toast_location_name_validate">El nombre de la ubicación ya existe</string>
     <string name="toast_complete_location_fields">Debe completar todos los campos de ubicación</string>
+    <string name="header_audio">Administrador de Audio</string>
+    <string name="start_recording">Iniciar Grabación</string>
+    <string name="stop_recording">Detener Grabación</string>
+    <string name="play_audio">Reproducir Audio</string>
+    <string name="stop_playing">Detener Audio</string>
+    <string name="save_audio">Guardar Audio</string>
+    <string name="toast_start_recordig">La grabación comenzó</string>
+    <string name="toast_start_playing">Reproduciendo audio</string>
+    <string name="toast_stop_playing">Reproducción detenida</string>
+    <string name="toast_error_save_audio">Error al guardar el audio</string>
+    <string name="toast_stop_recordig">Grabación exitosa</string>
 
 
 </resources>
