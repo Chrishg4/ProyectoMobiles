@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
@@ -19,9 +18,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Arrays;
 
 public class Activity_AdmEntrenadores extends AppCompatActivity {
@@ -45,7 +42,7 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
         edNombre = findViewById(R.id.edtNombre);
         edCedula = findViewById(R.id.edtCedula);
         edTelefono = findViewById(R.id.edtNumero);
-        btn = findViewById(R.id.btnAgregarEditar);
+        btn = findViewById(R.id.btnAgregarEditarUbi);
         btnCancelar = findViewById(R.id.btnCancelar);
         btnReiniciar = findViewById(R.id.Reiniciar);
 

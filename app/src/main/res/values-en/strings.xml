@@ -8,7 +8,7 @@
     <string name="title_trainers">Trainers</string>
     <string name="title_services">Services</string>
     <string name="title_memberships">Memberships</string>
-    <string name="title_locations">Locations</string>
+    <string name="title_locations">Gym location</string>
 
     <string name="title_manage_clients">Manage Clients</string>
     <string name="title_manage_trainers">Manage Trainers</string>
