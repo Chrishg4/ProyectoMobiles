@@ -82,7 +82,8 @@ public class Activity_AdmUbicacion extends AppCompatActivity implements MapEvent
 
         //obtener datos del intent
         String id = getIntent().getStringExtra("id");
-        if (id != null) {
+        if (txtLatitud.getText().toString().isEmpty() || txtLongitud.getText().toString().isEmpty()) {
+
 
            latitudOriginal = getIntent().getDoubleExtra("latitud", 0);
            longitudOriginal = getIntent().getDoubleExtra("longitud", 0);
@@ -155,13 +156,13 @@ public class Activity_AdmUbicacion extends AppCompatActivity implements MapEvent
         mapController.setCenter(point);
         map.invalidate();
     }
-
+    // esto hace que el mapa funcione bien con el ciclo de vida de android
     @Override
     protected void onResume() {
         super.onResume();
         map.onResume(); // necesario para osmdroid
     }
-
+    // el onPause tambien es necesario ya que osmdroid necesita pausar ciertos procesos
     @Override
     protected void onPause() {
         super.onPause();
@@ -179,7 +180,7 @@ public class Activity_AdmUbicacion extends AppCompatActivity implements MapEvent
             txtLongitud.setText("");
             return;
         } else {
-            txtName.setText(nombreOriginal);
+
             txtLatitud.setText(String.valueOf(latitudOriginal));
             txtLongitud.setText(String.valueOf(longitudOriginal));
 
