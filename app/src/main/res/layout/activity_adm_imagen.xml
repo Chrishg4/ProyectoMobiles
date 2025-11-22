@@ -74,7 +74,7 @@
             android:onClick="salir"
             android:text="salñir"
             android:textColor="#000000"
-            app:icon="@drawable/cancelar"
+            app:icon="@drawable/salida"
             app:iconGravity="textTop"
             app:iconSize="20dp"
             app:iconTint="#000000" />

@@ -107,6 +107,8 @@
     <string name="toast_location_name_empty">El nombre de la ubicación no puede estar vacío</string>
     <string name="toast_location_name_validate">El nombre de la ubicación ya existe</string>
     <string name="toast_complete_location_fields">Debe completar todos los campos de ubicación</string>
+
+<!--    Audio , mensajes de error o exito-->
     <string name="header_audio">Administrador de Audio</string>
     <string name="start_recording">Iniciar Grabación</string>
     <string name="stop_recording">Detener Grabación</string>
@@ -123,5 +125,7 @@
     <string name="toast_audio_reading_error">Error al convertir el audio</string>
     <string name="toast_no_audio">No hay audio cargado</string>
 
-
+<!--    imagen , mensajes de error o exito-->
+    <string name="image_take_photo">Tomar foto</string>
+    <string name="image_avatar">Imagen del entrenador</string>
 </resources>
