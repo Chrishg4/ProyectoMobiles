@@ -4,11 +4,14 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -28,6 +31,10 @@ MediaPlayer reproductor;
 Audio audio = null, audioOriginal = null;
 boolean hayAudio = false;
 
+    ImageView imgAvatar;
+    Imagen imagen = null, imagenOriginal = null;
+    boolean hayImagen = false;
+
 String nombreOriginal, cedulaOriginal, telefonoOriginal;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +52,8 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
         btn = findViewById(R.id.btnAgregarEditarUbi);
         btnCancelar = findViewById(R.id.btnCancelar);
         btnReiniciar = findViewById(R.id.Reiniciar);
-
+        imgAvatar = findViewById(R.id.imageView2);
+        imagen = new Imagen(new byte[0]);
         reproductor = new MediaPlayer();
         audio = new Audio(getExternalFilesDir(null).getAbsolutePath() + "/Grabacion.3gp");
 
@@ -55,10 +63,25 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
             cedulaOriginal = getIntent().getStringExtra("id");
             nombreOriginal = getIntent().getStringExtra("nombre");
             telefonoOriginal = getIntent().getStringExtra("contacto");
+
+
             audio.setEnBytes(getIntent().getByteArrayExtra("audio"));
-            audioOriginal = new Audio(audio.getRuta());
-            audioOriginal.setEnBytes(Arrays.copyOf(audio.getEnBytes(), audio.getEnBytes().length));
-            prepararAudio();
+            if (audio.getEnBytes() != null && audio.getEnBytes().length > 0) {
+                audioOriginal = new Audio(audio.getRuta());
+                audioOriginal.setEnBytes(Arrays.copyOf(audio.getEnBytes(), audio.getEnBytes().length));
+                prepararAudio();
+            }
+            byte[] imgBytes = getIntent().getByteArrayExtra("imagen");
+
+            if (imgBytes != null && imgBytes.length > 0) {
+                imagen = new Imagen(Arrays.copyOf(imgBytes, imgBytes.length));
+                imagenOriginal = new Imagen(Arrays.copyOf(imgBytes, imgBytes.length));
+                prepararImagen();
+            } else {
+                imagen = new Imagen(new byte[0]);
+                imagenOriginal = new Imagen(new byte[0]);
+                hayImagen = false;
+            }
 
             edCedula.setText(cedulaOriginal);
             edNombre.setText(nombreOriginal);
@@ -71,7 +94,16 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
         }
 
     }
+    public void irAImagen(View view) {
 
+        Seleccion.imagenSeleccionada = null;
+        Intent intent = new Intent(this, Activity_AdmImagen.class);
+
+        if (imagen.getImagenEnBytes() != null && imagen.getImagenEnBytes().length > 0) {
+            intent.putExtra("imagen", imagen.getImagenEnBytes());
+        }
+        startActivity(intent);
+    }
     public void irAGrabarAudio(View view) {
         Seleccion.audioSeleccionado = null;
         Intent intent = new Intent(this, Activity_AdmAudio.class);
@@ -89,7 +121,24 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
             audio = Seleccion.audioSeleccionado;
             prepararAudio();
         }
+        if (Seleccion.imagenSeleccionada != null) {
+            hayImagen = true;
+            imagen = Seleccion.imagenSeleccionada;
+            prepararImagen();
+        }
     }
+ private void  prepararImagen() {
+ if (imagen.getImagenEnBytes() == null || imagen.getImagenEnBytes().length == 0){
+hayImagen = false;
+return;
+ }
+    Bitmap bmp = BitmapFactory.decodeByteArray(imagen.getImagenEnBytes(), 0, imagen.getImagenEnBytes().length);
+    imgAvatar.setImageBitmap(bmp);
+    hayImagen = true;
+    Seleccion.imagenSeleccionada = null;
+    }
+
+
 
     private void prepararAudio() {
         if (audio.getEnBytes() == null || audio.getEnBytes().length == 0){
@@ -137,14 +186,32 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
             edTelefono.setText("");
             hayAudio = false;
             audio = new Audio(getExternalFilesDir(null).getAbsolutePath() + "/Grabacion.3gp");
+            hayImagen = false;
+            imagen = null;
 
         } else {
             edNombre.setText(nombreOriginal);
             edCedula.setText(cedulaOriginal);
             edTelefono.setText(telefonoOriginal);
-            hayAudio = true;
-            audio = audioOriginal;
-            prepararAudio();
+
+            if (audioOriginal != null && audioOriginal.getEnBytes() != null && audioOriginal.getEnBytes().length > 0) {
+                audio = new Audio(audioOriginal.getRuta());
+                audio.setEnBytes(Arrays.copyOf(audioOriginal.getEnBytes(), audioOriginal.getEnBytes().length));
+                hayAudio = true;
+                prepararAudio();
+            } else {
+                hayAudio = false;
+                audio = new Audio(getExternalFilesDir(null).getAbsolutePath() + "/Grabacion.3gp");
+            }
+
+            if (imagenOriginal != null && imagenOriginal.getImagenEnBytes() != null && imagenOriginal.getImagenEnBytes().length > 0) {
+                imagen = new Imagen(Arrays.copyOf(imagenOriginal.getImagenEnBytes(), imagenOriginal.getImagenEnBytes().length));
+                hayImagen = true;
+                prepararImagen();
+            } else {
+                hayImagen = false;
+                imagen = new Imagen(new byte[0]);
+            }
         }
 
     }
@@ -171,6 +238,9 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
             registro.put("contacto", contacto);
             if (hayAudio) {
                 registro.put("audio", audio.getEnBytes());
+            }
+            if (hayImagen) {
+                registro.put("imagen", imagen.getImagenEnBytes());
             }
 
             int filasAfectadas = db.update("entrenadores", registro, "cedula=?", new String[]{id});
@@ -200,6 +270,9 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
             registro.put("contacto", contacto);
             if (hayAudio){
                 registro.put("audio", audio.getEnBytes());
+            }
+            if (hayImagen){
+                registro.put("imagen", imagen.getImagenEnBytes());
             }
     db.insert("entrenadores", null, registro);
     db.close();
