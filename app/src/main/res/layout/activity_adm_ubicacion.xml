@@ -70,75 +70,24 @@
         android:id="@+id/map"
         android:layout_width="410dp"
         android:layout_height="400dp"
-        android:layout_marginBottom="52dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="29dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtLatitud" />
 
     <TextView
         android:id="@+id/txtTitulo2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="136dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="13dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="32dp"
         android:text="@string/title_locations"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/txtNombre"
-        android:layout_width="220dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="88dp"
-        android:layout_marginTop="52dp"
-        android:background="@drawable/edittext_custom"
-        android:ems="10"
-        android:hint="@string/field_location_name"
-        android:inputType="text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtTitulo2" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="153dp"
-        android:layout_marginBottom="1dp"
-        android:text="@string/field_location_latitude"
-        app:layout_constraintBottom_toTopOf="@+id/txtLatitud"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtNombre" />
-
-    <EditText
-        android:id="@+id/txtLongitud"
-        android:layout_width="184dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="6dp"
-        android:layout_marginBottom="23dp"
-        android:background="@drawable/edittext_custom"
-        android:hint="Longitud"
-        app:layout_constraintBottom_toTopOf="@+id/map"
-        app:layout_constraintEnd_toStartOf="@+id/txtLatitud"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtNombre"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="88dp"
-        android:layout_marginTop="96dp"
-        android:text="@string/field_location_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -147,29 +96,51 @@
         android:layout_width="189dp"
         android:layout_height="52dp"
         android:layout_marginStart="6dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="23dp"
         android:background="@drawable/edittext_custom"
         android:hint="Latitud"
-        app:layout_constraintBottom_toTopOf="@+id/map"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toEndOf="@+id/txtLongitud"
-        app:layout_constraintTop_toBottomOf="@+id/txtNombre"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/txtTitulo2" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="156dp"
+        android:text="@string/field_location_latitude"
+        app:layout_constraintBottom_toTopOf="@+id/txtLatitud"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTitulo2"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="160dp"
-        android:layout_marginBottom="1dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="2dp"
         android:text="@string/field_location_longitude"
         app:layout_constraintBottom_toTopOf="@+id/txtLongitud"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/txtLongitud"
+        android:layout_width="184dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="6dp"
+        android:background="@drawable/edittext_custom"
+        android:hint="Longitud"
+        app:layout_constraintEnd_toStartOf="@+id/txtLatitud"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTitulo2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

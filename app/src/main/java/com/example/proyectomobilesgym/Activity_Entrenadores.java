@@ -214,6 +214,11 @@ public class Activity_Entrenadores extends AppCompatActivity {
             if (imagen.getImagenEnBytes() != null && imagen.getImagenEnBytes().length > 0) {
                 intent.putExtra("imagen", imagen.getImagenEnBytes());
             }
+            Ubicaciones ubicacion = cargarUbicaciones(u.getId());
+            if (ubicacion.getLatitud() != 0 && ubicacion.getLongitud() != 0) {
+                intent.putExtra("latitud", ubicacion.getLatitud());
+                intent.putExtra("longitud", ubicacion.getLongitud());
+            }
             startActivity(intent);
 
         } else {
@@ -299,6 +304,34 @@ public class Activity_Entrenadores extends AppCompatActivity {
 
         adapter.notifyDataSetChanged();
     }
+
+    public Ubicaciones cargarUbicaciones(String id) {
+        AdminDB admin = new AdminDB(this);
+        SQLiteDatabase db = admin.getReadableDatabase();
+        Cursor cursor = db.rawQuery(
+                "SELECT latitud, longitud FROM entrenadores WHERE cedula=?",
+                new String[]{id}
+        );
+
+        Ubicaciones ubicacion;
+
+        if (cursor.moveToFirst()) {
+            do {
+                double latitud = cursor.getDouble(0);
+                double longitud = cursor.getDouble(1);
+                ubicacion = new Ubicaciones(
+                        latitud,
+                        longitud
+                );
+            } while (cursor.moveToNext());
+        } else {
+            ubicacion = new Ubicaciones(0,0);
+        }
+        cursor.close();
+        db.close();
+        return ubicacion;
+    }
+
 
 
 //    es5to recarga la lista al volver de agregar o editar porque se usa el finish y no se crea un nuevo intent

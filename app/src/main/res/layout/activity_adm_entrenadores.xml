@@ -192,7 +192,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/latitud"
+                android:id="@+id/longitud"
                 android:layout_width="303dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
@@ -200,17 +200,17 @@
                 android:layout_marginBottom="15dp"
                 android:background="@drawable/edittext_custom"
                 android:ems="10"
-                android:hint="@string/field_location_latitude"
+                android:hint="@string/field_location_longitude"
                 android:inputType="text" />
 
             <EditText
-                android:id="@+id/logitud"
+                android:id="@+id/latitud"
                 android:layout_width="304dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
                 android:background="@drawable/edittext_custom"
                 android:ems="10"
-                android:hint="@string/field_location_longitude"
+                android:hint="@string/field_location_latitude"
                 android:inputType="text" />
 
             <LinearLayout
@@ -228,7 +228,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:backgroundTint="#4CAF50"
-                    android:onClick="funcionEYG"
+                    android:onClick="irAUbicacion"
                     android:text="@string/btn_add"
                     android:textColor="#000000"
                     app:icon="@drawable/addlocation"

@@ -1,6 +1,7 @@
 package com.example.proyectomobilesgym;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -26,7 +27,7 @@ import org.osmdroid.views.overlay.Marker;
 
 public class Activity_AdmUbicacion extends AppCompatActivity implements MapEventsReceiver {
 
-    EditText txtName, txtLatitud, txtLongitud;
+    EditText  txtLatitud, txtLongitud;
 
     MapView map;
 
@@ -36,7 +37,7 @@ public class Activity_AdmUbicacion extends AppCompatActivity implements MapEvent
 
     Button btnGuardar, btnCancelar;
 
-    String idOriginal, nombreOriginal;
+
 
     double latitudOriginal, longitudOriginal;
 
@@ -49,7 +50,7 @@ public class Activity_AdmUbicacion extends AppCompatActivity implements MapEvent
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_adm_ubicacion);
 
-        txtName = findViewById(R.id.txtNombre);
+
         txtLatitud = findViewById(R.id.txtLatitud);
         txtLongitud = findViewById(R.id.txtLongitud);
         btnGuardar = findViewById(R.id.btnGuardar);
@@ -81,46 +82,37 @@ public class Activity_AdmUbicacion extends AppCompatActivity implements MapEvent
         map.getOverlays().add(overlay);
 
         //obtener datos del intent
-        String id = getIntent().getStringExtra("id");
-        if (txtLatitud.getText().toString().isEmpty() || txtLongitud.getText().toString().isEmpty()) {
 
+        Intent ubi = getIntent(); // obtiene el intent que inició esta actividad.
+        if (ubi  != null && ubi.hasExtra("latitud") && ubi.hasExtra("longitud")) {// verifica si el intent tiene los extras de latitud y longitud.
+            latitudOriginal = ubi.getDoubleExtra("latitud", 0.0);// obtiene la latitud original del intent.
+            longitudOriginal = ubi.getDoubleExtra("longitud", 0.0);
 
-           latitudOriginal = getIntent().getDoubleExtra("latitud", 0);
-           longitudOriginal = getIntent().getDoubleExtra("longitud", 0);
-
-           //cargar datos en los campos
 
             txtLatitud.setText(String.valueOf(latitudOriginal));
             txtLongitud.setText(String.valueOf(longitudOriginal));
 
-           //mover el marcador a la ubicacion guardada
-           GeoPoint puntoGuardado = new GeoPoint(latitudOriginal, longitudOriginal);
-           marcador.setPosition(puntoGuardado);
-           mapController.setCenter(puntoGuardado);
-           map.invalidate();
+            //colocar el marcador en la ubicacion seleccionada
+            GeoPoint puntoSeleccionado = new GeoPoint(latitudOriginal, longitudOriginal);
+            marcador.setPosition(puntoSeleccionado);
+            mapController.setCenter(puntoSeleccionado);
+            map.invalidate();
 
-           //remover marcador anterior
-           if (marcador != null) {
-               map.getOverlays().remove(marcador);
-        }
-              //aca se crea un nuevo marcador
-           marcador = new Marker(map);
-           marcador.setPosition(puntoGuardado);
-           marcador.setTitle("");
-           map.getOverlays().add(marcador);
+            if (marcador != null) {
+                map.getOverlays().remove(marcador);
+            }
+            //aca se crea un nuevo marcador
+            marcador = new Marker(map);
+            marcador.setPosition(puntoSeleccionado);
+            marcador.setTitle("");
+            map.getOverlays().add(marcador);
 
-              //centrar el mapa en el nuevo marcador
-              mapController.setCenter(puntoGuardado);
-                map.invalidate();
-
-                //cambia el texto del boton guardar
+            //centrar el mapa en el nuevo marcador
+            mapController.setCenter(puntoSeleccionado);
+            map.invalidate();
+            //cambia el texto del boton guardar
             btnGuardar.setText(getString(R.string.btn_edit));
         }
-
-
-
-
-
     }
 
     @Override

@@ -25,10 +25,16 @@ import java.io.FileOutputStream;
 import java.util.Arrays;
 
 public class Activity_AdmEntrenadores extends AppCompatActivity {
-EditText edNombre, edCedula, edTelefono;
+EditText edNombre, edCedula, edTelefono, edLatitud, edLongitud;
 Button btn, btnCancelar, btnReiniciar, btnAudio, btnGrabar;
 MediaPlayer reproductor;
 Audio audio = null, audioOriginal = null;
+
+Ubicaciones ubicacion = null, ubicacionOriginal = null;
+
+String latitudOriginal, longitudOriginal;
+
+boolean hayUbicacion = false;
 boolean hayAudio = false;
 
     ImageView imgAvatar;
@@ -49,6 +55,10 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
         edNombre = findViewById(R.id.edtNombre);
         edCedula = findViewById(R.id.edtCedula);
         edTelefono = findViewById(R.id.edtNumero);
+        edLatitud = findViewById(R.id.latitud);
+        edLongitud = findViewById(R.id.longitud);
+
+
         btn = findViewById(R.id.btnAgregarEditarUbi);
         btnCancelar = findViewById(R.id.btnCancelar);
         btnReiniciar = findViewById(R.id.Reiniciar);
@@ -56,6 +66,7 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
         imagen = new Imagen(new byte[0]);
         reproductor = new MediaPlayer();
         audio = new Audio(getExternalFilesDir(null).getAbsolutePath() + "/Grabacion.3gp");
+        ubicacion = new Ubicaciones(0.0, 0.0); // esto inicializa la ubicacion en 0,0 para evitar errores de null pointer
 
         String id = getIntent().getStringExtra("id");
         if (id != null) {
@@ -82,6 +93,16 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
                 imagenOriginal = new Imagen(new byte[0]);
                 hayImagen = false;
             }
+            ubicacion = new Ubicaciones(
+                    getIntent().getDoubleExtra("latitud", 0.0),
+                    getIntent().getDoubleExtra("longitud", 0.0)
+            );
+            if (ubicacion != null) {
+                ubicacionOriginal = new Ubicaciones(ubicacion.getLatitud(), ubicacion.getLongitud());
+                prepararUbicacion();
+            }
+
+
 
             edCedula.setText(cedulaOriginal);
             edNombre.setText(nombreOriginal);
@@ -92,6 +113,11 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
             btn.setText(getString(R.string.btn_edit));
             edCedula.setEnabled(false);
         }
+
+        edLongitud.setFocusable(false);
+        edLatitud.setFocusable(false);
+        edLongitud.setClickable(false);
+        edLatitud.setClickable(false);
 
     }
     public void irAImagen(View view) {
@@ -113,6 +139,17 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
         startActivity(intent);
     }
 
+    public void irAUbicacion(View view) {
+        Seleccion.ubicacionSeleccionada = null;// reinicia la seleccion
+        Intent intent = new Intent(this, Activity_AdmUbicacion.class);
+        if (ubicacion != null  ) { // si hay una ubicacion seleccionada
+            intent.putExtra("latitud", ubicacion.getLatitud());
+            intent.putExtra("longitud", ubicacion.getLongitud());
+        }
+        startActivity(intent);
+
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -126,16 +163,32 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
             imagen = Seleccion.imagenSeleccionada;
             prepararImagen();
         }
+        if (Seleccion.ubicacionSeleccionada != null) {
+            hayUbicacion = true;
+            ubicacion = Seleccion.ubicacionSeleccionada;
+            prepararUbicacion();
+        }
     }
  private void  prepararImagen() {
- if (imagen.getImagenEnBytes() == null || imagen.getImagenEnBytes().length == 0){
-hayImagen = false;
-return;
- }
+    if (imagen.getImagenEnBytes() == null || imagen.getImagenEnBytes().length == 0){
+        hayImagen = false;
+    return;
+    }
     Bitmap bmp = BitmapFactory.decodeByteArray(imagen.getImagenEnBytes(), 0, imagen.getImagenEnBytes().length);
     imgAvatar.setImageBitmap(bmp);
     hayImagen = true;
     Seleccion.imagenSeleccionada = null;
+    }
+
+    private void prepararUbicacion() {
+        if (ubicacion == null) {
+            hayUbicacion = false;
+            return;
+        }
+        edLatitud.setText(String.valueOf(ubicacion.getLatitud()));//Asigna la latitud al EditText correspondiente
+        edLongitud.setText(String.valueOf(ubicacion.getLongitud()));
+        hayUbicacion = true;
+        Seleccion.ubicacionSeleccionada = null;
     }
 
 
@@ -188,6 +241,10 @@ return;
             audio = new Audio(getExternalFilesDir(null).getAbsolutePath() + "/Grabacion.3gp");
             hayImagen = false;
             imagen = null;
+            ubicacion = null;
+            hayUbicacion = false;
+            edLongitud .setText("");
+            edLatitud.setText("");
 
         } else {
             edNombre.setText(nombreOriginal);
@@ -203,6 +260,10 @@ return;
                 hayAudio = false;
                 audio = new Audio(getExternalFilesDir(null).getAbsolutePath() + "/Grabacion.3gp");
             }
+
+            edLongitud.setText(longitudOriginal);
+            edLatitud.setText(latitudOriginal);
+            hayUbicacion = true;
 
             if (imagenOriginal != null && imagenOriginal.getImagenEnBytes() != null && imagenOriginal.getImagenEnBytes().length > 0) {
                 imagen = new Imagen(Arrays.copyOf(imagenOriginal.getImagenEnBytes(), imagenOriginal.getImagenEnBytes().length));
@@ -242,6 +303,10 @@ return;
             if (hayImagen) {
                 registro.put("imagen", imagen.getImagenEnBytes());
             }
+            if (hayUbicacion) {
+                registro.put("latitud", ubicacion.getLatitud());
+                registro.put("longitud", ubicacion.getLongitud());
+            }
 
             int filasAfectadas = db.update("entrenadores", registro, "cedula=?", new String[]{id});
             db.close();
@@ -273,6 +338,10 @@ return;
             }
             if (hayImagen){
                 registro.put("imagen", imagen.getImagenEnBytes());
+            }
+            if (hayUbicacion){
+                registro.put("latitud", ubicacion.getLatitud());
+                registro.put("longitud", ubicacion.getLongitud());
             }
     db.insert("entrenadores", null, registro);
     db.close();
