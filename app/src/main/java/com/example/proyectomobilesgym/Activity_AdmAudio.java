@@ -24,22 +24,27 @@ import java.io.IOException;
 
 public class Activity_AdmAudio extends AppCompatActivity {
 
-    Button btnIniciarGrabacion;
-    Button btnDetenerGrabacion;
-    Button btnIniciarReproduccion;
-    Button btnDetenerReproduccion;
-    Button btnGuardarAudio;
+    Button btnIniciarGrabacion, btnDetenerGrabacion, btnIniciarReproduccion,
+            btnDetenerReproduccion, btnGuardarAudio;
+
     private MediaRecorder mediaRecorder;
     private MediaPlayer mediaPlayer;
+
     private boolean isRecording = false;
     private boolean isPlaying = false;
     private boolean hayAudio = false;
+
     private String outputFile;
     private Audio audio;
 
     private static final int REQUEST_PERMISSION_CODE = 1000;
 
-    public void salir(View view){
+    public void salir(View view) {
+        if (audio != null) {
+            Seleccion.audioSeleccionado = audio;
+        } else {
+            Seleccion.audioSeleccionado = new Audio(outputFile);
+        }
         finish();
     }
 
@@ -54,7 +59,6 @@ public class Activity_AdmAudio extends AppCompatActivity {
             return insets;
         });
 
-        // Vincular elementos de la interfaz con sus IDs
         btnIniciarGrabacion = findViewById(R.id.btnIniciarGrabacion);
         btnDetenerGrabacion = findViewById(R.id.btnDetenerGrabacion);
         btnIniciarReproduccion = findViewById(R.id.btnIniciarReproduccion);
@@ -69,17 +73,17 @@ public class Activity_AdmAudio extends AppCompatActivity {
                     REQUEST_PERMISSION_CODE);
         }
 
-        // Configurar el archivo de salida para la grabación de audio
         outputFile = getExternalFilesDir(null).getAbsolutePath() + "/Grabacion.3gp";
+
         mediaRecorder = new MediaRecorder();
         mediaPlayer = new MediaPlayer();
 
-        // Deshabilitar botones inicialmente
         btnDetenerGrabacion.setEnabled(false);
         btnIniciarReproduccion.setEnabled(false);
         btnDetenerReproduccion.setEnabled(false);
         btnGuardarAudio.setEnabled(false);
 
+        // Si viene audio desde el Intent, cargarlo
         byte[] audioData = getIntent().getByteArrayExtra("audio");
         if (audioData != null && audioData.length > 0) {
             audio = new Audio(outputFile);
@@ -90,20 +94,19 @@ public class Activity_AdmAudio extends AppCompatActivity {
 
     private void prepararAudio() {
         try {
-            // Crea un archivo temporal
             File tempFile = new File(audio.getRuta());
 
-            // Escribe los bytes en el archivo
             FileOutputStream fos = new FileOutputStream(tempFile);
             fos.write(audio.getEnBytes());
             fos.close();
 
-            // Prepara el MediaPlayer con el archivo recuperado
-            mediaPlayer.reset();
+            mediaPlayer.reset();  // *** CAMBIO ***
             mediaPlayer.setDataSource(tempFile.getAbsolutePath());
             mediaPlayer.prepare();
+
             hayAudio = true;
             btnIniciarReproduccion.setEnabled(true);
+
         } catch (Exception e) {
             e.printStackTrace();
             hayAudio = false;
@@ -111,21 +114,22 @@ public class Activity_AdmAudio extends AppCompatActivity {
         }
     }
 
-    // Método para iniciar la grabación de audio
     public void iniciarGrabacion(View view) {
         try {
-            mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC); // Fuente de audio
-            mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP); // Formato de salida
-            mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB); // Codificador de audio
-            mediaRecorder.setOutputFile(outputFile); // Archivo de salida
+            mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+            mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+            mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+            mediaRecorder.setOutputFile(outputFile);
+
             mediaRecorder.prepare();
             mediaRecorder.start();
+
             isRecording = true;
             isPlaying = false;
 
-            // Actualizar estado de botones
             btnIniciarGrabacion.setEnabled(false);
             btnDetenerGrabacion.setEnabled(true);
+
             Toast.makeText(this, getString(R.string.toast_start_recordig), Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -133,67 +137,67 @@ public class Activity_AdmAudio extends AppCompatActivity {
         }
     }
 
-    // Método para detener la grabación de audio
     public void detenerGrabacion(View view) {
-        mediaRecorder.stop(); // Detener grabación
-        mediaRecorder.reset(); // Reiniciar el grabador
+        mediaRecorder.stop();
+        mediaRecorder.reset();
+
         isRecording = false;
 
-        // Actualizar estado de botones
         btnIniciarGrabacion.setEnabled(false);
         btnDetenerGrabacion.setEnabled(false);
         btnIniciarReproduccion.setEnabled(true);
+
         Toast.makeText(this, getString(R.string.toast_stop_recordig), Toast.LENGTH_SHORT).show();
     }
 
-    // Método para iniciar la reproducción de audio
     public void iniciarReproduccion(View view) {
         try {
-            mediaPlayer.setDataSource(outputFile); // Configurar fuente de audio
-            mediaPlayer.prepare(); // Preparar reproducción
-            mediaPlayer.start(); // Iniciar reproducción
+            mediaPlayer.reset();   // *** CAMBIO CRÍTICO ***
+
+            mediaPlayer.setDataSource(outputFile);
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+
             isPlaying = true;
 
-            // Actualizar estado de botones
             btnIniciarReproduccion.setEnabled(false);
             btnDetenerReproduccion.setEnabled(true);
+
             Toast.makeText(this, getString(R.string.toast_start_playing), Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    // Metodo para detener la reproducción de audio
     public void detenerReproduccion(View view) {
         if (mediaPlayer != null) {
             try {
-                mediaPlayer.stop(); // Detener reproducción
-                mediaPlayer.reset(); // Reiniciar reproductor
+                mediaPlayer.stop();
+                mediaPlayer.reset();
                 isPlaying = false;
 
-                // Actualizar estado de botones
                 btnDetenerReproduccion.setEnabled(false);
                 btnGuardarAudio.setEnabled(true);
+
                 Toast.makeText(this, getString(R.string.toast_stop_playing), Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
-    // Metodo para guardar el audio en la base de datos
+
     public void guardarAudio(View view) {
-        // Leer el archivo de audio y convertirlo en un arreglo de bytes
-        File audioFile = new File(outputFile); // Ruta del archivo de audio grabado
-        byte[] audioData = new byte[(int) audioFile.length()]; // Crear un arreglo de bytes del tamaño del archivo
+        File audioFile = new File(outputFile);
+        byte[] audioData = new byte[(int) audioFile.length()];
 
         try {
             FileInputStream fileInputStream = new FileInputStream(audioFile);
-            fileInputStream.read(audioData); // Leer datos de audio en el arreglo
-            fileInputStream.close(); // Cerrar el flujo de entrada
+            fileInputStream.read(audioData);
+            fileInputStream.close();
         } catch (IOException e) {
-            e.printStackTrace(); // Manejar excepción de entrada/salida
-            Toast.makeText(this, getString(R.string.toast_error_save_audio), Toast.LENGTH_SHORT).show(); // Notificar al usuario
-            return; // Salir del método si hay un error
+            e.printStackTrace();
+            Toast.makeText(this, getString(R.string.toast_error_save_audio), Toast.LENGTH_SHORT).show();
+            return;
         }
 
         Audio audio = new Audio(outputFile);

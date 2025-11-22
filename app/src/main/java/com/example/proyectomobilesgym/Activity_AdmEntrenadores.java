@@ -92,31 +92,31 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
     }
 
     private void prepararAudio() {
-        if (audio.getEnBytes() != null && audio.getEnBytes().length > 0){
+        if (audio.getEnBytes() == null || audio.getEnBytes().length == 0){
+            hayAudio = false;
             return;
         }
         try {
-            // Crea un archivo temporal
             File tempFile = new File(audio.getRuta());
 
-            // Escribe los bytes en el archivo
             FileOutputStream fos = new FileOutputStream(tempFile);
             fos.write(audio.getEnBytes());
             fos.close();
 
-            // Prepara el MediaPlayer con el archivo recuperado
             reproductor.reset();
             reproductor.setDataSource(tempFile.getAbsolutePath());
             reproductor.prepare();
             hayAudio = true;
+
             Seleccion.audioSeleccionado = null;
+
         } catch (Exception e) {
             e.printStackTrace();
-            Seleccion.audioSeleccionado = null;
             hayAudio = false;
             Toast.makeText(this, getString(R.string.toast_audio_reading_error), Toast.LENGTH_SHORT).show();
         }
     }
+
 
     public void reproducirAudio(View view) {
         if (hayAudio){
@@ -136,7 +136,8 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
             edCedula.setText("");
             edTelefono.setText("");
             hayAudio = false;
-            audio = null;
+            audio = new Audio(getExternalFilesDir(null).getAbsolutePath() + "/Grabacion.3gp");
+
         } else {
             edNombre.setText(nombreOriginal);
             edCedula.setText(cedulaOriginal);
