@@ -2,6 +2,8 @@ package com.example.proyectomobilesgym;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
@@ -78,10 +80,11 @@ public class Activity_AdmAudio extends AppCompatActivity {
         mediaRecorder = new MediaRecorder();
         mediaPlayer = new MediaPlayer();
 
-        btnDetenerGrabacion.setEnabled(false);
-        btnIniciarReproduccion.setEnabled(false);
-        btnDetenerReproduccion.setEnabled(false);
-        btnGuardarAudio.setEnabled(false);
+        actualizarColorBoton(btnDetenerGrabacion, false, "#BDBDBD");
+        actualizarColorBoton(btnIniciarReproduccion, false, "#BDBDBD");
+        actualizarColorBoton(btnDetenerReproduccion, false, "#BDBDBD");
+        actualizarColorBoton(btnGuardarAudio, false, "#BDBDBD");
+
 
         // Si viene audio desde el Intent, cargarlo
         byte[] audioData = getIntent().getByteArrayExtra("audio");
@@ -105,7 +108,7 @@ public class Activity_AdmAudio extends AppCompatActivity {
             mediaPlayer.prepare();
 
             hayAudio = true;
-            btnIniciarReproduccion.setEnabled(true);
+            actualizarColorBoton(btnIniciarReproduccion, true, "#2196F3");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -127,8 +130,8 @@ public class Activity_AdmAudio extends AppCompatActivity {
             isRecording = true;
             isPlaying = false;
 
-            btnIniciarGrabacion.setEnabled(false);
-            btnDetenerGrabacion.setEnabled(true);
+            actualizarColorBoton(btnIniciarGrabacion, false, "#BDBDBD");
+            actualizarColorBoton(btnDetenerGrabacion, true, "#F44336");
 
             Toast.makeText(this, getString(R.string.toast_start_recordig), Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
@@ -143,9 +146,9 @@ public class Activity_AdmAudio extends AppCompatActivity {
 
         isRecording = false;
 
-        btnIniciarGrabacion.setEnabled(false);
-        btnDetenerGrabacion.setEnabled(false);
-        btnIniciarReproduccion.setEnabled(true);
+        actualizarColorBoton(btnIniciarGrabacion, false, "#BDBDBD");
+        actualizarColorBoton(btnDetenerGrabacion, false, "#BDBDBD");
+        actualizarColorBoton(btnIniciarReproduccion, true, "#2196F3");
 
         Toast.makeText(this, getString(R.string.toast_stop_recordig), Toast.LENGTH_SHORT).show();
     }
@@ -160,8 +163,9 @@ public class Activity_AdmAudio extends AppCompatActivity {
 
             isPlaying = true;
 
-            btnIniciarReproduccion.setEnabled(false);
-            btnDetenerReproduccion.setEnabled(true);
+            actualizarColorBoton(btnIniciarReproduccion, false, "#BDBDBD");
+            actualizarColorBoton(btnDetenerReproduccion, true, "#F44336");
+
 
             Toast.makeText(this, getString(R.string.toast_start_playing), Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
@@ -176,8 +180,9 @@ public class Activity_AdmAudio extends AppCompatActivity {
                 mediaPlayer.reset();
                 isPlaying = false;
 
-                btnDetenerReproduccion.setEnabled(false);
-                btnGuardarAudio.setEnabled(true);
+                actualizarColorBoton(btnDetenerReproduccion, false, "#BDBDBD");
+                actualizarColorBoton(btnGuardarAudio, true, "#4CAF50");
+
 
                 Toast.makeText(this, getString(R.string.toast_stop_playing), Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
@@ -206,4 +211,19 @@ public class Activity_AdmAudio extends AppCompatActivity {
 
         finish();
     }
+
+    private void actualizarColorBoton(Button boton, boolean habilitado, String colorOriginal) {
+        if (habilitado) {
+            boton.setBackgroundTintList(
+                    ColorStateList.valueOf(Color.parseColor(colorOriginal))
+            );
+            boton.setEnabled(true);
+        } else {
+            boton.setBackgroundTintList(
+                    ColorStateList.valueOf(Color.parseColor("#BDBDBD"))
+            );
+            boton.setEnabled(false);
+        }
+    }
+
 }
