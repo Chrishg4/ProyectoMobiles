@@ -53,10 +53,6 @@ public class MainActivity extends AppCompatActivity {
                         intent = new Intent(this, Activity_Membresias.class);
                         startActivity(intent);
                         break;
-                    case 4:
-                        intent = new Intent(this, Activity_Ubicacion.class);
-                        startActivity(intent);
-                        break;
                 }
             }
         );
@@ -69,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
         lista.add(new Class_Menu(1, R.drawable.entrenador, getString(R.string.title_trainers)));
         lista.add(new Class_Menu(2, R.drawable.client, getString(R.string.title_clients)));
         lista.add(new Class_Menu(3, R.drawable.membresia, getString(R.string.title_memberships)));
-        lista.add(new Class_Menu(4, R.drawable.locationmain, getString(R.string.title_locations)));
     }
 
 

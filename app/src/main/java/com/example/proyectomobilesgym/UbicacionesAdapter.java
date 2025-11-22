@@ -55,7 +55,6 @@ public class UbicacionesAdapter extends BaseAdapter {
         textViewLongitud = view.findViewById(R.id.txtLongitudUbicacion);
 
         imageUbicacion.setImageResource(R.drawable.locationmain);
-        textViewNombre.setText(ubicacion.nombre);
         //los double
         textViewLatitud.setText(String.valueOf(ubicacion.latitud));
         textViewLongitud.setText(String.valueOf(ubicacion.longitud));
