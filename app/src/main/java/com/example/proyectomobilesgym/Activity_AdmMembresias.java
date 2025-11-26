@@ -125,7 +125,7 @@ public class Activity_AdmMembresias extends AppCompatActivity {
             codigo = enEdicionServicio.getCodigo();
             servicio.setCodigo(codigo);
             servicioDB.actualizar(servicio);
-            // reemplazar en la lista la posición correspondiente (si existe)
+            // reemplazar en la lista la posición correspondiente 
             for (int i = 0; i < lista.size(); i++){
                 Servicio s = lista.get(i);
                 if (s.getCodigo() == codigo){
