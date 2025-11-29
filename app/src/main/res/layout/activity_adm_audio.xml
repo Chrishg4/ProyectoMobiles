@@ -6,7 +6,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#DFF0D8"
+    android:background="@color/grisFondo"
     android:padding="24dp"
     tools:context=".Activity_AdmAudio">
 
@@ -30,101 +30,73 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
                 android:text="@string/header_audio"
                 android:textSize="26sp"
                 android:textStyle="bold"
-                android:textColor="#000000" />
+                android:textColor="@color/black" />
 
-            <!-- BOTÓN: INICIAR GRABACIÓN -->
-            <Button
+            <!-- INICIAR GRABACIÓN -->
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnIniciarGrabacion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:onClick="iniciarGrabacion"
+                style="@style/Widget.App.Button.Primary"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
                 android:text="@string/start_recording"
-                android:textColor="#000000"
-                android:backgroundTint="#4CAF50"
-                app:icon="@drawable/record"
-                app:iconSize="20dp"
-                app:iconGravity="textTop"
-                app:iconTint="#000000" />
+                android:onClick="iniciarGrabacion"
+                app:icon="@drawable/record" />
 
-            <!-- BOTÓN: DETENER GRABACIÓN -->
-            <Button
+            <!-- DETENER GRABACIÓN -->
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnDetenerGrabacion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:onClick="detenerGrabacion"
+                style="@style/Widget.App.Button.Danger"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
                 android:text="@string/stop_recording"
-                android:textColor="#000000"
-                android:backgroundTint="#D33232"
-                app:icon="@drawable/stop"
-                app:iconSize="24dp"
-                app:iconGravity="textTop"
-                app:iconTint="#000000" />
+                android:onClick="detenerGrabacion"
+                app:icon="@drawable/stop" />
 
-            <!-- BOTÓN: INICIAR REPRODUCCIÓN -->
-            <Button
+            <!-- INICIAR REPRODUCCIÓN -->
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnIniciarReproduccion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:onClick="iniciarReproduccion"
+                style="@style/Widget.App.Button.Secondary"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
                 android:text="@string/play_audio"
-                android:textColor="#000000"
-                android:backgroundTint="#009688"
-                app:icon="@drawable/play"
-                app:iconGravity="textTop"
-                app:iconSize="20dp"
-                app:iconTint="#000000" />
+                android:onClick="iniciarReproduccion"
+                app:icon="@drawable/play" />
 
-            <!-- BOTÓN: DETENER REPRODUCCIÓN -->
-            <Button
+            <!-- DETENER REPRODUCCIÓN -->
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnDetenerReproduccion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:onClick="detenerReproduccion"
+                style="@style/Widget.App.Button.Danger"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
                 android:text="@string/stop_playing"
-                android:textColor="#000000"
-                android:backgroundTint="#D33232"
-                app:icon="@drawable/pause"
-                app:iconGravity="textTop"
-                app:iconSize="20dp"
-                app:iconTint="#000000" />
+                android:onClick="detenerReproduccion"
+                app:icon="@drawable/pause" />
 
-            <!-- BOTÓN: GUARDAR AUDIO -->
-            <Button
+            <!-- GUARDAR AUDIO -->
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnGuardarAudio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:onClick="guardarAudio"
+                style="@style/Widget.App.Button.Primary"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
                 android:text="@string/save_audio"
-                android:textColor="#000000"
-                android:backgroundTint="#4CAF50"
-                app:icon="@drawable/guardar"
-                app:iconGravity="textTop"
-                app:iconSize="20dp"
-                app:iconTint="#000000" />
+                android:onClick="guardarAudio"
+                app:icon="@drawable/guardar" />
 
-            <!-- BOTÓN: SALIR -->
-            <Button
+            <!-- SALIR -->
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSalir"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:onClick="salir"
+                style="@style/Widget.App.Button.Danger"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
                 android:text="@string/btn_exit"
-                android:textColor="#000000"
-                android:backgroundTint="#D33232"
-                app:icon="@drawable/cancelar"
-                app:iconGravity="textTop"
-                app:iconSize="20dp"
-                app:iconTint="#000000" />
+                android:onClick="salir"
+                app:icon="@drawable/cancelar" />
 
         </LinearLayout>
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

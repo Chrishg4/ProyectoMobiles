@@ -28,9 +28,6 @@
             android:name=".Activity_AdmUbicacion"
             android:exported="false" />
         <activity
-            android:name=".Activity_Ubicacion"
-            android:exported="false" />
-        <activity
             android:name=".Activity_SelectServicios"
             android:exported="false" />
         <activity
