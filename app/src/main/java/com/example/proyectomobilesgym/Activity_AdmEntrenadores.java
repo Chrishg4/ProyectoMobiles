@@ -125,7 +125,7 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
         Seleccion.imagenSeleccionada = null;
         Intent intent = new Intent(this, Activity_AdmImagen.class);
 
-        if (imagen.getImagenEnBytes() != null && imagen.getImagenEnBytes().length > 0) {
+        if (imagen != null && imagen.getImagenEnBytes() != null && imagen.getImagenEnBytes().length > 0) {
             intent.putExtra("imagen", imagen.getImagenEnBytes());
         }
         startActivity(intent);
@@ -240,7 +240,8 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
             hayAudio = false;
             audio = new Audio(getExternalFilesDir(null).getAbsolutePath() + "/Grabacion.3gp");
             hayImagen = false;
-            imagen = null;
+            imagen = new Imagen(new byte[0]);
+            imgAvatar.setImageDrawable(null);
             ubicacion = null;
             hayUbicacion = false;
             edLongitud .setText("");
