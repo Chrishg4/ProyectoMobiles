@@ -1,5 +1,7 @@
 package com.example.proyectomobilesgym;
 
+import com.google.android.material.button.MaterialButton;
+
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
@@ -8,7 +10,6 @@ import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -26,7 +27,7 @@ import java.io.IOException;
 
 public class Activity_AdmAudio extends AppCompatActivity {
 
-    Button btnIniciarGrabacion, btnDetenerGrabacion, btnIniciarReproduccion,
+    MaterialButton btnIniciarGrabacion, btnDetenerGrabacion, btnIniciarReproduccion,
             btnDetenerReproduccion, btnGuardarAudio;
 
     private MediaRecorder mediaRecorder;
@@ -103,7 +104,7 @@ public class Activity_AdmAudio extends AppCompatActivity {
             fos.write(audio.getEnBytes());
             fos.close();
 
-            mediaPlayer.reset();  // *** CAMBIO ***
+            mediaPlayer.reset();
             mediaPlayer.setDataSource(tempFile.getAbsolutePath());
             mediaPlayer.prepare();
 
@@ -131,6 +132,9 @@ public class Activity_AdmAudio extends AppCompatActivity {
             isPlaying = false;
 
             actualizarColorBoton(btnIniciarGrabacion, false, "#BDBDBD");
+            actualizarColorBoton(btnIniciarReproduccion, false, "#BDBDBD");
+            actualizarColorBoton(btnDetenerReproduccion, false, "#BDBDBD");
+            actualizarColorBoton(btnGuardarAudio, false, "#BDBDBD");
             actualizarColorBoton(btnDetenerGrabacion, true, "#F44336");
 
             Toast.makeText(this, getString(R.string.toast_start_recordig), Toast.LENGTH_SHORT).show();
@@ -155,7 +159,7 @@ public class Activity_AdmAudio extends AppCompatActivity {
 
     public void iniciarReproduccion(View view) {
         try {
-            mediaPlayer.reset();   // *** CAMBIO CRÍTICO ***
+            mediaPlayer.reset();
 
             mediaPlayer.setDataSource(outputFile);
             mediaPlayer.prepare();
@@ -164,6 +168,7 @@ public class Activity_AdmAudio extends AppCompatActivity {
             isPlaying = true;
 
             actualizarColorBoton(btnIniciarReproduccion, false, "#BDBDBD");
+            actualizarColorBoton(btnIniciarGrabacion, false, "#BDBDBD");
             actualizarColorBoton(btnDetenerReproduccion, true, "#F44336");
 
 
@@ -181,6 +186,7 @@ public class Activity_AdmAudio extends AppCompatActivity {
                 isPlaying = false;
 
                 actualizarColorBoton(btnDetenerReproduccion, false, "#BDBDBD");
+                actualizarColorBoton(btnIniciarGrabacion, true, "#2196F3");
                 actualizarColorBoton(btnGuardarAudio, true, "#4CAF50");
 
 
@@ -212,7 +218,7 @@ public class Activity_AdmAudio extends AppCompatActivity {
         finish();
     }
 
-    private void actualizarColorBoton(Button boton, boolean habilitado, String colorOriginal) {
+    private void actualizarColorBoton(MaterialButton boton, boolean habilitado, String colorOriginal) {
         if (habilitado) {
             boton.setBackgroundTintList(
                     ColorStateList.valueOf(Color.parseColor(colorOriginal))

@@ -25,8 +25,8 @@
             android:gravity="center_horizontal">
 
             <!-- TÍTULO -->
-            <TextView
-                android:id="@+id/textView"
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/txtTitulo2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -34,14 +34,18 @@
                 android:text="@string/header_audio"
                 android:textSize="26sp"
                 android:textStyle="bold"
-                android:textColor="@color/black" />
+                android:textColor="@color/azulUTN"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
 
             <!-- INICIAR GRABACIÓN -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnIniciarGrabacion"
                 style="@style/Widget.App.Button.Primary"
                 android:layout_width="200dp"
-                android:layout_height="40dp"
+                android:layout_height="60dp"
+                app:iconSize="24dp"
                 android:text="@string/start_recording"
                 android:onClick="iniciarGrabacion"
                 app:icon="@drawable/record" />
@@ -51,7 +55,8 @@
                 android:id="@+id/btnDetenerGrabacion"
                 style="@style/Widget.App.Button.Danger"
                 android:layout_width="200dp"
-                android:layout_height="40dp"
+                android:layout_height="60dp"
+                app:iconSize="24dp"
                 android:text="@string/stop_recording"
                 android:onClick="detenerGrabacion"
                 app:icon="@drawable/stop" />
@@ -61,7 +66,8 @@
                 android:id="@+id/btnIniciarReproduccion"
                 style="@style/Widget.App.Button.Secondary"
                 android:layout_width="200dp"
-                android:layout_height="40dp"
+                android:layout_height="60dp"
+                app:iconSize="20dp"
                 android:text="@string/play_audio"
                 android:onClick="iniciarReproduccion"
                 app:icon="@drawable/play" />
@@ -71,7 +77,8 @@
                 android:id="@+id/btnDetenerReproduccion"
                 style="@style/Widget.App.Button.Danger"
                 android:layout_width="200dp"
-                android:layout_height="40dp"
+                android:layout_height="60dp"
+                app:iconSize="20dp"
                 android:text="@string/stop_playing"
                 android:onClick="detenerReproduccion"
                 app:icon="@drawable/pause" />
@@ -81,7 +88,8 @@
                 android:id="@+id/btnGuardarAudio"
                 style="@style/Widget.App.Button.Primary"
                 android:layout_width="200dp"
-                android:layout_height="40dp"
+                android:layout_height="60dp"
+                app:iconSize="24dp"
                 android:text="@string/save_audio"
                 android:onClick="guardarAudio"
                 app:icon="@drawable/guardar" />
@@ -91,7 +99,8 @@
                 android:id="@+id/btnSalir"
                 style="@style/Widget.App.Button.Danger"
                 android:layout_width="200dp"
-                android:layout_height="40dp"
+                android:layout_height="60dp"
+                app:iconSize="24dp"
                 android:text="@string/btn_exit"
                 android:onClick="salir"
                 app:icon="@drawable/cancelar" />
