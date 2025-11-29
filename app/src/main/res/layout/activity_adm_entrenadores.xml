@@ -5,18 +5,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#DFF0D8">
+    android:background="@color/grisFondo"
+    tools:context=".Activity_AdmEntrenadores">
 
     <ScrollView
         android:id="@+id/scrollFormulario"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
             android:id="@+id/main"
@@ -26,8 +25,7 @@
             android:padding="24dp">
 
             <!-- Título -->
-
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txtTitulo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -35,63 +33,73 @@
                 android:layout_marginBottom="16dp"
                 android:text="@string/title_manage_trainers"
                 android:textSize="24sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/azulUTN"/>
 
             <!-- Avatar -->
-
-            <!-- Campo: Cédula -->
-
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imgAvatar"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="24dp"
                 android:scaleType="centerCrop"
-                app:srcCompat="@drawable/entrenador" />
+                app:srcCompat="@drawable/entrenador"
+                app:shapeAppearanceOverlay="@style/Shape.Rounded.Large"/>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <!-- Campo: Cédula -->
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/field_id" />
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="30dp"
+                android:hint="@string/field_id"
+
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtCedula"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Campo: Nombre -->
-
-            <EditText
-                android:id="@+id/edtCedula"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/edittext_custom"
-                android:inputType="number" />
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="30dp"
+                android:hint="@string/field_name"
+                android:layout_marginTop="12dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/field_name" />
-
-            <EditText
-                android:id="@+id/edtNombre"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edittext_custom"
-                android:inputType="textPersonName" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtNombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Campo: Número -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/field_number" />
-
-            <EditText
-                android:id="@+id/edtNumero"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/edittext_custom"
-                android:inputType="phone" />
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="30dp"
+                android:hint="@string/field_number"
+                android:layout_marginTop="12dp">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtNumero"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Botones -->
-
+            <!-- Botones de audio -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -99,36 +107,34 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnPlay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:backgroundTint="#3F51B5"
-                    android:onClick="reproducirAudio"
                     android:text="@string/btn_play"
-                    android:textColor="#000000"
                     app:icon="@drawable/play"
-                    app:iconGravity="textTop"
-                    app:iconSize="20dp"
-                    app:iconTint="#000000" />
+                    app:iconGravity="textStart"
+                    app:iconPadding="8dp"
+                    android:backgroundTint="@color/azulUTN"
+                    android:textColor="@color/blanco"
+                    android:onClick="reproducirAudio"/>
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnRecord"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="#FF9800"
-                    android:onClick="irAGrabarAudio"
                     android:text="@string/btn_record"
-                    android:textColor="#000000"
-                    app:icon="@drawable/seleccionar"
-                    app:iconGravity="textTop"
-                    app:iconSize="20dp"
-                    app:iconTint="#000000" />
-
+                    app:icon="@drawable/record"
+                    app:iconGravity="textStart"
+                    app:iconPadding="8dp"
+                    android:backgroundTint="@color/naranjaUTN"
+                    android:textColor="@color/blanco"
+                    android:onClick="irAGrabarAudio"
+                    android:layout_marginStart="8dp"/>
             </LinearLayout>
 
-            <TextView
+            <!-- Campos de ubicación -->
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/textView7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -136,57 +142,59 @@
                 android:text="@string/title_locations"
                 android:textAlignment="center"
                 android:textSize="24sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/azulUTN"/>
 
-            <EditText
-                android:id="@+id/longitud"
-                android:layout_width="303dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="15dp"
-                android:background="@drawable/edittext_custom"
-                android:ems="10"
-                android:hint="@string/field_location_longitude"
-                android:inputType="text" />
-
-            <EditText
-                android:id="@+id/latitud"
-                android:layout_width="304dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:background="@drawable/edittext_custom"
-                android:ems="10"
-                android:hint="@string/field_location_latitude"
-                android:inputType="text" />
-
-            <LinearLayout
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="24dp"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="30dp"
+                android:hint="@string/field_location_longitude"
+                android:layout_marginTop="12dp">
 
-                <Button
-                    android:id="@+id/btnAgregarEditarUbi"
-                    android:layout_width="171dp"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/longitud"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:backgroundTint="#4CAF50"
-                    android:onClick="irAUbicacion"
-                    android:text="@string/btn_add"
-                    android:textColor="#000000"
-                    app:icon="@drawable/addlocation"
-                    app:iconGravity="textTop"
-                    app:iconSize="20dp"
-                    app:iconTint="#000000" />
+                    android:inputType="numberDecimal"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="30dp"
+                android:hint="@string/field_location_latitude"
+                android:layout_marginTop="12dp">
 
-            </LinearLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/latitud"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
+            <!-- Botón agregar ubicación -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAgregarEditarUbi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_add"
+                app:icon="@drawable/addlocation"
+                app:iconGravity="textStart"
+                app:iconPadding="8dp"
+                android:backgroundTint="@color/azulUTN"
+                android:textColor="@color/blanco"
+                android:onClick="irAUbicacion"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="16dp"/>
+
+            <!-- Imagen -->
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/textView10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -194,91 +202,93 @@
                 android:text="@string/image_avatar"
                 android:textAlignment="center"
                 android:textSize="24sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/azulUTN"/>
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="410dp"
-                android:layout_height="273dp"
-                android:layout_margin="12dp" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="24dp"
-            android:gravity="center"
-            android:orientation="horizontal">
+            <!-- Imagen dentro de tarjeta Material -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardImagen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp"
+                android:layout_margin="12dp"
+                app:strokeColor="@color/azulUTN"
+                app:strokeWidth="1dp">
 
-            <Button
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="273dp"
+                    android:scaleType="centerCrop"
+                    app:shapeAppearanceOverlay="@style/Shape.Rounded.Medium"
+                    android:contentDescription="@string/image_avatar"/>
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <!-- Botón agregar imagen -->
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnAgregarImagen"
-                android:layout_width="171dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:backgroundTint="#4CAF50"
-                android:onClick="irAImagen"
                 android:text="@string/image_take_photo"
-                android:textColor="#000000"
-                app:icon="@drawable/visor"
-                app:iconGravity="textTop"
-                app:iconSize="20dp"
-                app:iconTint="#000000" />
+                app:icon="@drawable/camara"
+                app:iconGravity="textStart"
+                app:iconPadding="8dp"
+                android:backgroundTint="@color/azulUTN"
+                android:textColor="@color/blanco"
+                android:onClick="irAImagen"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="16dp"/>
 
-        </LinearLayout>
-
+            <!-- Botones finales -->
             <LinearLayout
-                android:layout_width="361dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="24dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnAgregarEditarUbi1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:backgroundTint="#4CAF50"
+                    android:layout_marginEnd="8dp"
+                    android:backgroundTint="@color/azulUTN"
                     android:onClick="funcionEYG"
                     android:text="@string/btn_add"
-                    android:textColor="#000000"
+                    android:textColor="@color/blanco"
                     app:icon="@drawable/guardar"
                     app:iconGravity="textTop"
-                    app:iconSize="20dp"
-                    app:iconTint="#000000" />
+                    app:iconPadding="8dp" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/Reiniciar"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="16dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="#009688"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:backgroundTint="@color/naranjaUTN"
                     android:onClick="reiniciar"
                     android:text="@string/btn_reset"
-                    android:textColor="#000000"
+                    android:textColor="@color/blanco"
                     app:icon="@drawable/reiniciar"
                     app:iconGravity="textTop"
-                    app:iconSize="18dp"
-                    app:iconTint="#000000" />
+                    app:iconPadding="8dp" />
 
-
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnCancelar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="#D33232"
+                    android:backgroundTint="@color/rojoUTN"
                     android:onClick="cancelar"
                     android:text="@string/btn_cancel"
-                    android:textColor="#000000"
+                    android:textColor="@color/blanco"
                     app:icon="@drawable/cancelar"
                     app:iconGravity="textTop"
-                    app:iconSize="20dp"
-                    app:iconTint="#000000" />
-
+                    app:iconPadding="8dp" />
             </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

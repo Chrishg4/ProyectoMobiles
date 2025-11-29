@@ -106,39 +106,39 @@
             android:id="@+id/btnGuardar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/btn_save"
-            app:icon="@drawable/guardar"
-            app:iconGravity="textStart"
-            app:iconPadding="8dp"
             android:backgroundTint="@color/azulUTN"
+            android:onClick="guardar"
+            android:text="@string/btn_save"
             android:textColor="@color/blanco"
-            android:onClick="guardar"/>
+            app:icon="@drawable/guardar"
+            app:iconGravity="textTop"
+            app:iconPadding="8dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSalir"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/btn_reset"
-            app:icon="@drawable/reiniciar"
-            app:iconGravity="textStart"
-            app:iconPadding="8dp"
+            android:layout_marginStart="8dp"
             android:backgroundTint="@color/naranjaUTN"
-            android:textColor="@color/blanco"
             android:onClick="reiniciar"
-            android:layout_marginStart="8dp"/>
+            android:text="@string/btn_reset"
+            android:textColor="@color/blanco"
+            app:icon="@drawable/reiniciar"
+            app:iconGravity="textTop"
+            app:iconPadding="8dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnCancelar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/btn_cancel"
-            app:icon="@drawable/cancelar"
-            app:iconGravity="textStart"
-            app:iconPadding="8dp"
+            android:layout_marginStart="8dp"
             android:backgroundTint="@color/rojoUTN"
-            android:textColor="@color/blanco"
             android:onClick="cancelar"
-            android:layout_marginStart="8dp"/>
+            android:text="@string/btn_cancel"
+            android:textColor="@color/blanco"
+            app:icon="@drawable/cancelar"
+            app:iconGravity="textTop"
+            app:iconPadding="8dp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
