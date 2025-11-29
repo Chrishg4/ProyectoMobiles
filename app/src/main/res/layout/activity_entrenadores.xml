@@ -5,131 +5,144 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#DFF0D8"
-    android:padding="16dp">
+    android:background="@color/grisFondo"
+    tools:context=".Activity_Entrenadores">
 
-
-    <Button
+    <!-- Botón buscar redondo tipo Material -->
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnBuscar2"
-        android:layout_width="66dp"
-        android:layout_height="61dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="32dp"
-        android:background="#00FFFFFF"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:backgroundTint="@color/azulUTN"
         app:icon="@drawable/busqueda"
-        app:iconPadding="0dp"
-        app:iconSize="30dp"
-        app:iconTint="#000000"
+        app:iconTint="@color/blanco"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/Shape.Rounded.Large" />
 
-    <TextView
+    <!-- Título Material -->
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txtTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
         android:text="@string/title_trainers"
-        android:textSize="20sp"
+        android:textColor="@color/azulUTN"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/edtBuscar"
-        android:layout_width="295dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="13dp"
-        android:background="@drawable/edittext_custom"
-        android:inputType="text"
-        android:padding="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/listEntrenadores"
+    <!-- Caja de texto Material -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutBuscar"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:hint="Buscar entrenador"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtTitulo" />
+        app:layout_constraintTop_toBottomOf="@id/txtTitulo">
 
-    <ListView
-        android:id="@+id/listEntrenadores"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtBuscar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <!-- ListView dentro de Card Material -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardLista"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="12dp"
-        android:divider="@android:color/darker_gray"
-        android:dividerHeight="1dp"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="@color/blanco"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
         app:layout_constraintBottom_toTopOf="@id/layoutBotones"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edtBuscar" />
+        app:layout_constraintTop_toBottomOf="@id/layoutBuscar">
 
-    <!-- Botones inferiores -->
+        <ListView
+            android:id="@+id/listEntrenadores"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:dividerHeight="1dp" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Botonera inferior estilo Material -->
     <LinearLayout
         android:id="@+id/layoutBotones"
-        android:layout_width="403dp"
-        android:layout_height="94dp"
-        android:layout_marginTop="11dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listEntrenadores">
+        app:layout_constraintStart_toStartOf="parent">
 
-        <Button
+        <!-- AGREGAR -->
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnAgregar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:backgroundTint="#4CAF50"
+            android:layout_marginEnd="6dp"
+            android:backgroundTint="@color/azulUTN"
             android:onClick="agregar"
             android:text="@string/btn_add"
-            android:textColor="#000000"
+            android:textColor="@color/blanco"
             app:icon="@drawable/guardar"
             app:iconGravity="textTop"
-            app:iconSize="20dp"
-            app:iconTint="#000000" />
+            app:iconTint="@color/blanco" />
 
-        <Button
+        <!-- EDITAR -->
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnEditar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:backgroundTint="#2196F3"
+            android:layout_marginEnd="6dp"
+            android:backgroundTint="@color/naranjaUTN"
             android:onClick="editar"
             android:text="@string/btn_edit"
-            android:textColor="#000000"
+            android:textColor="@color/blanco"
             app:icon="@drawable/editar_usuarios"
             app:iconGravity="textTop"
-            app:iconSize="20dp"
-            app:iconTint="#000000" />
+            app:iconTint="@color/blanco" />
 
-        <Button
+        <!-- ELIMINAR -->
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnEliminar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:backgroundTint="#D33232"
+            android:layout_marginEnd="6dp"
+            android:backgroundTint="@color/rojoUTN"
             android:onClick="Eliminar"
             android:text="@string/btn_delete"
-            android:textColor="#000000"
+            android:textColor="@color/blanco"
             app:icon="@drawable/borrar_usuarios"
             app:iconGravity="textTop"
-            app:iconSize="20dp"
-            app:iconTint="#000000" />
+            app:iconTint="@color/blanco" />
 
-        <Button
+        <!-- SALIR -->
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSalir"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#009688"
+            android:backgroundTint="@color/azulUTN"
             android:onClick="exit"
             android:text="@string/btn_exit"
-            android:textColor="#000000"
+            android:textColor="@color/blanco"
             app:icon="@drawable/salida"
             app:iconGravity="textTop"
-            app:iconSize="20dp"
-            app:iconTint="#000000" />
+            app:iconTint="@color/blanco" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
