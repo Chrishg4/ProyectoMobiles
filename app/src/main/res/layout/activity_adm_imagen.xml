@@ -47,8 +47,7 @@
             app:icon="@drawable/reiniciar"
             app:iconGravity="textTop"
             app:iconSize="20dp"
-            app:iconTint="#000000"
-            tools:text="Tomar foto" />
+            app:iconTint="#000000" />
 
         <Button
             android:id="@+id/btnGuardar"
