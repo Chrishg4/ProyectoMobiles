@@ -15,7 +15,7 @@
     <string name="title_manage_services">Manage Services</string>
     <string name="title_manage_memberships">Manage Memberships</string>
     <string name="title_manage_locations">Manage Locations</string>
-
+    <string name="title_manage_image">Manage Images </string>
     <string name="title_select_trainers">Select Trainers</string>
     <string name="title_select_clients">Select Clients</string>
 
