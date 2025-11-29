@@ -3,6 +3,36 @@
     <style name="Base.Theme.ProyectoMobilesGYM" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/azulUTN</item>
+        <item name="colorOnPrimary">@color/blanco</item>
+
+        <item name="colorSecondary">@color/naranjaUTN</item>
+        <item name="colorOnSecondary">@color/blanco</item>
+
+        <item name="colorError">@color/rojoUTN</item>
+        <item name="colorOnError">@color/blanco</item>
+
+        <!-- Tipografía -->
+        <item name="android:fontFamily">sans-serif</item>
+
+        <!-- Bordes redondeados globales -->
+        <item name="shapeAppearanceSmallComponent">@style/Shape.Rounded.Small</item>
+        <item name="shapeAppearanceMediumComponent">@style/Shape.Rounded.Medium</item>
+        <item name="shapeAppearanceLargeComponent">@style/Shape.Rounded.Large</item>
+    </style>
+
+    <style name="Shape.Rounded.Small" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+    <style name="Shape.Rounded.Medium" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item>
+    </style>
+    <style name="Shape.Rounded.Large" parent="ShapeAppearance.Material3.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+
     </style>
 
     <style name="Theme.ProyectoMobilesGYM" parent="Base.Theme.ProyectoMobilesGYM" />

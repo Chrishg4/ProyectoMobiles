@@ -44,4 +44,5 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation ("org.osmdroid:osmdroid-android:6.1.11")
     implementation("androidx.preference:preference:1.2.0")
+    implementation("com.google.android.material:material:1.12.0")
 }
