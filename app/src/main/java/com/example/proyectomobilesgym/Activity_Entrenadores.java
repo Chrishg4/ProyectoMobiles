@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -70,9 +71,11 @@ public class Activity_Entrenadores extends AppCompatActivity {
 
             view.setBackgroundColor(Color.LTGRAY);
             //habilito los botones de editar y eliminar
-            if(itemseleccionado >= 0){
-                btnEliminar.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#D33232")));
-                btnEditar.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2196F3")));
+            if (itemseleccionado >= 0) {
+                int colorRojo = ContextCompat.getColor(this, R.color.rojoUTN);
+                int colorNaranja = ContextCompat.getColor(this, R.color.naranjaUTN);
+                btnEliminar.setBackgroundTintList(ColorStateList.valueOf(colorRojo));
+                btnEditar.setBackgroundTintList(ColorStateList.valueOf(colorNaranja));
             }
 
         });

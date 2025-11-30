@@ -9,12 +9,15 @@
     tools:context=".Activity_Entrenadores">
 
     <!-- Botón buscar redondo tipo Material -->
+
+    <!-- Título Material -->
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnBuscar2"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="28dp"
         android:backgroundTint="@color/azulUTN"
         app:icon="@drawable/busqueda"
         app:iconTint="@color/blanco"
@@ -22,7 +25,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/Shape.Rounded.Large" />
 
-    <!-- Título Material -->
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txtTitulo"
         android:layout_width="wrap_content"
@@ -43,7 +45,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="100dp"
         android:hint="Buscar entrenador"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -74,7 +76,13 @@
             android:id="@+id/listEntrenadores"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:dividerHeight="1dp" />
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="10dp" />
     </com.google.android.material.card.MaterialCardView>
 
     <!-- Botonera inferior estilo Material -->

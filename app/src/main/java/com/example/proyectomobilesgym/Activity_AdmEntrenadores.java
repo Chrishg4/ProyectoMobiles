@@ -66,7 +66,6 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
         imagen = new Imagen(new byte[0]);
         reproductor = new MediaPlayer();
         audio = new Audio(getExternalFilesDir(null).getAbsolutePath() + "/Grabacion.3gp");
-        ubicacion = new Ubicaciones(0.0, 0.0); // esto inicializa la ubicacion en 0,0 para evitar errores de null pointer
 
         String id = getIntent().getStringExtra("id");
         if (id != null) {
@@ -142,7 +141,7 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
     public void irAUbicacion(View view) {
         Seleccion.ubicacionSeleccionada = null;// reinicia la seleccion
         Intent intent = new Intent(this, Activity_AdmUbicacion.class);
-        if (ubicacion != null  ) { // si hay una ubicacion seleccionada
+        if (ubicacion != null) { // si hay una ubicacion seleccionada
             intent.putExtra("latitud", ubicacion.getLatitud());
             intent.putExtra("longitud", ubicacion.getLongitud());
         }

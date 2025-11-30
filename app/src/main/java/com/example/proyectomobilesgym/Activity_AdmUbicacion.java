@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.Editable;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,19 +27,11 @@ import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
 
 public class Activity_AdmUbicacion extends AppCompatActivity implements MapEventsReceiver {
-
     EditText  txtLatitud, txtLongitud;
-
     MapView map;
-
     IMapController mapController;
-
     Marker marcador;
-
     Button btnGuardar, btnCancelar;
-
-
-
     double latitudOriginal, longitudOriginal;
 
     @Override
@@ -49,7 +42,6 @@ public class Activity_AdmUbicacion extends AppCompatActivity implements MapEvent
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_adm_ubicacion);
-
 
         txtLatitud = findViewById(R.id.txtLatitud);
         txtLongitud = findViewById(R.id.txtLongitud);
@@ -64,7 +56,7 @@ public class Activity_AdmUbicacion extends AppCompatActivity implements MapEvent
         mapController.setZoom(15.0); // establece el zoom inicial
 
         //cordenadas iniciales UTN
-        GeoPoint utn = new GeoPoint(10.430684188597372, -85.08498580135634);
+        GeoPoint utn = new GeoPoint(10.430871, -85.084667);
         mapController.setCenter(utn); // establece la ubicación inicial del mapa.
 
         //currentMarker inicial
@@ -85,9 +77,12 @@ public class Activity_AdmUbicacion extends AppCompatActivity implements MapEvent
 
         Intent ubi = getIntent(); // obtiene el intent que inició esta actividad.
         if (ubi  != null && ubi.hasExtra("latitud") && ubi.hasExtra("longitud")) {// verifica si el intent tiene los extras de latitud y longitud.
-            latitudOriginal = ubi.getDoubleExtra("latitud", 0.0);// obtiene la latitud original del intent.
-            longitudOriginal = ubi.getDoubleExtra("longitud", 0.0);
-
+            latitudOriginal = ubi.getDoubleExtra("latitud", 10.430871);// obtiene la latitud original del intent.
+            longitudOriginal = ubi.getDoubleExtra("longitud", -85.084667);
+            if (latitudOriginal == 0.0 && longitudOriginal == 0.0) {
+                latitudOriginal = 10.430871;
+                longitudOriginal = -85.084667;
+            }
 
             txtLatitud.setText(String.valueOf(latitudOriginal));
             txtLongitud.setText(String.valueOf(longitudOriginal));
@@ -172,7 +167,6 @@ public class Activity_AdmUbicacion extends AppCompatActivity implements MapEvent
             txtLongitud.setText("");
             return;
         } else {
-
             txtLatitud.setText(String.valueOf(latitudOriginal));
             txtLongitud.setText(String.valueOf(longitudOriginal));
 
@@ -181,7 +175,6 @@ public class Activity_AdmUbicacion extends AppCompatActivity implements MapEvent
             marcador.setPosition(puntoOriginal);
             mapController.setCenter(puntoOriginal);
             map.invalidate();
-
         }
     }
 
@@ -199,12 +192,5 @@ public class Activity_AdmUbicacion extends AppCompatActivity implements MapEvent
             // Cerrar la Activity
             finish();
         }
-
-
     }
-
-
-
-
-
 }
