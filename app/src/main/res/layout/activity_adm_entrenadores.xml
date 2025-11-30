@@ -219,10 +219,10 @@
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/imageView2"
                     android:layout_width="match_parent"
-                    android:layout_height="273dp"
+                    android:layout_height="500dp"
+                    android:contentDescription="@string/image_avatar"
                     android:scaleType="centerCrop"
-                    app:shapeAppearanceOverlay="@style/Shape.Rounded.Medium"
-                    android:contentDescription="@string/image_avatar"/>
+                    app:shapeAppearanceOverlay="@style/Shape.Rounded.Medium" />
             </com.google.android.material.card.MaterialCardView>
 
 
