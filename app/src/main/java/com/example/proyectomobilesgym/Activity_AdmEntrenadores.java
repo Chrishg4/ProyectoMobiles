@@ -120,18 +120,20 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
 
     }
     public void irAImagen(View view) {
-
+        // reinicia la seleccion de imagen
         Seleccion.imagenSeleccionada = null;
         Intent intent = new Intent(this, Activity_AdmImagen.class);
-
+        // si hay una imagen seleccionada, la pasa al intent
         if (imagen != null && imagen.getImagenEnBytes() != null && imagen.getImagenEnBytes().length > 0) {
             intent.putExtra("imagen", imagen.getImagenEnBytes());
         }
         startActivity(intent);
     }
     public void irAGrabarAudio(View view) {
+        // reinicia la seleccion de audio
         Seleccion.audioSeleccionado = null;
         Intent intent = new Intent(this, Activity_AdmAudio.class);
+        // si hay un audio seleccionado, lo pasa al intent
         if (audio.getEnBytes() != null && audio.getEnBytes().length > 0){
             intent.putExtra("audio", audio.getEnBytes());
         }
@@ -152,6 +154,7 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
     @Override
     public void onResume() {
         super.onResume();
+        // verifica si hay una seleccion de audio, imagen o ubicacion
         if (Seleccion.audioSeleccionado != null){
             hayAudio = true;
             audio = Seleccion.audioSeleccionado;
@@ -162,6 +165,7 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
             imagen = Seleccion.imagenSeleccionada;
             prepararImagen();
         }
+        
         if (Seleccion.ubicacionSeleccionada != null) {
             hayUbicacion = true;
             ubicacion = Seleccion.ubicacionSeleccionada;
@@ -169,10 +173,12 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
         }
     }
  private void  prepararImagen() {
+        // verifica si la imagen es nula o tiene un tamaño de bytes cero
     if (imagen.getImagenEnBytes() == null || imagen.getImagenEnBytes().length == 0){
         hayImagen = false;
     return;
     }
+    // convierte los bytes de la imagen en un Bitmap y lo asigna al ImageView
     Bitmap bmp = BitmapFactory.decodeByteArray(imagen.getImagenEnBytes(), 0, imagen.getImagenEnBytes().length);
     imgAvatar.setImageBitmap(bmp);
     hayImagen = true;
@@ -180,26 +186,27 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
     }
 
     private void prepararUbicacion() {
-        if (ubicacion == null) {
+        if (ubicacion == null) {// verifica si la ubicacion es nula
             hayUbicacion = false;
             return;
         }
+        // asigna la latitud y longitud a los EditText correspondientes
         edLatitud.setText(String.valueOf(ubicacion.getLatitud()));//Asigna la latitud al EditText correspondiente
         edLongitud.setText(String.valueOf(ubicacion.getLongitud()));
-        hayUbicacion = true;
+        hayUbicacion = true;// indica que hay una ubicacion seleccionada
         Seleccion.ubicacionSeleccionada = null;
     }
 
 
 
     private void prepararAudio() {
-        if (audio.getEnBytes() == null || audio.getEnBytes().length == 0){
+        if (audio.getEnBytes() == null || audio.getEnBytes().length == 0){ // verifica si el audio es nulo o tiene un tamaño de bytes cero
             hayAudio = false;
             return;
         }
         try {
             File tempFile = new File(audio.getRuta());
-
+            // crea un archivo temporal para almacenar el audio
             FileOutputStream fos = new FileOutputStream(tempFile);
             fos.write(audio.getEnBytes());
             fos.close();

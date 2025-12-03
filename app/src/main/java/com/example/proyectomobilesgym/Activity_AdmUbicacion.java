@@ -109,7 +109,7 @@ public class Activity_AdmUbicacion extends AppCompatActivity implements MapEvent
             btnGuardar.setText(getString(R.string.btn_edit));
         }
     }
-
+    // estos dos metodos son los que manejan los eventos de toque en el mapa
     @Override
     public boolean singleTapConfirmedHelper(GeoPoint p) {
         ClikEnMapa(p);
