@@ -70,7 +70,7 @@ public class Activity_AdmUbicacion extends AppCompatActivity implements MapEvent
         txtLongitud.setText(String.valueOf(utn.getLongitude()));// obtiene la longitud del marcador.
 
         //overlay para recibir eventos del mapa
-        MapEventsOverlay overlay = new MapEventsOverlay(this);
+        MapEventsOverlay overlay = new MapEventsOverlay(this);// crea un overlay para manejar eventos de mapa.
         map.getOverlays().add(overlay);
 
         //obtener datos del intent
@@ -111,13 +111,13 @@ public class Activity_AdmUbicacion extends AppCompatActivity implements MapEvent
     }
     // estos dos metodos son los que manejan los eventos de toque en el mapa
     @Override
-    public boolean singleTapConfirmedHelper(GeoPoint p) {
+    public boolean singleTapConfirmedHelper(GeoPoint p) {// maneja el toque simple en el mapa.
         ClikEnMapa(p);
         return true;
     }
 
     @Override
-    public boolean longPressHelper(GeoPoint p) {
+    public boolean longPressHelper(GeoPoint p) {// maneja la pulsación larga en el mapa.
         ClikEnMapa(p);
         return true;
     }
@@ -148,7 +148,7 @@ public class Activity_AdmUbicacion extends AppCompatActivity implements MapEvent
     @Override
     protected void onResume() {
         super.onResume();
-        map.onResume(); 
+        map.onResume();
     }
     // el onPause tambien es necesario ya que osmdroid necesita pausar ciertos procesos
     // cuando la actividad no esta en primer plano para ahorrar recursos

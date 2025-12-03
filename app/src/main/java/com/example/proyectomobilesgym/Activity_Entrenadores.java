@@ -338,7 +338,6 @@ public class Activity_Entrenadores extends AppCompatActivity {
 
 
 //    es5to recarga la lista al volver de agregar o editar porque se usa el finish y no se crea un nuevo intent
-
     protected void onResume() {
         super.onResume();
         cargarEntrenadores();
