@@ -8,12 +8,14 @@
     <string name="title_trainers">Trainers</string>
     <string name="title_services">Services</string>
     <string name="title_memberships">Memberships</string>
+    <string name="title_locations">Gym location</string>
 
     <string name="title_manage_clients">Manage Clients</string>
     <string name="title_manage_trainers">Manage Trainers</string>
     <string name="title_manage_services">Manage Services</string>
     <string name="title_manage_memberships">Manage Memberships</string>
-
+    <string name="title_manage_locations">Manage Locations</string>
+    <string name="title_manage_image">Manage Images </string>
     <string name="title_select_trainers">Select Trainers</string>
     <string name="title_select_clients">Select Clients</string>
 
@@ -89,5 +91,40 @@
     <string name="toast_fields_service_required">Please enter a name and a price</string>
     <string name="toast_type_required">You must select a membership type</string>
 
+    <!-- Campos de ubicacion-->
+    <string name="field_location_name">Name</string>
+    <string name="field_location_latitude">Latitude</string>
+    <string name="field_location_longitude">Longitude</string>
 
+    <!-- Ubicacion , mensajes de error o exito-->
+    <string name="toast_location_registered">Location successfully recorded</string>
+    <string name="toast_location_updated">Location updated successfully</string>
+    <string name="toast_location_deleted">Location successfully removed</string>
+    <string name="toast_select_location_for_edit">Select a location to edit</string>
+    <string name="toast_select_location_for_delete">Select a location to delete</string>
+    <string name="toast_location_not_found">That location was not found</string>
+    <string name="toast_location_name_empty">The location name cannot be empty</string>
+    <string name="toast_location_name_validate">The location name already exists</string>
+    <string name="toast_complete_location_fields">You must complete all location fields</string>
+
+    <!--    Audio , mensajes de error o exito-->
+    <string name="header_audio">Audio Manager</string>
+    <string name="start_recording">Start Recording</string>
+    <string name="stop_recording">Stop Recording</string>
+    <string name="play_audio">Play Audio</string>
+    <string name="stop_playing">Stop Audio</string>
+    <string name="save_audio">Save Audio</string>
+    <string name="toast_start_recordig">The recording started</string>
+    <string name="toast_start_playing">Playing audio</string>
+    <string name="toast_stop_playing">Playback stopped</string>
+    <string name="toast_error_save_audio">Error saving the audio</string>
+    <string name="toast_stop_recordig">Recording successful</string>
+    <string name="btn_play">Play</string>
+    <string name="btn_record">Record Audio</string>
+    <string name="toast_audio_reading_error">Error converting audio</string>
+    <string name="toast_no_audio">No audio uploaded</string>
+
+    <!--    imagen , mensajes de error o exito-->
+    <string name="image_take_photo">Take Photo</string>
+    <string name="image_avatar">Trainer image</string>
 </resources>

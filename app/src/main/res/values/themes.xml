@@ -3,7 +3,60 @@
     <style name="Base.Theme.ProyectoMobilesGYM" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/azulUTN</item>
+        <item name="colorOnPrimary">@color/blanco</item>
+
+        <item name="colorSecondary">@color/naranjaUTN</item>
+        <item name="colorOnSecondary">@color/blanco</item>
+
+        <item name="colorError">@color/rojoUTN</item>
+        <item name="colorOnError">@color/blanco</item>
+
+        <!-- Tipografía -->
+        <item name="android:fontFamily">sans-serif</item>
+
+        <!-- Bordes redondeados globales -->
+        <item name="shapeAppearanceSmallComponent">@style/Shape.Rounded.Small</item>
+        <item name="shapeAppearanceMediumComponent">@style/Shape.Rounded.Medium</item>
+        <item name="shapeAppearanceLargeComponent">@style/Shape.Rounded.Large</item>
+    </style>
+
+    <style name="Shape.Rounded.Small" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+    <style name="Shape.Rounded.Medium" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item>
+    </style>
+    <style name="Shape.Rounded.Large" parent="ShapeAppearance.Material3.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+
     </style>
 
     <style name="Theme.ProyectoMobilesGYM" parent="Base.Theme.ProyectoMobilesGYM" />
+
+    <style name="Widget.App.Button.Base" parent="Widget.Material3.Button">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="cornerRadius">16dp</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconTint">@color/white</item>
+        <item name="android:layout_marginTop">18dp</item>
+    </style>
+
+    <style name="Widget.App.Button.Primary" parent="Widget.App.Button.Base">
+        <item name="backgroundTint">@color/azulUTN</item>
+    </style>
+
+    <style name="Widget.App.Button.Secondary" parent="Widget.App.Button.Base">
+        <item name="backgroundTint">@color/naranjaUTN</item>
+    </style>
+
+    <style name="Widget.App.Button.Danger" parent="Widget.App.Button.Base">
+        <item name="backgroundTint">@color/rojoUTN</item>
+    </style>
+
+
 </resources>

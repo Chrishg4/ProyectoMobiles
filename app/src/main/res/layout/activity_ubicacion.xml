@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DFF0D8"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/txtTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="132dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/title_locations"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnBuscar"
+        android:layout_width="66dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="48dp"
+        android:background="#00FFFFFF"
+        app:icon="@drawable/busqueda"
+        app:iconPadding="0dp"
+        app:iconSize="30dp"
+        app:iconTint="#000000"
+        app:layout_constraintStart_toEndOf="@+id/Buscar"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/Buscar"
+        android:layout_width="295dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="13dp"
+        android:background="@drawable/edittext_custom"
+        android:inputType="text"
+        android:padding="12dp"
+        app:layout_constraintBottom_toTopOf="@id/listUbicacion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.137"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtTitulo" />
+
+    <ListView
+        android:id="@+id/listUbicacion"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp"
+        app:layout_constraintBottom_toTopOf="@id/layoutBotones"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Buscar" />
+
+    <!-- Botones inferiores -->
+    <LinearLayout
+        android:id="@+id/layoutBotones"
+        android:layout_width="445dp"
+        android:layout_height="69dp"
+        android:layout_marginTop="11dp"
+        android:animateLayoutChanges="false"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/listUbicacion">
+
+        <Button
+            android:id="@+id/btnAgregar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:autoText="false"
+            android:backgroundTint="#4CAF50"
+            android:elegantTextHeight="false"
+            android:freezesText="false"
+            android:onClick="agregarUbicacion"
+            android:text="@string/btn_add"
+            android:textColor="#000000"
+            app:icon="@drawable/addlocation"
+            app:iconGravity="textTop"
+            app:iconPadding="8dp"
+            app:iconSize="20dp"
+            app:iconTint="#000000" />
+
+        <Button
+            android:id="@+id/btnEditar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="#2196F3"
+            android:onClick="editarUbicacion"
+            android:text="@string/btn_edit"
+            android:textColor="#000000"
+            app:icon="@drawable/editlocation"
+            app:iconGravity="textTop"
+            app:iconSize="20dp"
+            app:iconTint="#000000" />
+
+        <Button
+            android:id="@+id/btnEliminar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="#D33232"
+            android:onClick="eliminarUbicacion"
+            android:text="@string/btn_delete"
+            android:textColor="#000000"
+            app:icon="@drawable/deletelocation"
+            app:iconGravity="textTop"
+            app:iconSize="22dp"
+            app:iconTint="#000000" />
+
+        <Button
+            android:id="@+id/btnVolver"
+            android:layout_width="77dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="#009688"
+            android:onClick="atras"
+            android:text="@string/btn_exit"
+            android:textColor="#000000"
+            app:icon="@drawable/salida"
+            app:iconGravity="textTop"
+            app:iconSize="20dp"
+            app:iconTint="#000000" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

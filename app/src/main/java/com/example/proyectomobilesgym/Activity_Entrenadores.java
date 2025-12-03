@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -70,9 +71,11 @@ public class Activity_Entrenadores extends AppCompatActivity {
 
             view.setBackgroundColor(Color.LTGRAY);
             //habilito los botones de editar y eliminar
-            if(itemseleccionado >= 0){
-                btnEliminar.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#D33232")));
-                btnEditar.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2196F3")));
+            if (itemseleccionado >= 0) {
+                int colorRojo = ContextCompat.getColor(this, R.color.rojoUTN);
+                int colorNaranja = ContextCompat.getColor(this, R.color.naranjaUTN);
+                btnEliminar.setBackgroundTintList(ColorStateList.valueOf(colorRojo));
+                btnEditar.setBackgroundTintList(ColorStateList.valueOf(colorNaranja));
             }
 
         });
@@ -206,6 +209,19 @@ public class Activity_Entrenadores extends AppCompatActivity {
             intent.putExtra("id", u.getId());
             intent.putExtra("nombre", u.getTxtPrincipal());
             intent.putExtra("contacto", u.getTxtSecundario());
+            Audio audio = cargarAudio(u.getId());
+            if (audio.getEnBytes() != null && audio.getEnBytes().length > 0) {
+                intent.putExtra("audio", audio.getEnBytes());
+            }
+            Imagen imagen = cargarImagen(u.getId());
+            if (imagen.getImagenEnBytes() != null && imagen.getImagenEnBytes().length > 0) {
+                intent.putExtra("imagen", imagen.getImagenEnBytes());
+            }
+            Ubicaciones ubicacion = cargarUbicaciones(u.getId());
+            if (ubicacion.getLatitud() != 0 && ubicacion.getLongitud() != 0) {
+                intent.putExtra("latitud", ubicacion.getLatitud());
+                intent.putExtra("longitud", ubicacion.getLongitud());
+            }
             startActivity(intent);
 
         } else {
@@ -213,7 +229,47 @@ public class Activity_Entrenadores extends AppCompatActivity {
         }
     }
 
+    private Audio cargarAudio(String id) {
+        AdminDB admin = new AdminDB(this);
+        SQLiteDatabase db = admin.getReadableDatabase();
 
+        Cursor cursor = db.rawQuery(
+                "SELECT audio FROM entrenadores WHERE cedula=?",
+                new String[]{id}
+        );
+        Audio audio = new Audio(getExternalFilesDir(null).getAbsolutePath() + "/Grabacion.3gp");
+        if (cursor.moveToFirst()) {
+            do {
+                byte[] audioBytes = cursor.getBlob(0);
+                audio.setEnBytes(audioBytes);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return audio;
+    }
+
+    private Imagen cargarImagen(String id) {
+        AdminDB admin = new AdminDB(this);
+        SQLiteDatabase db = admin.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(
+                "SELECT imagen FROM entrenadores WHERE cedula=?",
+                new String[]{id}
+        );
+        Imagen imagen;
+        if (cursor.moveToFirst()) {
+            do {
+                byte[] imagenBytes = cursor.getBlob(0);
+                imagen = new Imagen(imagenBytes);
+            } while (cursor.moveToNext());
+        } else {
+            imagen = null;
+            }
+        cursor.close();
+        db.close();
+        return imagen;
+    }
 
     private void cargarEntrenadores() {
 
@@ -251,6 +307,34 @@ public class Activity_Entrenadores extends AppCompatActivity {
 
         adapter.notifyDataSetChanged();
     }
+
+    public Ubicaciones cargarUbicaciones(String id) {
+        AdminDB admin = new AdminDB(this);
+        SQLiteDatabase db = admin.getReadableDatabase();
+        Cursor cursor = db.rawQuery(
+                "SELECT latitud, longitud FROM entrenadores WHERE cedula=?",
+                new String[]{id}
+        );
+
+        Ubicaciones ubicacion;
+
+        if (cursor.moveToFirst()) {
+            do {
+                double latitud = cursor.getDouble(0);
+                double longitud = cursor.getDouble(1);
+                ubicacion = new Ubicaciones(
+                        latitud,
+                        longitud
+                );
+            } while (cursor.moveToNext());
+        } else {
+            ubicacion = new Ubicaciones(0,0);
+        }
+        cursor.close();
+        db.close();
+        return ubicacion;
+    }
+
 
 
 //    es5to recarga la lista al volver de agregar o editar porque se usa el finish y no se crea un nuevo intent

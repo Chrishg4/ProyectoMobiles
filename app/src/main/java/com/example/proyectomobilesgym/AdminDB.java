@@ -17,13 +17,16 @@ public class AdminDB extends SQLiteOpenHelper {
 
         db.execSQL("CREATE TABLE clientes (cedula TEXT PRIMARY KEY, nombre TEXT NOT NULL, numero INTEGER, genero TEXT CHECK (genero IN ('HOMBRE','MUJER')), edad INTEGER, altura REAL, peso REAL)");
 
-        db.execSQL("CREATE TABLE entrenadores (cedula TEXT PRIMARY KEY, nombre TEXT NOT NULL, contacto TEXT)");
+        db.execSQL("CREATE TABLE entrenadores (cedula TEXT PRIMARY KEY, nombre TEXT NOT NULL, contacto TEXT , imagen BLOB , audio BLOB , latitud REAL , longitud REAL )");
 
         db.execSQL("CREATE TABLE servicios (codigo INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, precio REAL)");
 
         db.execSQL("CREATE TABLE membresias (codigo INTEGER PRIMARY KEY AUTOINCREMENT, tipo TEXT CHECK (tipo IN ('mensual','trimestral','anual','especial')), precioTotal REAL, cedulaCliente TEXT, cedulaEntrenador TEXT, FOREIGN KEY(cedulaCliente) REFERENCES clientes(cedula), FOREIGN KEY(cedulaEntrenador) REFERENCES entrenadores(cedula))");
 
         db.execSQL("CREATE TABLE membresiaServicios (codigo INTEGER PRIMARY KEY AUTOINCREMENT, codigoMembresia INTEGER, codigoServicio INTEGER, FOREIGN KEY(codigoMembresia) REFERENCES membresias(codigo), FOREIGN KEY(codigoServicio) REFERENCES servicios(codigo))");
+
+
+
     }
 
     @Override

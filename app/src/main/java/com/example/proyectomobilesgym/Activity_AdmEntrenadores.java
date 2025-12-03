@@ -4,10 +4,14 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -16,9 +20,26 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.Arrays;
+
 public class Activity_AdmEntrenadores extends AppCompatActivity {
-EditText edNombre, edCedula, edTelefono;
-Button btn, btnCancelar, btnReiniciar;
+EditText edNombre, edCedula, edTelefono, edLatitud, edLongitud;
+Button btn, btnCancelar, btnReiniciar, btnAudio, btnGrabar;
+MediaPlayer reproductor;
+Audio audio = null, audioOriginal = null;
+
+Ubicaciones ubicacion = null, ubicacionOriginal = null;
+
+String latitudOriginal, longitudOriginal;
+
+boolean hayUbicacion = false;
+boolean hayAudio = false;
+
+    ImageView imgAvatar;
+    Imagen imagen = null, imagenOriginal = null;
+    boolean hayImagen = false;
 
 String nombreOriginal, cedulaOriginal, telefonoOriginal;
     @Override
@@ -34,9 +55,17 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
         edNombre = findViewById(R.id.edtNombre);
         edCedula = findViewById(R.id.edtCedula);
         edTelefono = findViewById(R.id.edtNumero);
-        btn = findViewById(R.id.btnAgregarEditar);
+        edLatitud = findViewById(R.id.latitud);
+        edLongitud = findViewById(R.id.longitud);
+
+
+        btn = findViewById(R.id.btnAgregarEditarUbi);
         btnCancelar = findViewById(R.id.btnCancelar);
         btnReiniciar = findViewById(R.id.Reiniciar);
+        imgAvatar = findViewById(R.id.imageView2);
+        imagen = new Imagen(new byte[0]);
+        reproductor = new MediaPlayer();
+        audio = new Audio(getExternalFilesDir(null).getAbsolutePath() + "/Grabacion.3gp");
 
         String id = getIntent().getStringExtra("id");
         if (id != null) {
@@ -44,6 +73,35 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
             cedulaOriginal = getIntent().getStringExtra("id");
             nombreOriginal = getIntent().getStringExtra("nombre");
             telefonoOriginal = getIntent().getStringExtra("contacto");
+
+
+            audio.setEnBytes(getIntent().getByteArrayExtra("audio"));
+            if (audio.getEnBytes() != null && audio.getEnBytes().length > 0) {
+                audioOriginal = new Audio(audio.getRuta());
+                audioOriginal.setEnBytes(Arrays.copyOf(audio.getEnBytes(), audio.getEnBytes().length));
+                prepararAudio();
+            }
+            byte[] imgBytes = getIntent().getByteArrayExtra("imagen");
+
+            if (imgBytes != null && imgBytes.length > 0) {
+                imagen = new Imagen(Arrays.copyOf(imgBytes, imgBytes.length));
+                imagenOriginal = new Imagen(Arrays.copyOf(imgBytes, imgBytes.length));
+                prepararImagen();
+            } else {
+                imagen = new Imagen(new byte[0]);
+                imagenOriginal = new Imagen(new byte[0]);
+                hayImagen = false;
+            }
+            ubicacion = new Ubicaciones(
+                    getIntent().getDoubleExtra("latitud", 0.0),
+                    getIntent().getDoubleExtra("longitud", 0.0)
+            );
+            if (ubicacion != null) {
+                ubicacionOriginal = new Ubicaciones(ubicacion.getLatitud(), ubicacion.getLongitud());
+                prepararUbicacion();
+            }
+
+
 
             edCedula.setText(cedulaOriginal);
             edNombre.setText(nombreOriginal);
@@ -55,7 +113,127 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
             edCedula.setEnabled(false);
         }
 
+        edLongitud.setFocusable(false);
+        edLatitud.setFocusable(false);
+        edLongitud.setClickable(false);
+        edLatitud.setClickable(false);
+
     }
+    public void irAImagen(View view) {
+        // reinicia la seleccion de imagen
+        Seleccion.imagenSeleccionada = null;
+        Intent intent = new Intent(this, Activity_AdmImagen.class);
+        // si hay una imagen seleccionada, la pasa al intent
+        if (imagen != null && imagen.getImagenEnBytes() != null && imagen.getImagenEnBytes().length > 0) {
+            intent.putExtra("imagen", imagen.getImagenEnBytes());
+        }
+        startActivity(intent);
+    }
+    public void irAGrabarAudio(View view) {
+        // reinicia la seleccion de audio
+        Seleccion.audioSeleccionado = null;
+        Intent intent = new Intent(this, Activity_AdmAudio.class);
+        // si hay un audio seleccionado, lo pasa al intent
+        if (audio.getEnBytes() != null && audio.getEnBytes().length > 0){
+            intent.putExtra("audio", audio.getEnBytes());
+        }
+        startActivity(intent);
+    }
+
+    public void irAUbicacion(View view) {
+        Seleccion.ubicacionSeleccionada = null;// reinicia la seleccion
+        Intent intent = new Intent(this, Activity_AdmUbicacion.class);
+        if (ubicacion != null) { // si hay una ubicacion seleccionada
+            intent.putExtra("latitud", ubicacion.getLatitud());
+            intent.putExtra("longitud", ubicacion.getLongitud());
+        }
+        startActivity(intent);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // verifica si hay una seleccion de audio, imagen o ubicacion
+        if (Seleccion.audioSeleccionado != null){
+            hayAudio = true;
+            audio = Seleccion.audioSeleccionado;
+            prepararAudio();
+        }
+        if (Seleccion.imagenSeleccionada != null) {
+            hayImagen = true;
+            imagen = Seleccion.imagenSeleccionada;
+            prepararImagen();
+        }
+        
+        if (Seleccion.ubicacionSeleccionada != null) {
+            hayUbicacion = true;
+            ubicacion = Seleccion.ubicacionSeleccionada;
+            prepararUbicacion();
+        }
+    }
+ private void  prepararImagen() {
+        // verifica si la imagen es nula o tiene un tamaño de bytes cero
+    if (imagen.getImagenEnBytes() == null || imagen.getImagenEnBytes().length == 0){
+        hayImagen = false;
+    return;
+    }
+    // convierte los bytes de la imagen en un Bitmap y lo asigna al ImageView
+    Bitmap bmp = BitmapFactory.decodeByteArray(imagen.getImagenEnBytes(), 0, imagen.getImagenEnBytes().length);
+    imgAvatar.setImageBitmap(bmp);
+    hayImagen = true;
+    Seleccion.imagenSeleccionada = null;
+    }
+
+    private void prepararUbicacion() {
+        if (ubicacion == null) {// verifica si la ubicacion es nula
+            hayUbicacion = false;
+            return;
+        }
+        // asigna la latitud y longitud a los EditText correspondientes
+        edLatitud.setText(String.valueOf(ubicacion.getLatitud()));//Asigna la latitud al EditText correspondiente
+        edLongitud.setText(String.valueOf(ubicacion.getLongitud()));
+        hayUbicacion = true;// indica que hay una ubicacion seleccionada
+        Seleccion.ubicacionSeleccionada = null;
+    }
+
+
+
+    private void prepararAudio() {
+        if (audio.getEnBytes() == null || audio.getEnBytes().length == 0){ // verifica si el audio es nulo o tiene un tamaño de bytes cero
+            hayAudio = false;
+            return;
+        }
+        try {
+            File tempFile = new File(audio.getRuta());
+            // crea un archivo temporal para almacenar el audio
+            FileOutputStream fos = new FileOutputStream(tempFile);
+            fos.write(audio.getEnBytes());
+            fos.close();
+
+            reproductor.reset();
+            reproductor.setDataSource(tempFile.getAbsolutePath());
+            reproductor.prepare();
+            hayAudio = true;
+
+            Seleccion.audioSeleccionado = null;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            hayAudio = false;
+            Toast.makeText(this, getString(R.string.toast_audio_reading_error), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    public void reproducirAudio(View view) {
+        if (hayAudio){
+            reproductor.start();
+        } else {
+            Toast.makeText(this, getString(R.string.toast_no_audio), Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public void cancelar(View view) {
         finish();
     }
@@ -65,10 +243,43 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
             edNombre.setText("");
             edCedula.setText("");
             edTelefono.setText("");
+            hayAudio = false;
+            audio = new Audio(getExternalFilesDir(null).getAbsolutePath() + "/Grabacion.3gp");
+            hayImagen = false;
+            imagen = new Imagen(new byte[0]);
+            imgAvatar.setImageDrawable(null);
+            ubicacion = null;
+            hayUbicacion = false;
+            edLongitud .setText("");
+            edLatitud.setText("");
+
         } else {
             edNombre.setText(nombreOriginal);
             edCedula.setText(cedulaOriginal);
             edTelefono.setText(telefonoOriginal);
+
+            if (audioOriginal != null && audioOriginal.getEnBytes() != null && audioOriginal.getEnBytes().length > 0) {
+                audio = new Audio(audioOriginal.getRuta());
+                audio.setEnBytes(Arrays.copyOf(audioOriginal.getEnBytes(), audioOriginal.getEnBytes().length));
+                hayAudio = true;
+                prepararAudio();
+            } else {
+                hayAudio = false;
+                audio = new Audio(getExternalFilesDir(null).getAbsolutePath() + "/Grabacion.3gp");
+            }
+
+            edLongitud.setText(longitudOriginal);
+            edLatitud.setText(latitudOriginal);
+            hayUbicacion = true;
+
+            if (imagenOriginal != null && imagenOriginal.getImagenEnBytes() != null && imagenOriginal.getImagenEnBytes().length > 0) {
+                imagen = new Imagen(Arrays.copyOf(imagenOriginal.getImagenEnBytes(), imagenOriginal.getImagenEnBytes().length));
+                hayImagen = true;
+                prepararImagen();
+            } else {
+                hayImagen = false;
+                imagen = new Imagen(new byte[0]);
+            }
         }
 
     }
@@ -93,6 +304,16 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
             ContentValues registro = new ContentValues();
             registro.put("nombre", nombre);
             registro.put("contacto", contacto);
+            if (hayAudio) {
+                registro.put("audio", audio.getEnBytes());
+            }
+            if (hayImagen) {
+                registro.put("imagen", imagen.getImagenEnBytes());
+            }
+            if (hayUbicacion) {
+                registro.put("latitud", ubicacion.getLatitud());
+                registro.put("longitud", ubicacion.getLongitud());
+            }
 
             int filasAfectadas = db.update("entrenadores", registro, "cedula=?", new String[]{id});
             db.close();
@@ -119,6 +340,16 @@ String nombreOriginal, cedulaOriginal, telefonoOriginal;
             registro.put("nombre", nombre);
             registro.put("cedula", cedula);
             registro.put("contacto", contacto);
+            if (hayAudio){
+                registro.put("audio", audio.getEnBytes());
+            }
+            if (hayImagen){
+                registro.put("imagen", imagen.getImagenEnBytes());
+            }
+            if (hayUbicacion){
+                registro.put("latitud", ubicacion.getLatitud());
+                registro.put("longitud", ubicacion.getLongitud());
+            }
     db.insert("entrenadores", null, registro);
     db.close();
             Toast.makeText(this, getString(R.string.toast_registered), Toast.LENGTH_SHORT).show();

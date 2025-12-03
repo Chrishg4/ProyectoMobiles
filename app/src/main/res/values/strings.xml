@@ -11,6 +11,11 @@
     <string name="title_manage_trainers">Administrar entrenadores</string>
     <string name="title_manage_services">Administrar servicios</string>
     <string name="title_manage_memberships">Administrar membresías</string>
+    <string name="title_locations">Ubicacion del gimnasio</string>
+    <string name="title_manage_locations">Administrar Ubicaciones</string>
+    <string name="title_manage_image">Administrar imagenes</string>
+
+    <!-- titulos de las pantallas -->
 
     <string name="title_select_trainers">Seleccionar Entrenadores</string>
     <string name="title_select_clients">Seleccionar Clientes</string>
@@ -37,7 +42,7 @@
     <string name="header_service">Servicio</string>
     <string name="title_select_services">Seleccionar Servicios</string>
 
-<!--Entrenadores , mensajes de errores o exitoso-->
+    <!--Entrenadores , mensajes de errores o exitoso-->
 
     <string name="toast_complete_fields">Debe completar todos los campos</string>
     <string name="toast_updated">Actualizado correctamente</string>
@@ -49,7 +54,7 @@
     <string name="toast_name_not_found">No se encontró ese nombre</string>
     <string name="toast_missing_name">Falta el nombre para eliminar</string>
 
-<!-- Clientes , mensajes de error o exito-->
+    <!-- Clientes , mensajes de error o exito-->
     <string name="toast_no_client_selected">No se ha seleccionado ningún cliente</string>
     <string name="toast_client_deleted">Cliente eliminado</string>
     <string name="toast_client_not_found">No se encontró ese nombre</string>
@@ -87,5 +92,40 @@
     <string name="toast_fields_service_required">Por favor, introduzca un nombre y un precio</string>
     <string name="toast_type_required">Debe seleccionar un tipo de membresía</string>
 
+    <!-- Campos de ubicacion-->
+    <string name="field_location_name">Nombre</string>
+    <string name="field_location_latitude">Latitud</string>
+    <string name="field_location_longitude">Longitud</string>
 
+    <!-- Ubicacion , mensajes de error o exito-->
+    <string name="toast_location_registered">Ubicación registrada correctamente</string>
+    <string name="toast_location_updated">Ubicación actualizada correctamente</string>
+    <string name="toast_location_deleted">Ubicación eliminada correctamente</string>
+    <string name="toast_select_location_for_edit">Seleccione una ubicación para editar</string>
+    <string name="toast_select_location_for_delete">Seleccione una ubicación para eliminar</string>
+    <string name="toast_location_not_found">No se encontró esa ubicación</string>
+    <string name="toast_location_name_empty">El nombre de la ubicación no puede estar vacío</string>
+    <string name="toast_location_name_validate">El nombre de la ubicación ya existe</string>
+    <string name="toast_complete_location_fields">Debe completar todos los campos de ubicación</string>
+
+<!--    Audio , mensajes de error o exito-->
+    <string name="header_audio">Administrador de Audio</string>
+    <string name="start_recording">Iniciar Grabación</string>
+    <string name="stop_recording">Detener Grabación</string>
+    <string name="play_audio">Reproducir Audio</string>
+    <string name="stop_playing">Detener Audio</string>
+    <string name="save_audio">Guardar Audio</string>
+    <string name="toast_start_recordig">La grabación comenzó</string>
+    <string name="toast_start_playing">Reproduciendo audio</string>
+    <string name="toast_stop_playing">Reproducción detenida</string>
+    <string name="toast_error_save_audio">Error al guardar el audio</string>
+    <string name="toast_stop_recordig">Grabación exitosa</string>
+    <string name="btn_play">Reproducir</string>
+    <string name="btn_record">Grabar Audio</string>
+    <string name="toast_audio_reading_error">Error al convertir el audio</string>
+    <string name="toast_no_audio">No hay audio cargado</string>
+
+<!--    imagen , mensajes de error o exito-->
+    <string name="image_take_photo">Tomar foto</string>
+    <string name="image_avatar">Imagen del entrenador</string>
 </resources>

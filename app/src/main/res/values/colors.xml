@@ -7,4 +7,12 @@
     <color name="rojo">#F44336</color>
     <color name="amarillo">#FFEB3B</color>
     <color name="verdenes">#4CAF50</color>
+
+    <color name="azulUTN">#2196F3</color>
+    <color name="naranjaUTN">#FF9800</color>
+    <color name="rojoUTN">#D33232</color>
+    <color name="blanco">#FFFFFF</color>
+    <color name="grisFondo">#F5F5F5</color>
+
+
 </resources>
