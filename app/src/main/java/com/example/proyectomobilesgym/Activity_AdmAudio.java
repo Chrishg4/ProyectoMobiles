@@ -202,8 +202,11 @@ public class Activity_AdmAudio extends AppCompatActivity {
         byte[] audioData = new byte[(int) audioFile.length()];
 
         try {
+            // Leer el archivo de audio en un arreglo de bytes
             FileInputStream fileInputStream = new FileInputStream(audioFile);
+            // Leer los datos del archivo en el arreglo
             fileInputStream.read(audioData);
+            // Cerrar el flujo de entrada
             fileInputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
