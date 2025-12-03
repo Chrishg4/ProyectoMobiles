@@ -144,12 +144,14 @@ public class Activity_AdmUbicacion extends AppCompatActivity implements MapEvent
         map.invalidate();
     }
     // esto hace que el mapa funcione bien con el ciclo de vida de android
+    // para asi poder reanudar y pausar correctamente los procesos que osmdroid necesita
     @Override
     protected void onResume() {
         super.onResume();
-        map.onResume(); // necesario para osmdroid
+        map.onResume(); 
     }
     // el onPause tambien es necesario ya que osmdroid necesita pausar ciertos procesos
+    // cuando la actividad no esta en primer plano para ahorrar recursos
     @Override
     protected void onPause() {
         super.onPause();
